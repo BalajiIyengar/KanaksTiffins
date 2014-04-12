@@ -53,6 +53,7 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel_searchUsers = new System.Windows.Forms.LinkLabel();
             this.linkLabel_addNewUser = new System.Windows.Forms.LinkLabel();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.groupBox_searchParameters.SuspendLayout();
             this.groupBox_users.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_users)).BeginInit();
@@ -276,6 +277,7 @@
             // 
             // groupBox_links
             // 
+            this.groupBox_links.Controls.Add(this.linkLabel2);
             this.groupBox_links.Controls.Add(this.linkLabel1);
             this.groupBox_links.Controls.Add(this.linkLabel_searchUsers);
             this.groupBox_links.Controls.Add(this.linkLabel_addNewUser);
@@ -288,7 +290,7 @@
             // 
             // linkLabel1
             // 
-            this.linkLabel1.Location = new System.Drawing.Point(6, 337);
+            this.linkLabel1.Location = new System.Drawing.Point(15, 230);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(66, 40);
             this.linkLabel1.TabIndex = 2;
@@ -300,7 +302,7 @@
             // linkLabel_searchUsers
             // 
             this.linkLabel_searchUsers.AutoSize = true;
-            this.linkLabel_searchUsers.Location = new System.Drawing.Point(6, 228);
+            this.linkLabel_searchUsers.Location = new System.Drawing.Point(10, 160);
             this.linkLabel_searchUsers.Name = "linkLabel_searchUsers";
             this.linkLabel_searchUsers.Size = new System.Drawing.Size(71, 13);
             this.linkLabel_searchUsers.TabIndex = 1;
@@ -311,13 +313,23 @@
             // linkLabel_addNewUser
             // 
             this.linkLabel_addNewUser.AutoSize = true;
-            this.linkLabel_addNewUser.Location = new System.Drawing.Point(6, 121);
+            this.linkLabel_addNewUser.Location = new System.Drawing.Point(6, 73);
             this.linkLabel_addNewUser.Name = "linkLabel_addNewUser";
             this.linkLabel_addNewUser.Size = new System.Drawing.Size(76, 13);
             this.linkLabel_addNewUser.TabIndex = 0;
             this.linkLabel_addNewUser.TabStop = true;
             this.linkLabel_addNewUser.Text = "Add New User";
             this.linkLabel_addNewUser.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_addNewUser_LinkClicked);
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.Location = new System.Drawing.Point(6, 346);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(76, 13);
+            this.linkLabel2.TabIndex = 3;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "User Payment";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
             // Bills
             // 
@@ -378,6 +390,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label_billNotGenerated;
+        private System.Windows.Forms.LinkLabel linkLabel2;
     }
 }
 

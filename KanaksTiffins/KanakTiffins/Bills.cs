@@ -404,5 +404,16 @@ namespace KanakTiffins
             PopulateMaster masters = new PopulateMaster();
             masters.Show();           
         }
+
+        /// <summary>
+        /// Redirects to User Payment Page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            UserPayment userPayment = new UserPayment();
+            userPayment.Show();
+        }
     }
 }
