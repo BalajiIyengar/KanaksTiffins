@@ -12,7 +12,7 @@ namespace KanakTiffins
 {
     public partial class UserPayment : Form
     {
-        KanakTiffinsEntities db = new KanakTiffinsEntities();
+        KanakTiffinsEntities db = CommonUtilities.db;
         private Int32 selectedCustomerId;
 
         public UserPayment()
@@ -29,11 +29,13 @@ namespace KanakTiffins
         /// Used to Populate Area DropDown to Search Users.
         /// </summary>
         private void loadAreas()
-        {
-            comboBox_area.DataSource = db.Areas.OrderBy(x => x.AreaName).ToList();
+        {            
+            List<Area> areas = new List<Area>();
+            areas.Add(new Area());
+            areas.AddRange(db.Areas.ToList());
+            comboBox_area.DataSource = areas;
             comboBox_area.DisplayMember = "AreaName";
             comboBox_area.ValueMember = "AreaName";
-        
         }
 
 
@@ -49,11 +51,8 @@ namespace KanakTiffins
             String areaName = comboBox_area.SelectedValue == null ? "" : comboBox_area.SelectedValue.ToString();
 
             //Search Result (List of usernames)
-             dataGridView_searchUsers.DataSource  = db.CustomerDetails.Where(x => x.FirstName.Contains(firstName) && x.LastName.Contains(lastName) && x.Area.AreaName.Contains(areaName)).ToList();
-             hideIncessantColumns();
-             groupBox_userPayment.Visible = false;
-             
-         
+            dataGridView_searchUsers.DataSource = db.CustomerDetails.Where(x => x.FirstName.Contains(firstName) && x.LastName.Contains(lastName) && x.isDeleted.Equals("N") && x.Area.AreaName.Contains(areaName)).ToList();
+            hideIncessantColumns();             
         }
 
         /// <summary>
@@ -61,21 +60,22 @@ namespace KanakTiffins
         /// </summary>
         private void hideIncessantColumns()
         {
-
             dataGridView_searchUsers.CellClick -= userDetails;
             dataGridView_searchUsers.CellClick += userDetails;
             dataGridView_searchUsers.Columns["CustomerId"].Visible = false;
             dataGridView_searchUsers.Columns["EmailAddress"].Visible = false;
             dataGridView_searchUsers.Columns["Address"].Visible = false;
-            dataGridView_searchUsers.Columns["DepositAmount"].Visible = false;
-            dataGridView_searchUsers.Columns["DabbawalaCharges"].Visible = false;
+            dataGridView_searchUsers.Columns["DepositAmount"].Visible = false;            
             dataGridView_searchUsers.Columns["Area"].Visible = false;
             dataGridView_searchUsers.Columns["AreaId"].Visible = false;
             dataGridView_searchUsers.Columns["MealPlan"].Visible = false;
             dataGridView_searchUsers.Columns["MealPlanId"].Visible = false;
             dataGridView_searchUsers.Columns["LunchOrDinner"].Visible = false;
             dataGridView_searchUsers.Columns["LunchOrDinnerId"].Visible = false;
+            dataGridView_searchUsers.Columns["isDeleted"].Visible = false;
 
+            if (dataGridView_searchUsers.Columns.Contains("ExtraCharges"))
+                dataGridView_searchUsers.Columns["ExtraCharges"].Visible = false;
 
             if (dataGridView_searchUsers.Columns.Contains("MonthlyBills"))
                 dataGridView_searchUsers.Columns["MonthlyBills"].Visible = false;
@@ -85,7 +85,6 @@ namespace KanakTiffins
 
             if (dataGridView_searchUsers.Columns.Contains("CustomerDue"))
                 dataGridView_searchUsers.Columns["CustomerDue"].Visible = false;
-        
         }
 
         /// <summary>
@@ -94,21 +93,22 @@ namespace KanakTiffins
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void userDetails(object sender, DataGridViewCellEventArgs e)
-        {
-            groupBox_userPayment.Visible = true;
-            
-           
+        {            
             //Getting the value of clicked row
-            DataGridView button = sender as DataGridView;
-            DataGridViewCellCollection selectedUser = button.CurrentRow.Cells as DataGridViewCellCollection;
+            DataGridView dataGridView = sender as DataGridView;
+            DataGridViewCellCollection selectedUser = dataGridView.CurrentRow.Cells as DataGridViewCellCollection;
 
             //Returns the selected customer ID
             this.selectedCustomerId = Int32.Parse(selectedUser["CustomerId"].Value.ToString());
 
-            CustomerDetail customerDetail = db.CustomerDetails.Where(x=>x.CustomerId == this.selectedCustomerId).Single();
+            CustomerDetail customerDetail = db.CustomerDetails.Where(x => x.CustomerId == this.selectedCustomerId && x.isDeleted.Equals("N")).Single();
 
             textBox_userName.Text = customerDetail.FirstName + " " + customerDetail.LastName;
             textBox_area.Text = customerDetail.Area.AreaName;
+            textBox_dueAmount.Text = customerDetail.CustomerDue == null ? "0" : customerDetail.CustomerDue.DueAmount.ToString();
+            textBox_carryForwardAmount.Text = customerDetail.CustomerDue == null ? "0" : customerDetail.CustomerDue.CarryforwardAmount.ToString();
+
+            displayPaymentHistory();
         }
 
         /// <summary>
@@ -143,9 +143,34 @@ namespace KanakTiffins
             db.CustomerPaymentHistories.AddObject(paymentDetails);
             db.SaveChanges();
 
-            MessageBox.Show("Added Payment Details Successfully");
+            MessageBox.Show("Added Payment Details Successfully");           
 
-            groupBox_userPayment.Visible = false;
+            displayPaymentHistory();
+
+            //Update CustomerDues
+            CommonUtilities.updateCustomerDues(selectedCustomerId);
+
+            //Update values in text boxes
+            textBox_dueAmount.Text = db.CustomerDues.Where(x => x.CustomerId == selectedCustomerId).First().DueAmount.ToString();
+            textBox_carryForwardAmount.Text = db.CustomerDues.Where(x => x.CustomerId == selectedCustomerId).First().CarryforwardAmount.ToString();
         }
+
+        private void displayPaymentHistory()
+        {
+            //Payment history for this user
+            dataGridView_PaymentHistory.DataSource = db.CustomerPaymentHistories.Where(x => x.CustomerId == this.selectedCustomerId).ToList();
+            
+            dataGridView_PaymentHistory.CellClick -= editPaymentHistory;
+            dataGridView_PaymentHistory.CellClick += editPaymentHistory;
+            
+            dataGridView_PaymentHistory.Columns["CustomerId"].Visible = false;
+            dataGridView_PaymentHistory.Columns["CustomerDetail"].Visible = false;
+        }
+
+        private void editPaymentHistory(object sender, DataGridViewCellEventArgs e)
+        {
+            db.SaveChanges();
+            CommonUtilities.updateCustomerDues(selectedCustomerId);
+        }       
     }
 }

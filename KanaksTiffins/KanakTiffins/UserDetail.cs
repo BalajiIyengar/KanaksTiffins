@@ -12,30 +12,35 @@ using System.Data.Common;
 
 namespace KanakTiffins
 {
-
-
-
-
     public partial class UserDetail : Form
     {
+        //CustomerId of the Customer whose details are being displayed.
         static Int32 customerId;
+
+        //Calendar for the current month.
         MonthCalendar calendar = new MonthCalendar();
 
-        KanakTiffinsEntities db = new KanakTiffinsEntities();
-
+        KanakTiffinsEntities db = CommonUtilities.db;
+           
         public UserDetail()
         {
             InitializeComponent();
         }
 
-
-        
-        
-
         private void UserDetail_Load(object sender, EventArgs e)
         {
+            CustomerDetail customerDetail = null;
 
-            CustomerDetail customerDetail = db.CustomerDetails.Where(x => x.CustomerId == customerId).Single();
+            try
+            {
+                customerDetail = db.CustomerDetails.Where(x => x.CustomerId == customerId && x.isDeleted.Equals("N")).Single();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("User not found. He/She may have been deleted.");
+                this.Close();
+                return;
+            }
 
             //Set values of all textboxes
             groupBox_userDetails.Text = customerDetail.FirstName + " " + customerDetail.LastName;
@@ -45,7 +50,8 @@ namespace KanakTiffins
             textBox_phone.Text = customerDetail.PhoneNumber;
             textBox_mealPlan.Text = customerDetail.MealPlan.MealAmount.ToString();
             textBox_lunchOrDinner.Text = customerDetail.LunchOrDinner.Name;
-            textBox_deliveryCharges.Text = customerDetail.DabbawalaCharges.ToString();
+            textBox_deliveryCharges.Text = customerDetail.DefaultDabbawalaCharges.ToString();
+            textBox_initialBalance.Text = "Rs. " + customerDetail.InitialBalance.ToString();
 
             //Populate the year combo box
             List<int> years = new List<int>();            
@@ -71,7 +77,9 @@ namespace KanakTiffins
                 label_carryForwardAmount.Text = carryforwardAmount.ToString();
             }
             catch (Exception ex)
-            {}            
+            {
+                Console.WriteLine(ex.StackTrace);
+            }            
         }
 
         void thisMonthsBill_Scroll(object sender, ScrollEventArgs e)
@@ -121,9 +129,13 @@ namespace KanakTiffins
                 Label monthlyConsumptionLabel = thisMonthsBill.Controls["label_monthlyConsumption"] as Label;
                 monthlyConsumptionLabel.Text = thisMonth.Sum(x => x.LunchAmount + x.DinnerAmount).ToString();
                 Label dailyPayments = thisMonthsBill.Controls["label_dailyPayments"] as Label;
-                dailyPayments.Text = thisMonth.Sum(x => x.DailyPayment).ToString();
+                dailyPayments.Text = thisMonth.Sum(x => x.DailyPayment).ToString();                
+                Label dabbawalaCharges = thisMonthsBill.Controls["label_dabbawalaCharges"] as Label;
+                dabbawalaCharges.Text = db.ExtraCharges.Where(x => x.CustomerId == customerId && x.MonthId == month && x.Year == year).Single().DabbawalaCharges.ToString();
+                Label deliveryCharges = thisMonthsBill.Controls["label_deliveryCharges"] as Label;
+                deliveryCharges.Text = db.ExtraCharges.Where(x => x.CustomerId == customerId && x.MonthId == month && x.Year == year).Single().DeliveryCharges.ToString();
                 Label payableAmount = thisMonthsBill.Controls["label_payableAmount"] as Label;
-                payableAmount.Text = (Int32.Parse(monthlyConsumptionLabel.Text) - Int32.Parse(dailyPayments.Text)).ToString();
+                payableAmount.Text = (Int32.Parse(monthlyConsumptionLabel.Text) + Int32.Parse(dabbawalaCharges.Text) + Int32.Parse(deliveryCharges.Text) - Int32.Parse(dailyPayments.Text)).ToString();
 
                 thisMonthsBill.Scroll += new ScrollEventHandler(thisMonthsBill_Scroll);
                 flowLayoutPanel1.Controls.Add(thisMonthsBill);
@@ -158,7 +170,18 @@ namespace KanakTiffins
         /// <param name="e"></param>
         private void button_editUser_Click(object sender, EventArgs e)
         {
+            //If this user has been deleted in another window, display error message.
+            CustomerDetail selectedCustomer = db.CustomerDetails.Where(x => x.CustomerId == customerId && x.isDeleted.Equals("N")).FirstOrDefault();
+            if (selectedCustomer == null)
+            {
+                MessageBox.Show("User not found. He/She may have been deleted.");
+                this.Close();
+                return;
+            }
+
+            
             AddNewUser editUser = new AddNewUser();
+            editUser.Controls["textBox_currentBalance"].Enabled = false;
             editUser.Show();
             editUser.fillFormWithValues(customerId);            
         }
@@ -171,35 +194,37 @@ namespace KanakTiffins
         
         private void button_deleteUser_Click(object sender, EventArgs e)
         {
-             DialogResult result = MessageBox.Show("Are you Sure?", "Delete User", MessageBoxButtons.YesNo);
+            //If this user has been deleted in another window, display error message.
+            CustomerDetail selectedCustomer = db.CustomerDetails.Where(x => x.CustomerId == customerId && x.isDeleted.Equals("N")).FirstOrDefault();
+            if (selectedCustomer == null)
+            {
+                MessageBox.Show("User not found. He/She may have been deleted.");
+                this.Close();
+                return;
+            }
+
+            DialogResult result = MessageBox.Show("Are you Sure?", "Delete User", MessageBoxButtons.YesNo);
           
-
-          // DbTransaction transaction = db.Connection.BeginTransaction();
-
             if (result == DialogResult.Yes)
             {
-                //Transaction to be included
-                
-                    try
-                    {
-
-                        db.CustomerDues.DeleteObject(db.CustomerDues.Where(x => x.CustomerId == customerId).FirstOrDefault());
-                        db.MonthlyBills.DeleteObject(db.MonthlyBills.Where(x => x.CustomerId == customerId).FirstOrDefault());
-                        db.CustomerPaymentHistories.DeleteObject(db.CustomerPaymentHistories.Where(x => x.CustomerId == customerId).FirstOrDefault());
-                        db.CustomerDetails.DeleteObject(db.CustomerDetails.Where(x => x.CustomerId == customerId).FirstOrDefault());
-
-                        db.SaveChanges();
-                     //   transaction.Commit();
-
-                    }
-                    catch (Exception ex)
-                    {
-                      //  transaction.Rollback();
-                        Console.Write(ex.StackTrace);
-                    }
+                try
+                {                    
+                    db.CustomerDetails.Where(x => x.CustomerId == customerId && x.isDeleted.Equals("N")).FirstOrDefault().isDeleted = "Y";
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    Console.Write(ex.StackTrace);
+                }
+                MessageBox.Show("User deleted successfully.");
+                this.Close();
             }
         }
-    
-    }
 
+        private void linkLabel_paymentHistory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            PaymentHistory paymentHistory = new PaymentHistory(customerId);
+            paymentHistory.Show();
+        }
+    }
 }

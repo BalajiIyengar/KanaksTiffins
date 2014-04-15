@@ -40,7 +40,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textBox_PhoneNumber = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox_AvailableBalance = new System.Windows.Forms.TextBox();
+            this.textBox_currentBalance = new System.Windows.Forms.TextBox();
             this.button_SubmitAddNewUser = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -83,9 +83,9 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(262, 211);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(73, 13);
+            this.label10.Size = new System.Drawing.Size(77, 13);
             this.label10.TabIndex = 73;
-            this.label10.Text = "Lunch/Dinner";
+            this.label10.Text = "Lunch/Dinner*";
             // 
             // comboBox_lunchOrDinner
             // 
@@ -93,7 +93,7 @@
             this.comboBox_lunchOrDinner.Location = new System.Drawing.Point(341, 208);
             this.comboBox_lunchOrDinner.Name = "comboBox_lunchOrDinner";
             this.comboBox_lunchOrDinner.Size = new System.Drawing.Size(121, 21);
-            this.comboBox_lunchOrDinner.TabIndex = 72;
+            this.comboBox_lunchOrDinner.TabIndex = 11;
             // 
             // textBox_firstName
             // 
@@ -101,16 +101,16 @@
             this.textBox_firstName.MaxLength = 50;
             this.textBox_firstName.Name = "textBox_firstName";
             this.textBox_firstName.Size = new System.Drawing.Size(121, 20);
-            this.textBox_firstName.TabIndex = 71;
+            this.textBox_firstName.TabIndex = 1;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(47, 9);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(57, 13);
+            this.label9.Size = new System.Drawing.Size(61, 13);
             this.label9.TabIndex = 70;
-            this.label9.Text = "First Name";
+            this.label9.Text = "First Name*";
             // 
             // comboBox_area
             // 
@@ -119,7 +119,7 @@
             this.comboBox_area.Location = new System.Drawing.Point(341, 47);
             this.comboBox_area.Name = "comboBox_area";
             this.comboBox_area.Size = new System.Drawing.Size(121, 21);
-            this.comboBox_area.TabIndex = 68;
+            this.comboBox_area.TabIndex = 4;
             this.comboBox_area.ValueMember = "AreaId";
             // 
             // comboBox_typeOfLunch
@@ -129,7 +129,7 @@
             this.comboBox_typeOfLunch.Location = new System.Drawing.Point(110, 208);
             this.comboBox_typeOfLunch.Name = "comboBox_typeOfLunch";
             this.comboBox_typeOfLunch.Size = new System.Drawing.Size(121, 21);
-            this.comboBox_typeOfLunch.TabIndex = 67;
+            this.comboBox_typeOfLunch.TabIndex = 10;
             this.comboBox_typeOfLunch.ValueMember = "MealPlanId";
             // 
             // textBox_EmailId
@@ -137,7 +137,7 @@
             this.textBox_EmailId.Location = new System.Drawing.Point(341, 122);
             this.textBox_EmailId.Name = "textBox_EmailId";
             this.textBox_EmailId.Size = new System.Drawing.Size(121, 20);
-            this.textBox_EmailId.TabIndex = 66;
+            this.textBox_EmailId.TabIndex = 7;
             // 
             // label8
             // 
@@ -154,7 +154,7 @@
             this.textBox_PhoneNumber.MaxLength = 12;
             this.textBox_PhoneNumber.Name = "textBox_PhoneNumber";
             this.textBox_PhoneNumber.Size = new System.Drawing.Size(121, 20);
-            this.textBox_PhoneNumber.TabIndex = 64;
+            this.textBox_PhoneNumber.TabIndex = 6;
             // 
             // label7
             // 
@@ -164,20 +164,20 @@
             this.label7.TabIndex = 63;
             this.label7.Text = "Phone Number";
             // 
-            // textBox_AvailableBalance
+            // textBox_currentBalance
             // 
-            this.textBox_AvailableBalance.Location = new System.Drawing.Point(110, 165);
-            this.textBox_AvailableBalance.MaxLength = 5;
-            this.textBox_AvailableBalance.Name = "textBox_AvailableBalance";
-            this.textBox_AvailableBalance.Size = new System.Drawing.Size(121, 20);
-            this.textBox_AvailableBalance.TabIndex = 62;
+            this.textBox_currentBalance.Location = new System.Drawing.Point(110, 165);
+            this.textBox_currentBalance.MaxLength = 5;
+            this.textBox_currentBalance.Name = "textBox_currentBalance";
+            this.textBox_currentBalance.Size = new System.Drawing.Size(121, 20);
+            this.textBox_currentBalance.TabIndex = 8;
             // 
             // button_SubmitAddNewUser
             // 
             this.button_SubmitAddNewUser.Location = new System.Drawing.Point(192, 249);
             this.button_SubmitAddNewUser.Name = "button_SubmitAddNewUser";
             this.button_SubmitAddNewUser.Size = new System.Drawing.Size(75, 23);
-            this.button_SubmitAddNewUser.TabIndex = 61;
+            this.button_SubmitAddNewUser.TabIndex = 12;
             this.button_SubmitAddNewUser.Text = "Submit";
             this.button_SubmitAddNewUser.UseVisualStyleBackColor = true;
             this.button_SubmitAddNewUser.Click += new System.EventHandler(this.button_SubmitAddNewUser_Click_1);
@@ -196,18 +196,18 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(26, 211);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(78, 13);
+            this.label4.Size = new System.Drawing.Size(82, 13);
             this.label4.TabIndex = 59;
-            this.label4.Text = "Type Of Lunch";
+            this.label4.Text = "Type Of Lunch*";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 168);
+            this.label2.Location = new System.Drawing.Point(21, 168);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 13);
+            this.label2.Size = new System.Drawing.Size(83, 13);
             this.label2.TabIndex = 58;
-            this.label2.Text = "Advance Balance";
+            this.label2.Text = "Current Balance";
             // 
             // label1
             // 
@@ -223,7 +223,7 @@
             this.textBox_DabbaWalaDeliveryCharges.Location = new System.Drawing.Point(341, 165);
             this.textBox_DabbaWalaDeliveryCharges.Name = "textBox_DabbaWalaDeliveryCharges";
             this.textBox_DabbaWalaDeliveryCharges.Size = new System.Drawing.Size(121, 20);
-            this.textBox_DabbaWalaDeliveryCharges.TabIndex = 56;
+            this.textBox_DabbaWalaDeliveryCharges.TabIndex = 9;
             // 
             // textBox_Deposit
             // 
@@ -231,7 +231,7 @@
             this.textBox_Deposit.MaxLength = 5;
             this.textBox_Deposit.Name = "textBox_Deposit";
             this.textBox_Deposit.Size = new System.Drawing.Size(121, 20);
-            this.textBox_Deposit.TabIndex = 55;
+            this.textBox_Deposit.TabIndex = 5;
             // 
             // textBox_Address
             // 
@@ -240,16 +240,16 @@
             this.textBox_Address.Name = "textBox_Address";
             this.textBox_Address.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox_Address.Size = new System.Drawing.Size(121, 53);
-            this.textBox_Address.TabIndex = 53;
+            this.textBox_Address.TabIndex = 3;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(294, 50);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 13);
+            this.label6.Size = new System.Drawing.Size(33, 13);
             this.label6.TabIndex = 52;
-            this.label6.Text = "Area";
+            this.label6.Text = "Area*";
             // 
             // lblAddress
             // 
@@ -266,7 +266,7 @@
             this.textBox_lastName.MaxLength = 50;
             this.textBox_lastName.Name = "textBox_lastName";
             this.textBox_lastName.Size = new System.Drawing.Size(121, 20);
-            this.textBox_lastName.TabIndex = 50;
+            this.textBox_lastName.TabIndex = 2;
             // 
             // lbl_lastName
             // 
@@ -282,7 +282,7 @@
             this.button_edit.Location = new System.Drawing.Point(192, 279);
             this.button_edit.Name = "button_edit";
             this.button_edit.Size = new System.Drawing.Size(75, 23);
-            this.button_edit.TabIndex = 76;
+            this.button_edit.TabIndex = 13;
             this.button_edit.Text = "Edit";
             this.button_edit.UseVisualStyleBackColor = true;
             this.button_edit.Visible = false;
@@ -306,7 +306,7 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox_PhoneNumber);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox_AvailableBalance);
+            this.Controls.Add(this.textBox_currentBalance);
             this.Controls.Add(this.button_SubmitAddNewUser);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -342,7 +342,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox_PhoneNumber;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox_AvailableBalance;
+        private System.Windows.Forms.TextBox textBox_currentBalance;
         private System.Windows.Forms.Button button_SubmitAddNewUser;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;

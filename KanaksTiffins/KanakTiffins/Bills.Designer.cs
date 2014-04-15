@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox_searchParameters = new System.Windows.Forms.GroupBox();
+            this.linkLabel_addNewArea = new System.Windows.Forms.LinkLabel();
             this.button_Search = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox_lastName = new System.Windows.Forms.TextBox();
@@ -39,7 +40,9 @@
             this.groupBox_users = new System.Windows.Forms.GroupBox();
             this.dataGridView_users = new System.Windows.Forms.DataGridView();
             this.groupBox_monthlyBill = new System.Windows.Forms.GroupBox();
-            this.label_billNotGenerated = new System.Windows.Forms.Label();
+            this.textBox_deliveryCharges = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label_billNotSaved = new System.Windows.Forms.Label();
             this.textBox_dabbawalaCharges = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.button_generateBill = new System.Windows.Forms.Button();
@@ -50,10 +53,10 @@
             this.label_M = new System.Windows.Forms.Label();
             this.comboBox_month = new System.Windows.Forms.ComboBox();
             this.groupBox_links = new System.Windows.Forms.GroupBox();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel_searchUsers = new System.Windows.Forms.LinkLabel();
             this.linkLabel_addNewUser = new System.Windows.Forms.LinkLabel();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.groupBox_searchParameters.SuspendLayout();
             this.groupBox_users.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_users)).BeginInit();
@@ -64,6 +67,7 @@
             // 
             // groupBox_searchParameters
             // 
+            this.groupBox_searchParameters.Controls.Add(this.linkLabel_addNewArea);
             this.groupBox_searchParameters.Controls.Add(this.button_Search);
             this.groupBox_searchParameters.Controls.Add(this.label3);
             this.groupBox_searchParameters.Controls.Add(this.textBox_lastName);
@@ -78,6 +82,18 @@
             this.groupBox_searchParameters.TabStop = false;
             this.groupBox_searchParameters.Text = "Search Parameters";
             // 
+            // linkLabel_addNewArea
+            // 
+            this.linkLabel_addNewArea.AutoSize = true;
+            this.linkLabel_addNewArea.BackColor = System.Drawing.Color.Transparent;
+            this.linkLabel_addNewArea.Location = new System.Drawing.Point(46, 68);
+            this.linkLabel_addNewArea.Name = "linkLabel_addNewArea";
+            this.linkLabel_addNewArea.Size = new System.Drawing.Size(57, 13);
+            this.linkLabel_addNewArea.TabIndex = 75;
+            this.linkLabel_addNewArea.TabStop = true;
+            this.linkLabel_addNewArea.Text = "Add New..";
+            this.linkLabel_addNewArea.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_addNewArea_LinkClicked);
+            // 
             // button_Search
             // 
             this.button_Search.Location = new System.Drawing.Point(354, 63);
@@ -91,7 +107,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(74, 63);
+            this.label3.Location = new System.Drawing.Point(60, 55);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 4;
@@ -107,7 +123,7 @@
             // comboBox_area
             // 
             this.comboBox_area.FormattingEnabled = true;
-            this.comboBox_area.Location = new System.Drawing.Point(109, 60);
+            this.comboBox_area.Location = new System.Drawing.Point(109, 52);
             this.comboBox_area.Name = "comboBox_area";
             this.comboBox_area.Size = new System.Drawing.Size(121, 21);
             this.comboBox_area.TabIndex = 2;
@@ -115,7 +131,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(265, 23);
+            this.label2.Location = new System.Drawing.Point(253, 24);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 1;
@@ -124,7 +140,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 23);
+            this.label1.Location = new System.Drawing.Point(32, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 1;
@@ -160,7 +176,9 @@
             // 
             // groupBox_monthlyBill
             // 
-            this.groupBox_monthlyBill.Controls.Add(this.label_billNotGenerated);
+            this.groupBox_monthlyBill.Controls.Add(this.textBox_deliveryCharges);
+            this.groupBox_monthlyBill.Controls.Add(this.label6);
+            this.groupBox_monthlyBill.Controls.Add(this.label_billNotSaved);
             this.groupBox_monthlyBill.Controls.Add(this.textBox_dabbawalaCharges);
             this.groupBox_monthlyBill.Controls.Add(this.label5);
             this.groupBox_monthlyBill.Controls.Add(this.button_generateBill);
@@ -178,29 +196,45 @@
             this.groupBox_monthlyBill.TabStop = false;
             this.groupBox_monthlyBill.Text = "Bill for this Month";
             // 
-            // label_billNotGenerated
+            // textBox_deliveryCharges
             // 
-            this.label_billNotGenerated.AutoSize = true;
-            this.label_billNotGenerated.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_billNotGenerated.ForeColor = System.Drawing.Color.Red;
-            this.label_billNotGenerated.Location = new System.Drawing.Point(337, 445);
-            this.label_billNotGenerated.Name = "label_billNotGenerated";
-            this.label_billNotGenerated.Size = new System.Drawing.Size(196, 15);
-            this.label_billNotGenerated.TabIndex = 14;
-            this.label_billNotGenerated.Text = "This bill is not yet generated !";
-            this.label_billNotGenerated.Visible = false;
+            this.textBox_deliveryCharges.Location = new System.Drawing.Point(582, 19);
+            this.textBox_deliveryCharges.Name = "textBox_deliveryCharges";
+            this.textBox_deliveryCharges.Size = new System.Drawing.Size(59, 20);
+            this.textBox_deliveryCharges.TabIndex = 16;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(489, 24);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(87, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Delivery Charges";
+            // 
+            // label_billNotSaved
+            // 
+            this.label_billNotSaved.AutoSize = true;
+            this.label_billNotSaved.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_billNotSaved.ForeColor = System.Drawing.Color.Red;
+            this.label_billNotSaved.Location = new System.Drawing.Point(337, 445);
+            this.label_billNotSaved.Name = "label_billNotSaved";
+            this.label_billNotSaved.Size = new System.Drawing.Size(168, 15);
+            this.label_billNotSaved.TabIndex = 14;
+            this.label_billNotSaved.Text = "This bill is not yet saved !";
+            this.label_billNotSaved.Visible = false;
             // 
             // textBox_dabbawalaCharges
             // 
-            this.textBox_dabbawalaCharges.Location = new System.Drawing.Point(539, 22);
+            this.textBox_dabbawalaCharges.Location = new System.Drawing.Point(414, 20);
             this.textBox_dabbawalaCharges.Name = "textBox_dabbawalaCharges";
-            this.textBox_dabbawalaCharges.Size = new System.Drawing.Size(100, 20);
+            this.textBox_dabbawalaCharges.Size = new System.Drawing.Size(60, 20);
             this.textBox_dabbawalaCharges.TabIndex = 13;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(430, 25);
+            this.label5.Location = new System.Drawing.Point(305, 24);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(103, 13);
             this.label5.TabIndex = 12;
@@ -219,7 +253,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(231, 23);
+            this.label4.Location = new System.Drawing.Point(178, 24);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 13);
             this.label4.TabIndex = 10;
@@ -228,9 +262,9 @@
             // comboBox_year
             // 
             this.comboBox_year.FormattingEnabled = true;
-            this.comboBox_year.Location = new System.Drawing.Point(266, 22);
+            this.comboBox_year.Location = new System.Drawing.Point(213, 20);
             this.comboBox_year.Name = "comboBox_year";
-            this.comboBox_year.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_year.Size = new System.Drawing.Size(70, 21);
             this.comboBox_year.TabIndex = 9;
             this.comboBox_year.SelectedIndexChanged += new System.EventHandler(this.comboBox_year_SelectedIndexChanged);
             // 
@@ -271,7 +305,7 @@
             this.comboBox_month.FormattingEnabled = true;
             this.comboBox_month.Location = new System.Drawing.Point(49, 21);
             this.comboBox_month.Name = "comboBox_month";
-            this.comboBox_month.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_month.Size = new System.Drawing.Size(109, 21);
             this.comboBox_month.TabIndex = 5;
             this.comboBox_month.SelectedIndexChanged += new System.EventHandler(this.comboBox_month_SelectedIndexChanged);
             // 
@@ -288,9 +322,19 @@
             this.groupBox_links.TabStop = false;
             this.groupBox_links.Text = "Links";
             // 
+            // linkLabel2
+            // 
+            this.linkLabel2.Location = new System.Drawing.Point(6, 368);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(76, 13);
+            this.linkLabel2.TabIndex = 3;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "User Payment";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            // 
             // linkLabel1
             // 
-            this.linkLabel1.Location = new System.Drawing.Point(15, 230);
+            this.linkLabel1.Location = new System.Drawing.Point(11, 257);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(66, 40);
             this.linkLabel1.TabIndex = 2;
@@ -302,7 +346,7 @@
             // linkLabel_searchUsers
             // 
             this.linkLabel_searchUsers.AutoSize = true;
-            this.linkLabel_searchUsers.Location = new System.Drawing.Point(10, 160);
+            this.linkLabel_searchUsers.Location = new System.Drawing.Point(11, 174);
             this.linkLabel_searchUsers.Name = "linkLabel_searchUsers";
             this.linkLabel_searchUsers.Size = new System.Drawing.Size(71, 13);
             this.linkLabel_searchUsers.TabIndex = 1;
@@ -313,23 +357,13 @@
             // linkLabel_addNewUser
             // 
             this.linkLabel_addNewUser.AutoSize = true;
-            this.linkLabel_addNewUser.Location = new System.Drawing.Point(6, 73);
+            this.linkLabel_addNewUser.Location = new System.Drawing.Point(7, 87);
             this.linkLabel_addNewUser.Name = "linkLabel_addNewUser";
             this.linkLabel_addNewUser.Size = new System.Drawing.Size(76, 13);
             this.linkLabel_addNewUser.TabIndex = 0;
             this.linkLabel_addNewUser.TabStop = true;
             this.linkLabel_addNewUser.Text = "Add New User";
             this.linkLabel_addNewUser.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_addNewUser_LinkClicked);
-            // 
-            // linkLabel2
-            // 
-            this.linkLabel2.Location = new System.Drawing.Point(6, 346);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(76, 13);
-            this.linkLabel2.TabIndex = 3;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "User Payment";
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
             // Bills
             // 
@@ -389,8 +423,11 @@
         private System.Windows.Forms.TextBox textBox_dabbawalaCharges;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label label_billNotGenerated;
+        private System.Windows.Forms.Label label_billNotSaved;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.TextBox textBox_deliveryCharges;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.LinkLabel linkLabel_addNewArea;
     }
 }
 

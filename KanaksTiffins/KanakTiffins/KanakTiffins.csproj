@@ -43,6 +43,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -71,6 +72,7 @@
     <Compile Include="Bills.Designer.cs">
       <DependentUpon>Bills.cs</DependentUpon>
     </Compile>
+    <Compile Include="CommonUtilities.cs" />
     <Compile Include="KanakTiffins.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -81,6 +83,12 @@
     </Compile>
     <Compile Include="MonthlyBillCustomControl.Designer.cs">
       <DependentUpon>MonthlyBillCustomControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PaymentHistory.Designer.cs">
+      <DependentUpon>PaymentHistory.cs</DependentUpon>
     </Compile>
     <Compile Include="PopulateMaster.cs">
       <SubType>Form</SubType>
@@ -120,6 +128,9 @@
     <EmbeddedResource Include="MonthlyBillCustomControl.resx">
       <DependentUpon>MonthlyBillCustomControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PaymentHistory.resx">
+      <DependentUpon>PaymentHistory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PopulateMaster.resx">
       <DependentUpon>PopulateMaster.cs</DependentUpon>
     </EmbeddedResource>
@@ -158,7 +169,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

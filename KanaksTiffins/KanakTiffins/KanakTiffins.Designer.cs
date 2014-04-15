@@ -24,7 +24,9 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_CustomerDetails_LunchOrDinner", "LunchOrDinner", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.LunchOrDinner), "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.CustomerDetail), true)]
 [assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_CustomerDetails_MealPlans", "MealPlans", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.MealPlan), "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.CustomerDetail), true)]
 [assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_CustomerPaymentHistory_CustomerDetails", "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.CustomerDetail), "CustomerPaymentHistory", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.CustomerPaymentHistory), true)]
+[assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_DabbawalaCharges_CustomerDetails", "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.CustomerDetail), "ExtraCharges", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.ExtraCharge), true)]
 [assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_MonthlyBills_CustomerDetails", "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.CustomerDetail), "MonthlyBills", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.MonthlyBill), true)]
+[assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_DabbawalaCharges_Months", "Months", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.Month), "ExtraCharges", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.ExtraCharge), true)]
 
 #endregion
 
@@ -143,6 +145,22 @@ namespace KanakTiffins
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<ExtraCharge> ExtraCharges
+        {
+            get
+            {
+                if ((_ExtraCharges == null))
+                {
+                    _ExtraCharges = base.CreateObjectSet<ExtraCharge>("ExtraCharges");
+                }
+                return _ExtraCharges;
+            }
+        }
+        private ObjectSet<ExtraCharge> _ExtraCharges;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<LunchOrDinner> LunchOrDinners
         {
             get
@@ -187,6 +205,22 @@ namespace KanakTiffins
             }
         }
         private ObjectSet<MonthlyBill> _MonthlyBills;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Month> Months
+        {
+            get
+            {
+                if ((_Months == null))
+                {
+                    _Months = base.CreateObjectSet<Month>("Months");
+                }
+                return _Months;
+            }
+        }
+        private ObjectSet<Month> _Months;
 
         #endregion
 
@@ -225,6 +259,14 @@ namespace KanakTiffins
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the ExtraCharges EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToExtraCharges(ExtraCharge extraCharge)
+        {
+            base.AddObject("ExtraCharges", extraCharge);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the LunchOrDinners EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToLunchOrDinners(LunchOrDinner lunchOrDinner)
@@ -246,6 +288,14 @@ namespace KanakTiffins
         public void AddToMonthlyBills(MonthlyBill monthlyBill)
         {
             base.AddObject("MonthlyBills", monthlyBill);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Months EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToMonths(Month month)
+        {
+            base.AddObject("Months", month);
         }
 
         #endregion
@@ -385,8 +435,9 @@ namespace KanakTiffins
         /// <param name="areaId">Initial value of the AreaId property.</param>
         /// <param name="mealPlanId">Initial value of the MealPlanId property.</param>
         /// <param name="lunchOrDinnerId">Initial value of the LunchOrDinnerId property.</param>
-        /// <param name="dabbawalaCharges">Initial value of the DabbawalaCharges property.</param>
-        public static CustomerDetail CreateCustomerDetail(global::System.Int32 customerId, global::System.String firstName, global::System.String address, global::System.String phoneNumber, global::System.Int32 areaId, global::System.Int32 mealPlanId, global::System.Int32 lunchOrDinnerId, global::System.Int32 dabbawalaCharges)
+        /// <param name="defaultDabbawalaCharges">Initial value of the DefaultDabbawalaCharges property.</param>
+        /// <param name="initialBalance">Initial value of the InitialBalance property.</param>
+        public static CustomerDetail CreateCustomerDetail(global::System.Int32 customerId, global::System.String firstName, global::System.String address, global::System.String phoneNumber, global::System.Int32 areaId, global::System.Int32 mealPlanId, global::System.Int32 lunchOrDinnerId, global::System.Int32 defaultDabbawalaCharges, global::System.Int32 initialBalance)
         {
             CustomerDetail customerDetail = new CustomerDetail();
             customerDetail.CustomerId = customerId;
@@ -396,7 +447,8 @@ namespace KanakTiffins
             customerDetail.AreaId = areaId;
             customerDetail.MealPlanId = mealPlanId;
             customerDetail.LunchOrDinnerId = lunchOrDinnerId;
-            customerDetail.DabbawalaCharges = dabbawalaCharges;
+            customerDetail.DefaultDabbawalaCharges = defaultDabbawalaCharges;
+            customerDetail.InitialBalance = initialBalance;
             return customerDetail;
         }
 
@@ -652,24 +704,72 @@ namespace KanakTiffins
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 DabbawalaCharges
+        public global::System.Int32 DefaultDabbawalaCharges
         {
             get
             {
-                return _DabbawalaCharges;
+                return _DefaultDabbawalaCharges;
             }
             set
             {
-                OnDabbawalaChargesChanging(value);
-                ReportPropertyChanging("DabbawalaCharges");
-                _DabbawalaCharges = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("DabbawalaCharges");
-                OnDabbawalaChargesChanged();
+                OnDefaultDabbawalaChargesChanging(value);
+                ReportPropertyChanging("DefaultDabbawalaCharges");
+                _DefaultDabbawalaCharges = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DefaultDabbawalaCharges");
+                OnDefaultDabbawalaChargesChanged();
             }
         }
-        private global::System.Int32 _DabbawalaCharges;
-        partial void OnDabbawalaChargesChanging(global::System.Int32 value);
-        partial void OnDabbawalaChargesChanged();
+        private global::System.Int32 _DefaultDabbawalaCharges;
+        partial void OnDefaultDabbawalaChargesChanging(global::System.Int32 value);
+        partial void OnDefaultDabbawalaChargesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 InitialBalance
+        {
+            get
+            {
+                return _InitialBalance;
+            }
+            set
+            {
+                OnInitialBalanceChanging(value);
+                ReportPropertyChanging("InitialBalance");
+                _InitialBalance = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("InitialBalance");
+                OnInitialBalanceChanged();
+            }
+        }
+        private global::System.Int32 _InitialBalance;
+        partial void OnInitialBalanceChanging(global::System.Int32 value);
+        partial void OnInitialBalanceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String isDeleted
+        {
+            get
+            {
+                return _isDeleted;
+            }
+            set
+            {
+                OnisDeletedChanging(value);
+                ReportPropertyChanging("isDeleted");
+                _isDeleted = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("isDeleted");
+                OnisDeletedChanged();
+            }
+        }
+        private global::System.String _isDeleted;
+        partial void OnisDeletedChanging(global::System.String value);
+        partial void OnisDeletedChanged();
 
         #endregion
 
@@ -846,6 +946,28 @@ namespace KanakTiffins
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CustomerPaymentHistory>("KanakTiffinsModel.FK_CustomerPaymentHistory_CustomerDetails", "CustomerPaymentHistory", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_DabbawalaCharges_CustomerDetails", "ExtraCharges")]
+        public EntityCollection<ExtraCharge> ExtraCharges
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ExtraCharge>("KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails", "ExtraCharges");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ExtraCharge>("KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails", "ExtraCharges", value);
                 }
             }
         }
@@ -1208,6 +1330,253 @@ namespace KanakTiffins
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="KanakTiffinsModel", Name="ExtraCharge")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ExtraCharge : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ExtraCharge object.
+        /// </summary>
+        /// <param name="customerId">Initial value of the CustomerId property.</param>
+        /// <param name="monthId">Initial value of the MonthId property.</param>
+        /// <param name="year">Initial value of the Year property.</param>
+        /// <param name="dabbawalaCharges">Initial value of the DabbawalaCharges property.</param>
+        /// <param name="deliveryCharges">Initial value of the DeliveryCharges property.</param>
+        public static ExtraCharge CreateExtraCharge(global::System.Int32 customerId, global::System.Int32 monthId, global::System.Int32 year, global::System.Int32 dabbawalaCharges, global::System.Int32 deliveryCharges)
+        {
+            ExtraCharge extraCharge = new ExtraCharge();
+            extraCharge.CustomerId = customerId;
+            extraCharge.MonthId = monthId;
+            extraCharge.Year = year;
+            extraCharge.DabbawalaCharges = dabbawalaCharges;
+            extraCharge.DeliveryCharges = deliveryCharges;
+            return extraCharge;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CustomerId
+        {
+            get
+            {
+                return _CustomerId;
+            }
+            set
+            {
+                if (_CustomerId != value)
+                {
+                    OnCustomerIdChanging(value);
+                    ReportPropertyChanging("CustomerId");
+                    _CustomerId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("CustomerId");
+                    OnCustomerIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _CustomerId;
+        partial void OnCustomerIdChanging(global::System.Int32 value);
+        partial void OnCustomerIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 MonthId
+        {
+            get
+            {
+                return _MonthId;
+            }
+            set
+            {
+                if (_MonthId != value)
+                {
+                    OnMonthIdChanging(value);
+                    ReportPropertyChanging("MonthId");
+                    _MonthId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("MonthId");
+                    OnMonthIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _MonthId;
+        partial void OnMonthIdChanging(global::System.Int32 value);
+        partial void OnMonthIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                if (_Year != value)
+                {
+                    OnYearChanging(value);
+                    ReportPropertyChanging("Year");
+                    _Year = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Year");
+                    OnYearChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Year;
+        partial void OnYearChanging(global::System.Int32 value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DabbawalaCharges
+        {
+            get
+            {
+                return _DabbawalaCharges;
+            }
+            set
+            {
+                OnDabbawalaChargesChanging(value);
+                ReportPropertyChanging("DabbawalaCharges");
+                _DabbawalaCharges = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DabbawalaCharges");
+                OnDabbawalaChargesChanged();
+            }
+        }
+        private global::System.Int32 _DabbawalaCharges;
+        partial void OnDabbawalaChargesChanging(global::System.Int32 value);
+        partial void OnDabbawalaChargesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DeliveryCharges
+        {
+            get
+            {
+                return _DeliveryCharges;
+            }
+            set
+            {
+                OnDeliveryChargesChanging(value);
+                ReportPropertyChanging("DeliveryCharges");
+                _DeliveryCharges = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DeliveryCharges");
+                OnDeliveryChargesChanged();
+            }
+        }
+        private global::System.Int32 _DeliveryCharges;
+        partial void OnDeliveryChargesChanging(global::System.Int32 value);
+        partial void OnDeliveryChargesChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_DabbawalaCharges_CustomerDetails", "CustomerDetails")]
+        public CustomerDetail CustomerDetail
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails", "CustomerDetails").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails", "CustomerDetails").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CustomerDetail> CustomerDetailReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails", "CustomerDetails");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails", "CustomerDetails", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_DabbawalaCharges_Months", "Months")]
+        public Month Month
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Month>("KanakTiffinsModel.FK_DabbawalaCharges_Months", "Months").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Month>("KanakTiffinsModel.FK_DabbawalaCharges_Months", "Months").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Month> MonthReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Month>("KanakTiffinsModel.FK_DabbawalaCharges_Months", "Months");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Month>("KanakTiffinsModel.FK_DabbawalaCharges_Months", "Months", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="KanakTiffinsModel", Name="LunchOrDinner")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1439,6 +1808,115 @@ namespace KanakTiffins
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CustomerDetail>("KanakTiffinsModel.FK_CustomerDetails_MealPlans", "CustomerDetails", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="KanakTiffinsModel", Name="Month")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Month : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Month object.
+        /// </summary>
+        /// <param name="monthId">Initial value of the MonthId property.</param>
+        /// <param name="monthName">Initial value of the MonthName property.</param>
+        public static Month CreateMonth(global::System.Int32 monthId, global::System.String monthName)
+        {
+            Month month = new Month();
+            month.MonthId = monthId;
+            month.MonthName = monthName;
+            return month;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 MonthId
+        {
+            get
+            {
+                return _MonthId;
+            }
+            set
+            {
+                if (_MonthId != value)
+                {
+                    OnMonthIdChanging(value);
+                    ReportPropertyChanging("MonthId");
+                    _MonthId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("MonthId");
+                    OnMonthIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _MonthId;
+        partial void OnMonthIdChanging(global::System.Int32 value);
+        partial void OnMonthIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String MonthName
+        {
+            get
+            {
+                return _MonthName;
+            }
+            set
+            {
+                OnMonthNameChanging(value);
+                ReportPropertyChanging("MonthName");
+                _MonthName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MonthName");
+                OnMonthNameChanged();
+            }
+        }
+        private global::System.String _MonthName;
+        partial void OnMonthNameChanging(global::System.String value);
+        partial void OnMonthNameChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_DabbawalaCharges_Months", "ExtraCharges")]
+        public EntityCollection<ExtraCharge> ExtraCharges
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ExtraCharge>("KanakTiffinsModel.FK_DabbawalaCharges_Months", "ExtraCharges");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ExtraCharge>("KanakTiffinsModel.FK_DabbawalaCharges_Months", "ExtraCharges", value);
                 }
             }
         }

@@ -9,10 +9,17 @@ using System.Windows.Forms;
 
 namespace KanakTiffins
 {
+    /// <summary>
+    /// This Form is used as a shorcut to add new values into the Master tables (Area/MealPlan). There are linklabels near
+    /// Area and MealPlan combo-boxes, throughout the project. On clicking such linklabels, this form is invoked.
+    /// </summary>
     public partial class AddNewMaster : Form
-    {
-        KanakTiffinsEntities db = new KanakTiffinsEntities();
-
+    {        
+        KanakTiffinsEntities db = CommonUtilities.db;
+        
+        /// <summary>
+        /// //This form is used for adding values into both Area and MealPlan master tables. this String helps differentiate between the two.
+        /// </summary>
         public String clickedLinkName;
         
         public AddNewMaster()
@@ -20,84 +27,82 @@ namespace KanakTiffins
             InitializeComponent();
         }
 
+        /// <summary>
+        /// The Submit button was clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_addNewArea_Click(object sender, EventArgs e)
         {
-
+            //If the linklabel which led us to this form was for adding a new value for the Area master table.
             if (clickedLinkName.Contains("Area"))
             {
-
+                //Validation
                 if (textBox_addNewMaster.Text.Length == 0 )
                 {
-                    MessageBox.Show("Cant Be Empty");
+                    MessageBox.Show("Please enter a value.");
                     return;
                 }
-
                 int textValue;
                 if (Int32.TryParse(textBox_addNewMaster.Text.Trim(), out textValue))
                 {
-                    MessageBox.Show("Not a Valid Name");
+                    MessageBox.Show("Please enter a valid value.");
                     return;
                 }
-
                 if (db.Areas.Select(x => x.AreaName).Contains(textBox_addNewMaster.Text))
                 {
-                    MessageBox.Show("Already Exists.");
+                    MessageBox.Show("This value already exists.");
                     return;
                 }
 
+                //Validation was successful.
                 Area newArea = new Area();
                 newArea.AreaName = textBox_addNewMaster.Text;
                 newArea.AreaId = db.Areas.Select(x => x.AreaId).Max() + 1;
-                db.Areas.AddObject(newArea); 
-
-            
+                db.Areas.AddObject(newArea);            
             }
 
+            //If the linklabel which led us to this form was for adding a new value for the MealPlan master table.
             if (clickedLinkName.Contains("MealPlan"))
             {
-
+                //Validation
                 if (textBox_addNewMaster.Text.Length == 0 )
                 {
-                    MessageBox.Show("Cant Be Empty");
+                    MessageBox.Show("Please enter a value.");
                     return;
-                }
-                
+                }                
                 int textValue=0;
                 if (!Int32.TryParse(textBox_addNewMaster.Text.Trim(), out textValue))
                 {
-                    MessageBox.Show("Not a Valid Number");
+                    MessageBox.Show("Please enter a valid number.");
                     return;
-                }
-
-
-                
+                }               
                 if (Int32.Parse(textBox_addNewMaster.Text) <= 0)
                 {
-                    MessageBox.Show("Cant Be a Negative Number.");
+                    MessageBox.Show("Please enter a positive value for Meal Plan.");
+                    return;
+                }
+                if (db.MealPlans.Select(x => x.MealAmount).Contains(Int32.Parse(textBox_addNewMaster.Text)))
+                {
+                    MessageBox.Show("This Meal Plan already exists.");
                     return;
                 }
 
-                if (db.MealPlans.Select(x => x.MealAmount).Contains(Int32.Parse(textBox_addNewMaster.Text)))
-                {
-                    MessageBox.Show("Already Exists.");
-                    return;
-                }
+                //Validation was successful.
                 MealPlan newMealPlan = new MealPlan();
                 newMealPlan.MealAmount = Int32.Parse(textBox_addNewMaster.Text);
                 newMealPlan.MealPlanId = db.MealPlans.Select(x => x.MealPlanId).Max() + 1;
-
                 db.MealPlans.AddObject(newMealPlan);
-
             }
 
             db.SaveChanges();
-            MessageBox.Show("Added Successfully");
-
-            this.Close();
+            MessageBox.Show("Added Successfully.");
+            this.Close(); //close the window.
         }
 
         private void AddNewMaster_Load(object sender, EventArgs e)
         {
+            //Initialize the value of the label.
             if (clickedLinkName.Contains("Area"))
             {
                 label_whichMaster.Text = "New Area";
@@ -107,9 +112,6 @@ namespace KanakTiffins
             {
                 label_whichMaster.Text = "New Meal Plan";
             }
-
-        }
-
-       
+        }       
     }
 }

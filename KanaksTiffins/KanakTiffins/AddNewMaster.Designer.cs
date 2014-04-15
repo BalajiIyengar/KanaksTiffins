@@ -68,7 +68,7 @@
             this.Controls.Add(this.textBox_addNewMaster);
             this.Name = "AddNewMaster";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AddNewMaster";
+            this.Text = "Add New Entry";
             this.Load += new System.EventHandler(this.AddNewMaster_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -34,6 +34,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.button_showBills = new System.Windows.Forms.Button();
             this.groupBox_userDetails = new System.Windows.Forms.GroupBox();
+            this.textBox_initialBalance = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.button_deleteUser = new System.Windows.Forms.Button();
             this.button_editUser = new System.Windows.Forms.Button();
             this.textBox_deliveryCharges = new System.Windows.Forms.TextBox();
@@ -54,6 +56,7 @@
             this.label_dueAmount = new System.Windows.Forms.Label();
             this.label_carryForwardAmount = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.linkLabel_paymentHistory = new System.Windows.Forms.LinkLabel();
             this.groupBox_billingHistory.SuspendLayout();
             this.groupBox_userDetails.SuspendLayout();
             this.SuspendLayout();
@@ -64,7 +67,7 @@
             this.groupBox_billingHistory.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox_billingHistory.Location = new System.Drawing.Point(0, 135);
             this.groupBox_billingHistory.Name = "groupBox_billingHistory";
-            this.groupBox_billingHistory.Size = new System.Drawing.Size(1148, 521);
+            this.groupBox_billingHistory.Size = new System.Drawing.Size(1264, 521);
             this.groupBox_billingHistory.TabIndex = 6;
             this.groupBox_billingHistory.TabStop = false;
             this.groupBox_billingHistory.Text = "Billing History";
@@ -76,7 +79,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1142, 502);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1258, 502);
             this.flowLayoutPanel1.TabIndex = 0;
             this.flowLayoutPanel1.WrapContents = false;
             // 
@@ -109,6 +112,8 @@
             // 
             // groupBox_userDetails
             // 
+            this.groupBox_userDetails.Controls.Add(this.textBox_initialBalance);
+            this.groupBox_userDetails.Controls.Add(this.label10);
             this.groupBox_userDetails.Controls.Add(this.button_deleteUser);
             this.groupBox_userDetails.Controls.Add(this.button_editUser);
             this.groupBox_userDetails.Controls.Add(this.textBox_deliveryCharges);
@@ -125,16 +130,34 @@
             this.groupBox_userDetails.Controls.Add(this.label2);
             this.groupBox_userDetails.Controls.Add(this.textBox_address);
             this.groupBox_userDetails.Controls.Add(this.label1);
-            this.groupBox_userDetails.Location = new System.Drawing.Point(3, 2);
+            this.groupBox_userDetails.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox_userDetails.Location = new System.Drawing.Point(0, 0);
             this.groupBox_userDetails.Name = "groupBox_userDetails";
-            this.groupBox_userDetails.Size = new System.Drawing.Size(1142, 100);
+            this.groupBox_userDetails.Size = new System.Drawing.Size(1264, 100);
             this.groupBox_userDetails.TabIndex = 12;
             this.groupBox_userDetails.TabStop = false;
             this.groupBox_userDetails.Text = "Username";
             // 
+            // textBox_initialBalance
+            // 
+            this.textBox_initialBalance.Location = new System.Drawing.Point(1008, 16);
+            this.textBox_initialBalance.Name = "textBox_initialBalance";
+            this.textBox_initialBalance.ReadOnly = true;
+            this.textBox_initialBalance.Size = new System.Drawing.Size(145, 20);
+            this.textBox_initialBalance.TabIndex = 17;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(929, 19);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(73, 13);
+            this.label10.TabIndex = 16;
+            this.label10.Text = "Initial Balance";
+            // 
             // button_deleteUser
             // 
-            this.button_deleteUser.Location = new System.Drawing.Point(1061, 45);
+            this.button_deleteUser.Location = new System.Drawing.Point(1096, 71);
             this.button_deleteUser.Name = "button_deleteUser";
             this.button_deleteUser.Size = new System.Drawing.Size(75, 23);
             this.button_deleteUser.TabIndex = 15;
@@ -144,7 +167,7 @@
             // 
             // button_editUser
             // 
-            this.button_editUser.Location = new System.Drawing.Point(1061, 71);
+            this.button_editUser.Location = new System.Drawing.Point(1177, 71);
             this.button_editUser.Name = "button_editUser";
             this.button_editUser.Size = new System.Drawing.Size(75, 23);
             this.button_editUser.TabIndex = 14;
@@ -154,7 +177,7 @@
             // 
             // textBox_deliveryCharges
             // 
-            this.textBox_deliveryCharges.Location = new System.Drawing.Point(795, 71);
+            this.textBox_deliveryCharges.Location = new System.Drawing.Point(696, 71);
             this.textBox_deliveryCharges.Name = "textBox_deliveryCharges";
             this.textBox_deliveryCharges.ReadOnly = true;
             this.textBox_deliveryCharges.Size = new System.Drawing.Size(145, 20);
@@ -163,15 +186,15 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(702, 74);
+            this.label8.Location = new System.Drawing.Point(566, 74);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(87, 13);
+            this.label8.Size = new System.Drawing.Size(124, 13);
             this.label8.TabIndex = 12;
-            this.label8.Text = "Delivery Charges";
+            this.label8.Text = "Default Delivery Charges";
             // 
             // textBox_lunchOrDinner
             // 
-            this.textBox_lunchOrDinner.Location = new System.Drawing.Point(795, 45);
+            this.textBox_lunchOrDinner.Location = new System.Drawing.Point(696, 45);
             this.textBox_lunchOrDinner.Name = "textBox_lunchOrDinner";
             this.textBox_lunchOrDinner.ReadOnly = true;
             this.textBox_lunchOrDinner.Size = new System.Drawing.Size(145, 20);
@@ -180,7 +203,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(716, 48);
+            this.label7.Location = new System.Drawing.Point(617, 48);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(73, 13);
             this.label7.TabIndex = 10;
@@ -188,7 +211,7 @@
             // 
             // textBox_mealPlan
             // 
-            this.textBox_mealPlan.Location = new System.Drawing.Point(795, 16);
+            this.textBox_mealPlan.Location = new System.Drawing.Point(696, 16);
             this.textBox_mealPlan.Name = "textBox_mealPlan";
             this.textBox_mealPlan.ReadOnly = true;
             this.textBox_mealPlan.Size = new System.Drawing.Size(145, 20);
@@ -197,7 +220,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(735, 19);
+            this.label6.Location = new System.Drawing.Point(636, 19);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 13);
             this.label6.TabIndex = 8;
@@ -205,7 +228,7 @@
             // 
             // textBox_area
             // 
-            this.textBox_area.Location = new System.Drawing.Point(428, 45);
+            this.textBox_area.Location = new System.Drawing.Point(363, 45);
             this.textBox_area.Name = "textBox_area";
             this.textBox_area.ReadOnly = true;
             this.textBox_area.Size = new System.Drawing.Size(146, 20);
@@ -214,7 +237,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(393, 48);
+            this.label4.Location = new System.Drawing.Point(328, 48);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 13);
             this.label4.TabIndex = 6;
@@ -222,7 +245,7 @@
             // 
             // textBox_email
             // 
-            this.textBox_email.Location = new System.Drawing.Point(428, 16);
+            this.textBox_email.Location = new System.Drawing.Point(363, 16);
             this.textBox_email.Name = "textBox_email";
             this.textBox_email.ReadOnly = true;
             this.textBox_email.Size = new System.Drawing.Size(146, 20);
@@ -231,7 +254,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(390, 19);
+            this.label3.Location = new System.Drawing.Point(325, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(32, 13);
             this.label3.TabIndex = 4;
@@ -239,7 +262,7 @@
             // 
             // textBox_phone
             // 
-            this.textBox_phone.Location = new System.Drawing.Point(428, 71);
+            this.textBox_phone.Location = new System.Drawing.Point(363, 71);
             this.textBox_phone.Name = "textBox_phone";
             this.textBox_phone.ReadOnly = true;
             this.textBox_phone.Size = new System.Drawing.Size(146, 20);
@@ -248,7 +271,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(384, 74);
+            this.label2.Location = new System.Drawing.Point(319, 74);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 2;
@@ -315,11 +338,23 @@
             this.label12.TabIndex = 15;
             this.label12.Text = "Carryforward Amount:    Rs. ";
             // 
+            // linkLabel_paymentHistory
+            // 
+            this.linkLabel_paymentHistory.AutoSize = true;
+            this.linkLabel_paymentHistory.Location = new System.Drawing.Point(1152, 111);
+            this.linkLabel_paymentHistory.Name = "linkLabel_paymentHistory";
+            this.linkLabel_paymentHistory.Size = new System.Drawing.Size(109, 13);
+            this.linkLabel_paymentHistory.TabIndex = 17;
+            this.linkLabel_paymentHistory.TabStop = true;
+            this.linkLabel_paymentHistory.Text = "View Payment History";
+            this.linkLabel_paymentHistory.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_paymentHistory_LinkClicked);
+            // 
             // UserDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1148, 656);
+            this.ClientSize = new System.Drawing.Size(1264, 656);
+            this.Controls.Add(this.linkLabel_paymentHistory);
             this.Controls.Add(this.label_carryForwardAmount);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label_dueAmount);
@@ -371,5 +406,8 @@
         private System.Windows.Forms.Label label_dueAmount;
         private System.Windows.Forms.Label label_carryForwardAmount;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBox_initialBalance;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.LinkLabel linkLabel_paymentHistory;
     }
 }

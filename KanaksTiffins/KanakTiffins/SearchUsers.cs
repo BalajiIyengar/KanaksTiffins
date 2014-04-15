@@ -12,7 +12,7 @@ namespace KanakTiffins
 {
     public partial class SearchUsers : Form
     {
-        KanakTiffinsEntities db = new KanakTiffinsEntities();
+        KanakTiffinsEntities db = CommonUtilities.db;
         MonthCalendar currentMonth = new MonthCalendar();
         List<CustomerDetail> searchResults = new List<CustomerDetail>();
         public SearchUsers()
@@ -20,7 +20,11 @@ namespace KanakTiffins
             InitializeComponent();
         }
 
-        //Search By User Details Clicked
+        /// <summary>
+        /// Search based on user's details.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_Search_UserDetails_Click(object sender, EventArgs e)
         {
             String firstName = textBox_firstName.Text.ToLower();
@@ -29,7 +33,7 @@ namespace KanakTiffins
 
             //Search Result (List of usernames)
             searchResults = db.CustomerDetails.Where(x => x.FirstName.Contains(firstName) && 
-                                                                           x.LastName.Contains(lastName) &&
+                                                                           x.LastName.Contains(lastName) && x.isDeleted.Equals("N") &&
                                                                            x.Area.AreaName.Contains(areaName)
                                                                      ).ToList();
             dataGridView_searchResult.DataSource = searchResults.ToList();
@@ -37,6 +41,9 @@ namespace KanakTiffins
             modifyDataGridView();
         }
 
+        /// <summary>
+        /// Hides/Adds extraneous/required columns from/to the DataGridView.
+        /// </summary>
         private void modifyDataGridView()
         {
             try
@@ -49,6 +56,10 @@ namespace KanakTiffins
                 dataGridView_searchResult.Columns["MealPlanId"].Visible = false;
                 dataGridView_searchResult.Columns["LunchOrDinner"].Visible = false;
                 dataGridView_searchResult.Columns["LunchOrDinnerId"].Visible = false;
+                dataGridView_searchResult.Columns["IsDeleted"].Visible = false;
+
+                if (dataGridView_searchResult.Columns.Contains("ExtraCharges"))
+                    dataGridView_searchResult.Columns["ExtraCharges"].Visible = false;
 
                 if (dataGridView_searchResult.Columns.Contains("MonthlyBills")) 
                     dataGridView_searchResult.Columns["MonthlyBills"].Visible = false;
@@ -79,6 +90,11 @@ namespace KanakTiffins
             { MessageBox.Show(e.StackTrace); Console.WriteLine(e.StackTrace); }           
         }
 
+        /// <summary>
+        /// Called when a cell in the DataGridView (which is displaying search results) is clicked. It is used to open the UserDetail form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void userDetails(object sender, DataGridViewCellEventArgs e)
         {
             //Getting the value of clicked row
@@ -90,49 +106,85 @@ namespace KanakTiffins
 
             UserDetail.setCustomerId(selectedCustomerId);
 
+            //If this user has been deleted in another window, display error message.
+            CustomerDetail selectedCustomer = db.CustomerDetails.Where(x => x.CustomerId == selectedCustomerId && x.isDeleted.Equals("N")).FirstOrDefault();
+            if (selectedCustomer == null)
+            {
+                MessageBox.Show("User not found. He/She may have been deleted.");                
+                return;
+            }
+
+            //Invoke the UserDetails form.
             UserDetail userDetail = new UserDetail();
             userDetail.Show();            
         }
 
-        /* Search By Meal Plan Clicked */
+       /// <summary>
+       /// Perform a search based on Meal Plans.
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
         private void button_Search_MealPlan_Click(object sender, EventArgs e)
         {             
             int mealPlanId = comboBox_mealAmount.SelectedValue == null ? 0 : Int32.Parse(comboBox_mealAmount.SelectedValue.ToString());
-            int lunchOrDinnerId = comboBox_lunchOrDinner.SelectedValue == null ? 0 : Int32.Parse(comboBox_lunchOrDinner.SelectedValue.ToString());     
+            int lunchOrDinnerId = comboBox_lunchOrDinner.SelectedValue == null ? 0 : Int32.Parse(comboBox_lunchOrDinner.SelectedValue.ToString());
 
-            searchResults = db.CustomerDetails.Where(x=>x.MealPlanId==mealPlanId && x.LunchOrDinnerId==lunchOrDinnerId).ToList();
+            searchResults = db.CustomerDetails.Where(x => x.MealPlanId == mealPlanId && x.LunchOrDinnerId == lunchOrDinnerId && x.isDeleted.Equals("N")).ToList();
 
             dataGridView_searchResult.DataSource = searchResults.ToList();
 
             modifyDataGridView();
         }
-
-        //Loading Search Users
+                
         private void SearchUsers_Load(object sender, EventArgs e)
         {
             //Populate area dropdown
+            populateAreas();
+
+            //Populate Meal Amount combo box
+            populateMealPlans();            
+
+            //Populate Lunch/Dinner combo box
+            populateLunchOrDinners();
+        }
+
+        /// <summary>
+        /// Populates the Area combo-box.
+        /// </summary>
+        private void populateAreas()
+        {
             List<Area> areas = new List<Area>();
             Area blankAreaValue = new Area();
             blankAreaValue.AreaId = -1;
             areas.Add(blankAreaValue);
             areas.AddRange(db.Areas.ToList());
-            comboBox_Area.DataSource = areas;            
+            comboBox_Area.DataSource = areas;
             comboBox_Area.DisplayMember = "AreaName";
             comboBox_Area.ValueMember = "AreaName";
+        }
 
-            //Populate Meal Amount combo box
-            List<MealPlan> mealPlans = new List<MealPlan>(); 
+        /// <summary>
+        /// Populate the Meal Plans combo-box.
+        /// </summary>
+        private void populateMealPlans()
+        {
+            List<MealPlan> mealPlans = new List<MealPlan>();
             mealPlans.AddRange(db.MealPlans.ToList());
             comboBox_mealAmount.DataSource = mealPlans;
             comboBox_mealAmount.DisplayMember = "MealAmount";
-            comboBox_mealAmount.ValueMember = "MealPlanId";            
+            comboBox_mealAmount.ValueMember = "MealPlanId";
+        }
 
-            //Populate Lunch/Dinner combo box
-            List<LunchOrDinner> lunchOrDinner = new List<LunchOrDinner>();             
+        /// <summary>
+        /// Populates the Lunch/Dinner combo-box.
+        /// </summary>
+        private void populateLunchOrDinners()
+        {
+            List<LunchOrDinner> lunchOrDinner = new List<LunchOrDinner>();
             lunchOrDinner.AddRange(db.LunchOrDinners.ToList());
             comboBox_lunchOrDinner.DataSource = lunchOrDinner;
             comboBox_lunchOrDinner.DisplayMember = "Name";
             comboBox_lunchOrDinner.ValueMember = "Id";
-        }        
+        }
     }
 }
