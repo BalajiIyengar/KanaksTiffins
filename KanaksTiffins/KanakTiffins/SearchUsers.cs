@@ -139,13 +139,13 @@ namespace KanakTiffins
         private void SearchUsers_Load(object sender, EventArgs e)
         {
             //Populate area dropdown
-            populateAreas();
+           populateAreas();
 
             //Populate Meal Amount combo box
-            populateMealPlans();            
+           CommonUtilities.populateMealPlans(comboBox_mealAmount);            
 
             //Populate Lunch/Dinner combo box
-            populateLunchOrDinners();
+           CommonUtilities.populateLunchOrDinner(comboBox_lunchOrDinner);
         }
 
         /// <summary>
@@ -161,30 +161,6 @@ namespace KanakTiffins
             comboBox_Area.DataSource = areas;
             comboBox_Area.DisplayMember = "AreaName";
             comboBox_Area.ValueMember = "AreaName";
-        }
-
-        /// <summary>
-        /// Populate the Meal Plans combo-box.
-        /// </summary>
-        private void populateMealPlans()
-        {
-            List<MealPlan> mealPlans = new List<MealPlan>();
-            mealPlans.AddRange(db.MealPlans.ToList());
-            comboBox_mealAmount.DataSource = mealPlans;
-            comboBox_mealAmount.DisplayMember = "MealAmount";
-            comboBox_mealAmount.ValueMember = "MealPlanId";
-        }
-
-        /// <summary>
-        /// Populates the Lunch/Dinner combo-box.
-        /// </summary>
-        private void populateLunchOrDinners()
-        {
-            List<LunchOrDinner> lunchOrDinner = new List<LunchOrDinner>();
-            lunchOrDinner.AddRange(db.LunchOrDinners.ToList());
-            comboBox_lunchOrDinner.DataSource = lunchOrDinner;
-            comboBox_lunchOrDinner.DisplayMember = "Name";
-            comboBox_lunchOrDinner.ValueMember = "Id";
         }
     }
 }

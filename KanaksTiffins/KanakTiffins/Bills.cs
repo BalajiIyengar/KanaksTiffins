@@ -32,10 +32,11 @@ namespace KanakTiffins
 
         private void Bills_Load(object sender, EventArgs e)
         {
-            populateAreas();
+            //populateAreas();     
+            CommonUtilities.populateAreas(comboBox_area);
+            CommonUtilities.populateMonths(comboBox_month);
 
-            populateMonths();
-
+            comboBox_month.SelectedIndex = currentMonth.TodayDate.Month - 1; //Combo box index starts from 0
             //Populate the year combo box
             List<int> years = new List<int>();
             for (int year = 2012; year <= currentMonth.TodayDate.Year; year++)
@@ -44,30 +45,6 @@ namespace KanakTiffins
             }
             comboBox_year.DataSource = years;
             comboBox_year.SelectedItem = currentMonth.TodayDate.Year;  
-        }
-
-        /// <summary>
-        /// Populates the Area combo box.
-        /// </summary>
-        private void populateAreas()
-        {
-            List<Area> areas = new List<Area>();
-            areas.Add(new Area());
-            areas.AddRange(db.Areas.OrderBy(x=>x.AreaName).ToList());
-            comboBox_area.DataSource = areas;
-            comboBox_area.DisplayMember = "AreaName";
-            comboBox_area.ValueMember = "AreaName";
-        }
-
-        /// <summary>
-        /// Populates the Month combo box.
-        /// </summary>
-        private void populateMonths()
-        {           
-            comboBox_month.DataSource = db.Months.ToList();
-            comboBox_month.DisplayMember = "MonthName";
-            comboBox_month.ValueMember = "MonthId";
-            comboBox_month.SelectedIndex = currentMonth.TodayDate.Month - 1; //Combo box index starts from 0
         }
 
         /// <summary>
@@ -563,7 +540,7 @@ namespace KanakTiffins
         /// <param name="e"></param>
         private void AddNewArea_FormClosed(object sender, FormClosedEventArgs e)
         {
-            populateAreas();            
+            CommonUtilities.populateAreas(comboBox_area);            
         }                
     }
 }

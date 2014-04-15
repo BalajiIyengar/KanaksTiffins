@@ -30,45 +30,15 @@ namespace KanakTiffins
         private void AddNewUser_Load(object sender, EventArgs e)
         {
             //Load the dropdown values of Area and Meal Plans
-            populateAreas();
+           CommonUtilities.populateAreas(comboBox_area);
 
             //Populate the meal plan combo box
-            populateMealPlans();
+           CommonUtilities.populateMealPlans(comboBox_typeOfLunch);
 
             //Populate the Lunch/Dinner  combo box
-            populateLunchOrDinner();
+           CommonUtilities.populateLunchOrDinner(comboBox_lunchOrDinner);
         }
-
-        /// <summary>
-        /// Used to populate the MealPlans combo-box.
-        /// </summary>
-        private void populateMealPlans()
-        {
-            comboBox_typeOfLunch.DataSource = db.MealPlans.OrderBy(x=>x.MealAmount).ToList();
-            comboBox_typeOfLunch.DisplayMember = "MealAmount";
-            comboBox_typeOfLunch.ValueMember = "MealPlanId";            
-        }
-
-        /// <summary>
-        /// Used to populate the Area combo-box
-        /// </summary>
-        private void populateAreas()
-        {          
-            comboBox_area.DataSource = db.Areas.OrderBy(x=>x.AreaName).ToList();
-            comboBox_area.DisplayMember = "AreaName";
-            comboBox_area.ValueMember = "AreaId";
-        }
-
-        /// <summary>
-        /// Used to populate the Lunch/Dinner combo-box.
-        /// </summary>
-        private void populateLunchOrDinner()
-        {
-            comboBox_lunchOrDinner.DataSource = db.LunchOrDinners.ToList();
-            comboBox_lunchOrDinner.DisplayMember = "Name";
-            comboBox_lunchOrDinner.ValueMember = "Id"; 
-        }
-        
+               
         /// <summary>
         /// Pre-populates the form fields, with the values pertaining to the Customer having id as 'selectedCustomerId'
         /// </summary>
@@ -195,7 +165,11 @@ namespace KanakTiffins
             customerDetail.FirstName = textBox_firstName.Text;
             customerDetail.LastName = textBox_lastName.Text;
             customerDetail.Address = textBox_Address.Text;
-            customerDetail.AreaId = Int32.Parse(comboBox_area.SelectedValue.ToString());
+
+            String selectedAreaName = comboBox_area.SelectedValue.ToString();
+            int areaId = db.Areas.Where(x => x.AreaName.Equals(selectedAreaName)).First().AreaId;
+            customerDetail.AreaId = areaId;
+
             customerDetail.MealPlanId = Int32.Parse(comboBox_typeOfLunch.SelectedValue.ToString());
             int depositAmount = 0;
             Int32.TryParse(textBox_Deposit.Text.Trim(), out depositAmount);
@@ -269,8 +243,8 @@ namespace KanakTiffins
         /// <param name="e"></param>
         private void AddNewMaster_FormClosed(object sender, FormClosedEventArgs e)
         {
-            populateAreas();
-            populateMealPlans();
+           CommonUtilities.populateAreas(comboBox_area);
+           CommonUtilities.populateMealPlans(comboBox_typeOfLunch);
         }
     }
 }

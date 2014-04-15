@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace KanakTiffins
 {
@@ -83,6 +84,49 @@ namespace KanakTiffins
             }
 
             db.SaveChanges();
+        }
+
+        /// <summary>
+        /// Populates the Area combo box.
+        /// </summary>
+        public static void populateAreas(ComboBox comboBoxObj)
+        {
+            List<Area> areas = new List<Area>();
+            areas.Add(new Area());
+            areas.AddRange(db.Areas.OrderBy(x => x.AreaName).ToList());
+            comboBoxObj.DataSource = areas;
+            comboBoxObj.DisplayMember = "AreaName";
+            comboBoxObj.ValueMember = "AreaName";
+        }
+
+        /// <summary>
+        /// Populates the Month combo box.
+        /// </summary>
+        public static void populateMonths(ComboBox comboBoxObj)
+        {
+            comboBoxObj.DataSource = db.Months.ToList();
+            comboBoxObj.DisplayMember = "MonthName";
+            comboBoxObj.ValueMember = "MonthId";           
+        }
+
+        /// <summary>
+        /// Used to populate the MealPlans combo-box.
+        /// </summary>
+        public static void populateMealPlans(ComboBox comboBoxObj)
+        {
+            comboBoxObj.DataSource = db.MealPlans.OrderBy(x => x.MealAmount).ToList();
+            comboBoxObj.DisplayMember = "MealAmount";
+            comboBoxObj.ValueMember = "MealPlanId";
+        }
+
+        /// <summary>
+        /// Used to populate the Lunch/Dinner combo-box.
+        /// </summary>
+        public static void populateLunchOrDinner(ComboBox comboBoxObj)
+        {
+            comboBoxObj.DataSource = db.LunchOrDinners.ToList();
+            comboBoxObj.DisplayMember = "Name";
+            comboBoxObj.ValueMember = "Id";
         }
     }
 }

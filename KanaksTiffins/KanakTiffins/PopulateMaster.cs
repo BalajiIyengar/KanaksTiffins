@@ -20,29 +20,16 @@ namespace KanakTiffins
 
         private void PopulateMaster_Load(object sender, EventArgs e)
         {
-            loadAreas();
-            loadMealPlans();
+            CommonUtilities.populateAreas(comboBox_areas);
+            CommonUtilities.populateMealPlans(comboBox_mealPlans);
         }
 
-        /// <summary>
-        /// Used to populate the Area combo-box.
-        /// </summary>
-        private void loadAreas()
-        {
-            comboBox_areas.DataSource = db.Areas.OrderBy(x => x.AreaName).ToList();
-            comboBox_areas.DisplayMember = "AreaName";
-            comboBox_areas.ValueMember = "AreaName";
-        }
-        /// <summary>
-        /// Used to populate the Meal Plan combo-box.
-        /// </summary>
-        private void loadMealPlans()
-        {
-            comboBox_mealPlans.DataSource = db.MealPlans.OrderBy(x => x.MealAmount).ToList();
-            comboBox_mealPlans.DisplayMember = "MealAmount";
-            comboBox_mealPlans.ValueMember = "MealPlanId";
-        }
-        
+          /// <summary>
+          /// To add a new Area
+          /// </summary>
+          /// <param name="sender"></param>
+          /// <param name="e"></param>
+     
         private void button_addArea_Click(object sender, EventArgs e)
         {
            //Performing Validation
@@ -76,9 +63,14 @@ namespace KanakTiffins
             MessageBox.Show("Added Successfully");
 
             //Refersh the Area combo-box.
-            loadAreas();
+            CommonUtilities.populateAreas(comboBox_areas);
         }
 
+        /// <summary>
+        /// To add a new MealPlan
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_addMealPlan_Click(object sender, EventArgs e)
         {
             //Performing validation.
@@ -122,9 +114,14 @@ namespace KanakTiffins
             MessageBox.Show("Added Successfully");
 
             //Refresh the MealPlan combo-box.
-            loadMealPlans();
+            CommonUtilities.populateMealPlans(comboBox_mealPlans);
         }
 
+        /// <summary>
+        /// To Delete an Area
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_deleteArea_Click(object sender, EventArgs e)
         {
             Area selectedArea = comboBox_areas.SelectedItem as Area;
@@ -139,10 +136,15 @@ namespace KanakTiffins
             //This area can be deleted.
             db.Areas.DeleteObject(selectedArea);
             db.SaveChanges();
-            loadAreas();
+            CommonUtilities.populateAreas(comboBox_areas);
             MessageBox.Show("Deleted Successfully");
         }
 
+        /// <summary>
+        /// To Delete a Mealplan
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_deleteMealPlan_Click(object sender, EventArgs e)
         {
             MealPlan selectedMealPlan = comboBox_mealPlans.SelectedItem as MealPlan;
@@ -157,10 +159,14 @@ namespace KanakTiffins
             //This Meal Plan can be deleted.
             db.MealPlans.DeleteObject(selectedMealPlan);
             db.SaveChanges();
-            loadMealPlans();
+            CommonUtilities.populateMealPlans(comboBox_mealPlans);
             MessageBox.Show("Deleted Successfully");
         }
-
+        /// <summary>
+        /// On Change of an Area, rendering appropriate value on the textboxes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBox_areas_SelectedIndexChanged(object sender, EventArgs e)
         {
             Area selectedArea = comboBox_areas.SelectedItem as Area;
@@ -168,6 +174,11 @@ namespace KanakTiffins
             button_deleteArea.Text = "Delete '" + selectedArea.AreaName + "'";
         }
 
+        /// <summary>
+        /// On Change of a MealPlan,rendering appropriate values on the textbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBox_mealPlans_SelectedIndexChanged(object sender, EventArgs e)
         {
             MealPlan selectedMealPlan = comboBox_mealPlans.SelectedItem as MealPlan;

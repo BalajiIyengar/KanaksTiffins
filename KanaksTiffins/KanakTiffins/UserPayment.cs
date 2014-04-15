@@ -22,22 +22,8 @@ namespace KanakTiffins
 
         private void UserPayment_Load(object sender, EventArgs e)
         {
-            loadAreas();
+           CommonUtilities.populateAreas(comboBox_area);
         }
-
-        /// <summary>
-        /// Used to Populate Area DropDown to Search Users.
-        /// </summary>
-        private void loadAreas()
-        {            
-            List<Area> areas = new List<Area>();
-            areas.Add(new Area());
-            areas.AddRange(db.Areas.ToList());
-            comboBox_area.DataSource = areas;
-            comboBox_area.DisplayMember = "AreaName";
-            comboBox_area.ValueMember = "AreaName";
-        }
-
 
         /// <summary>
         /// Returns a list of customers(if present) for the criteria mentioned.
@@ -52,13 +38,13 @@ namespace KanakTiffins
 
             //Search Result (List of usernames)
             dataGridView_searchUsers.DataSource = db.CustomerDetails.Where(x => x.FirstName.Contains(firstName) && x.LastName.Contains(lastName) && x.isDeleted.Equals("N") && x.Area.AreaName.Contains(areaName)).ToList();
-            hideIncessantColumns();             
+            hideUnnecessaryColumns();             
         }
 
         /// <summary>
-        /// Used to Hide Incessant(Extra/Unnecessary) Columns fetched from database.
+        /// Used to Hide Unnecessary(Extra) Columns fetched from database.
         /// </summary>
-        private void hideIncessantColumns()
+        private void hideUnnecessaryColumns()
         {
             dataGridView_searchUsers.CellClick -= userDetails;
             dataGridView_searchUsers.CellClick += userDetails;
