@@ -200,8 +200,7 @@ namespace KanakTiffins
                 this.Close();
                 return;
             }
-
-            
+                        
             AddNewUser editUser = new AddNewUser();
             editUser.Controls["textBox_currentBalance"].Enabled = false;
             editUser.Show();
@@ -251,6 +250,22 @@ namespace KanakTiffins
         {
             PaymentHistory paymentHistory = new PaymentHistory(customerId);
             paymentHistory.Show();
+        }
+
+        /// <summary>
+        /// When The Customer Payment link label is Clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void linkLabel_payment_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            UserPayment payment = new UserPayment();
+            
+            //Loading the Page with user values
+            payment.selectedCustomerId = customerId;
+            payment.hasComeFromUserDetail = true;
+
+            payment.Show();
         }
     }
 }

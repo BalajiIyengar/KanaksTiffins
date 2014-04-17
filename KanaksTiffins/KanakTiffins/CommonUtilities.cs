@@ -134,7 +134,7 @@ namespace KanakTiffins
         /// Creates an Excel file from the data in the DataGridView
         /// </summary>
         /// <param name="dataGridView">The DataGridView from which the data has to be read.</param>
-        /// <param name="excelFilePath">Tha physical location of the file into which the Excel file will be written.</param>
+        /// <param name="excelFilePath">The physical location of the file into which the Excel file will be written.</param>
         public static void exportDataGridViewToExcel(DataGridView dataGridView, string excelFilePath)
         {
             int numberOfColumns;

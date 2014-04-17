@@ -511,7 +511,7 @@ namespace KanakTiffins
             //GENERATE A DOCUMENT TO PRINT.  
             int month = comboBox_month.SelectedIndex + 1; //in the combo box, index starts from 0
             int year = comboBox_year.SelectedValue == null ? currentMonth.TodayDate.Year : Int32.Parse(comboBox_year.SelectedValue.ToString());
-            CommonUtilities.exportDataGridViewToExcelUsingMicrosoft(dataGridView_billForThisMonth, "C:\\Bill.xlsx", selectedCustomerId, month, year);
+            CommonUtilities.exportDataGridViewToExcelUsingMicrosoft(dataGridView_billForThisMonth, "F:\\Bill.xlsx", selectedCustomerId, month, year);
         }
         
         /// <summary>

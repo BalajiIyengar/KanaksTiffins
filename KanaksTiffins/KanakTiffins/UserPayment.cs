@@ -13,8 +13,9 @@ namespace KanakTiffins
     public partial class UserPayment : Form
     {
         KanakTiffinsEntities db = CommonUtilities.db;
-        private Int32 selectedCustomerId;
-
+        public Int32 selectedCustomerId;
+        public bool hasComeFromUserDetail = false;
+        
         public UserPayment()
         {
             InitializeComponent();
@@ -22,7 +23,23 @@ namespace KanakTiffins
 
         private void UserPayment_Load(object sender, EventArgs e)
         {
-           CommonUtilities.populateAreas(comboBox_area);
+           //Checking if the request came from User Detail Page
+            if (hasComeFromUserDetail)
+            {
+                //Loading the page with values along with certain groupbox property modifications
+                groupBox_searchUsers.Visible = false;
+                groupBox_userPayment.Visible = true;
+                groupBox_userPayment.Dock = DockStyle.Top;
+                groupBox1.Dock = DockStyle.Bottom;
+                groupBox1.Visible = true;
+                dataGridView_PaymentHistory.Visible = true;
+
+                retrieveUserDetails();
+            }
+            else
+            {
+                CommonUtilities.populateAreas(comboBox_area);
+            }           
         }
 
         /// <summary>
@@ -38,7 +55,7 @@ namespace KanakTiffins
 
             //Search Result (List of usernames)
             dataGridView_searchUsers.DataSource = db.CustomerDetails.Where(x => x.FirstName.Contains(firstName) && x.LastName.Contains(lastName) && x.isDeleted.Equals("N") && x.Area.AreaName.Contains(areaName)).ToList();
-            hideUnnecessaryColumns();             
+            hideUnnecessaryColumns();   
         }
 
         /// <summary>
@@ -85,30 +102,40 @@ namespace KanakTiffins
             DataGridViewCellCollection selectedUser = dataGridView.CurrentRow.Cells as DataGridViewCellCollection;
 
             //Returns the selected customer ID
-            this.selectedCustomerId = Int32.Parse(selectedUser["CustomerId"].Value.ToString());
+            selectedCustomerId = Int32.Parse(selectedUser["CustomerId"].Value.ToString());
+            retrieveUserDetails();
 
-            CustomerDetail customerDetail = db.CustomerDetails.Where(x => x.CustomerId == this.selectedCustomerId && x.isDeleted.Equals("N")).Single();
+            groupBox_userPayment.Visible = true;
+            groupBox1.Visible = true;
+            dataGridView_PaymentHistory.Visible = true;
+        }
+        
+        /// <summary>
+        /// Retrieves the User details based on customer id.
+        /// </summary>
+        private void retrieveUserDetails()
+        {
+            CustomerDetail customerDetail = db.CustomerDetails.Where(x => x.CustomerId == selectedCustomerId && x.isDeleted.Equals("N")).Single();
 
             textBox_userName.Text = customerDetail.FirstName + " " + customerDetail.LastName;
             textBox_area.Text = customerDetail.Area.AreaName;
             textBox_dueAmount.Text = customerDetail.CustomerDue == null ? "0" : customerDetail.CustomerDue.DueAmount.ToString();
             textBox_carryForwardAmount.Text = customerDetail.CustomerDue == null ? "0" : customerDetail.CustomerDue.CarryforwardAmount.ToString();
-
+                       
             displayPaymentHistory();
         }
-
+        
         /// <summary>
         /// Updates the User Payment History on Submit.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void button_userPayment_Click(object sender, EventArgs e)
-        {
-
+        {            
             //Validation To check for Empty Values
             if (textBox_amountPaid.Text.Trim().Length == 0 || textBox_paymentMethod.Text.Trim().Length == 0)
             {
-                MessageBox.Show("None of the Parameters can be Zero or Empty", "Error");
+                MessageBox.Show("Please Enter the Amount and Payment Mode", "Error");
                 return;
             }
 
@@ -119,11 +146,18 @@ namespace KanakTiffins
                 MessageBox.Show("Amount Paid Contains Special Characters", "Error");
                 return;
             }
+            DateTime theEnteredDate =  DateTime.Parse(dateTimePicker_paidOn.Text);
 
+            //To check if any payment was made on the same date
+            if (db.CustomerPaymentHistories.Where(x => x.CustomerId == selectedCustomerId).ToList().Select(x => x.PaidOn).Contains(theEnteredDate))
+            {
+                MessageBox.Show("You've Already Entered A Payment Record on the Same day.Please verify.", "Error");
+                return;
+            }
             CustomerPaymentHistory paymentDetails = new CustomerPaymentHistory();
-            paymentDetails.CustomerId = this.selectedCustomerId;
+            paymentDetails.CustomerId = selectedCustomerId;
             paymentDetails.PaidAmount = Int32.Parse(textBox_amountPaid.Text);
-            paymentDetails.PaidOn = DateTime.Parse(dateTimePicker_paidOn.Text);
+            paymentDetails.PaidOn = theEnteredDate;
             paymentDetails.PaymentMethod = textBox_paymentMethod.Text;
 
             db.CustomerPaymentHistories.AddObject(paymentDetails);
@@ -138,13 +172,13 @@ namespace KanakTiffins
 
             //Update values in text boxes
             textBox_dueAmount.Text = db.CustomerDues.Where(x => x.CustomerId == selectedCustomerId).First().DueAmount.ToString();
-            textBox_carryForwardAmount.Text = db.CustomerDues.Where(x => x.CustomerId == selectedCustomerId).First().CarryforwardAmount.ToString();
+            textBox_carryForwardAmount.Text = db.CustomerDues.Where(x => x.CustomerId == selectedCustomerId).First().CarryforwardAmount.ToString();            
         }
 
         private void displayPaymentHistory()
         {
             //Payment history for this user
-            dataGridView_PaymentHistory.DataSource = db.CustomerPaymentHistories.Where(x => x.CustomerId == this.selectedCustomerId).ToList();
+            dataGridView_PaymentHistory.DataSource = db.CustomerPaymentHistories.Where(x => x.CustomerId == selectedCustomerId).ToList();
             
             dataGridView_PaymentHistory.CellClick -= editPaymentHistory;
             dataGridView_PaymentHistory.CellClick += editPaymentHistory;

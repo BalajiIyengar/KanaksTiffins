@@ -173,6 +173,7 @@
             this.groupBox_userPayment.TabIndex = 1;
             this.groupBox_userPayment.TabStop = false;
             this.groupBox_userPayment.Text = "Payment Details";
+            this.groupBox_userPayment.Visible = false;
             // 
             // label9
             // 
@@ -314,6 +315,7 @@
             this.dataGridView_PaymentHistory.RowHeadersVisible = false;
             this.dataGridView_PaymentHistory.Size = new System.Drawing.Size(307, 251);
             this.dataGridView_PaymentHistory.TabIndex = 17;
+            this.dataGridView_PaymentHistory.Visible = false;
             // 
             // groupBox1
             // 
@@ -324,6 +326,7 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Payment History";
+            this.groupBox1.Visible = false;
             // 
             // UserPayment
             // 

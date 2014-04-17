@@ -4,17 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="KanakTiffinsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="KanakTiffinsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="KanakTiffinsModelStoreContainer">
-          <EntitySet Name="Areas" EntityType="KanakTiffinsModel.Store.Areas" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="CustomerDetails" EntityType="KanakTiffinsModel.Store.CustomerDetails" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="CustomerDues" EntityType="KanakTiffinsModel.Store.CustomerDues" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="CustomerPaymentHistory" EntityType="KanakTiffinsModel.Store.CustomerPaymentHistory" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ExtraCharges" EntityType="KanakTiffinsModel.Store.ExtraCharges" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="LunchOrDinner" EntityType="KanakTiffinsModel.Store.LunchOrDinner" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="MealPlans" EntityType="KanakTiffinsModel.Store.MealPlans" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="MonthlyBills" EntityType="KanakTiffinsModel.Store.MonthlyBills" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Months" EntityType="KanakTiffinsModel.Store.Months" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Areas" EntityType="KanakTiffinsModel.Store.Areas" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="CustomerDetails" EntityType="KanakTiffinsModel.Store.CustomerDetails" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="CustomerDues" EntityType="KanakTiffinsModel.Store.CustomerDues" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="CustomerPaymentHistory" EntityType="KanakTiffinsModel.Store.CustomerPaymentHistory" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ExtraCharges" EntityType="KanakTiffinsModel.Store.ExtraCharges" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="LunchOrDinner" EntityType="KanakTiffinsModel.Store.LunchOrDinner" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="MealPlans" EntityType="KanakTiffinsModel.Store.MealPlans" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="MonthlyBills" EntityType="KanakTiffinsModel.Store.MonthlyBills" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Months" EntityType="KanakTiffinsModel.Store.Months" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
           <AssociationSet Name="FK_BillingHistory_CustomerDetails" Association="KanakTiffinsModel.Store.FK_BillingHistory_CustomerDetails">
             <End Role="CustomerDetails" EntitySet="CustomerDetails" />
             <End Role="CustomerDues" EntitySet="CustomerDues" />
@@ -237,8 +237,8 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="KanakTiffinsModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="KanakTiffinsEntities" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="KanakTiffinsModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="KanakTiffinsEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="Areas" EntityType="KanakTiffinsModel.Area" />
           <EntitySet Name="CustomerDetails" EntityType="KanakTiffinsModel.CustomerDetail" />
           <EntitySet Name="CustomerDues" EntityType="KanakTiffinsModel.CustomerDue" />

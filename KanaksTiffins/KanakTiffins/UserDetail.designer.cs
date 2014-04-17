@@ -57,6 +57,7 @@
             this.label_carryForwardAmount = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.linkLabel_paymentHistory = new System.Windows.Forms.LinkLabel();
+            this.linkLabel_payment = new System.Windows.Forms.LinkLabel();
             this.groupBox_billingHistory.SuspendLayout();
             this.groupBox_userDetails.SuspendLayout();
             this.SuspendLayout();
@@ -349,11 +350,23 @@
             this.linkLabel_paymentHistory.Text = "View Payment History";
             this.linkLabel_paymentHistory.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_paymentHistory_LinkClicked);
             // 
+            // linkLabel_payment
+            // 
+            this.linkLabel_payment.AutoSize = true;
+            this.linkLabel_payment.Location = new System.Drawing.Point(1027, 113);
+            this.linkLabel_payment.Name = "linkLabel_payment";
+            this.linkLabel_payment.Size = new System.Drawing.Size(95, 13);
+            this.linkLabel_payment.TabIndex = 18;
+            this.linkLabel_payment.TabStop = true;
+            this.linkLabel_payment.Text = "Customer Payment";
+            this.linkLabel_payment.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_payment_LinkClicked);
+            // 
             // UserDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 656);
+            this.Controls.Add(this.linkLabel_payment);
             this.Controls.Add(this.linkLabel_paymentHistory);
             this.Controls.Add(this.label_carryForwardAmount);
             this.Controls.Add(this.label12);
@@ -409,5 +422,6 @@
         private System.Windows.Forms.TextBox textBox_initialBalance;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.LinkLabel linkLabel_paymentHistory;
+        private System.Windows.Forms.LinkLabel linkLabel_payment;
     }
 }
