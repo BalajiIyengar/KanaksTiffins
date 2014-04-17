@@ -40,18 +40,18 @@ namespace KanakTiffins
                 //Validation
                 if (textBox_addNewMaster.Text.Length == 0 )
                 {
-                    MessageBox.Show("Please enter a value.");
+                    MessageBox.Show("Please enter a value.", "Error");
                     return;
                 }
                 int textValue;
                 if (Int32.TryParse(textBox_addNewMaster.Text.Trim(), out textValue))
                 {
-                    MessageBox.Show("Please enter a valid value.");
+                    MessageBox.Show("Please enter a valid value.", "Error");
                     return;
                 }
                 if (db.Areas.Select(x => x.AreaName).Contains(textBox_addNewMaster.Text))
                 {
-                    MessageBox.Show("This value already exists.");
+                    MessageBox.Show("This value already exists.", "Error");
                     return;
                 }
 
@@ -68,23 +68,23 @@ namespace KanakTiffins
                 //Validation
                 if (textBox_addNewMaster.Text.Length == 0 )
                 {
-                    MessageBox.Show("Please enter a value.");
+                    MessageBox.Show("Please enter a value.", "Error");
                     return;
                 }                
                 int textValue=0;
                 if (!Int32.TryParse(textBox_addNewMaster.Text.Trim(), out textValue))
                 {
-                    MessageBox.Show("Please enter a valid number.");
+                    MessageBox.Show("Please enter a valid number.", "Error");
                     return;
                 }               
                 if (Int32.Parse(textBox_addNewMaster.Text) <= 0)
                 {
-                    MessageBox.Show("Please enter a positive value for Meal Plan.");
+                    MessageBox.Show("Please enter a positive value for Meal Plan.", "Error");
                     return;
                 }
                 if (db.MealPlans.Select(x => x.MealAmount).Contains(Int32.Parse(textBox_addNewMaster.Text)))
                 {
-                    MessageBox.Show("This Meal Plan already exists.");
+                    MessageBox.Show("This Meal Plan already exists.", "Error");
                     return;
                 }
 
@@ -96,7 +96,7 @@ namespace KanakTiffins
             }
 
             db.SaveChanges();
-            MessageBox.Show("Added Successfully.");
+            MessageBox.Show("Added Successfully.", "Success");
             this.Close(); //close the window.
         }
 

@@ -59,7 +59,7 @@ namespace KanakTiffins
             textBox_EmailId.Text = selectedCustomer.EmailAddress;
             textBox_Deposit.Text = selectedCustomer.DepositAmount.ToString();
             textBox_DabbaWalaDeliveryCharges.Text = selectedCustomer.DefaultDabbawalaCharges.ToString();
-            comboBox_area.SelectedValue = selectedCustomer.AreaId;
+            comboBox_area.SelectedItem = selectedCustomer.Area;
             comboBox_typeOfLunch.SelectedValue = selectedCustomer.MealPlanId;
             comboBox_lunchOrDinner.SelectedValue = selectedCustomer.LunchOrDinnerId;
         }
@@ -71,16 +71,21 @@ namespace KanakTiffins
         private bool validate()
         {            
             bool errorOccurred = false;
-            String errorMessage = "Please correct the following errors: \n\n";
+            String errorMessage = "";
 
             if (textBox_firstName.Text.Trim().Equals(""))
             {
                 errorOccurred = true;
                 errorMessage += "-> Please enter a First Name \n";
             }
+            if (comboBox_area.Text.Trim().Equals(""))
+            {
+                errorOccurred = true;
+                errorMessage += "-> Please select an Area \n";
+            }
             if (errorOccurred)
             {
-                MessageBox.Show(errorMessage);                
+                MessageBox.Show(errorMessage, "Error");                
             }
 
             return errorOccurred;
@@ -147,11 +152,11 @@ namespace KanakTiffins
 
             if (!exceptionOccured)
             {
-                MessageBox.Show("User added successfully.");
+                MessageBox.Show("User added successfully.", "Success");
             }
             else
             {
-                MessageBox.Show("Something went wrong.");
+                MessageBox.Show("Something went wrong.", "Error");
             }
         }
 
@@ -204,7 +209,7 @@ namespace KanakTiffins
             //Commit the changes.
             db.SaveChanges();
 
-            MessageBox.Show("Updated Successfully.");
+            MessageBox.Show("Updated Successfully.", "Success");
         }
 
         /// <summary>

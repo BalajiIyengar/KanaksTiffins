@@ -179,6 +179,13 @@ namespace KanakTiffins
                 }
             }
 
+            //For Sundays, enter in Comments: Sunday
+            foreach (MonthlyBill dailyBill in thisMonthsBill)
+            {
+                if (dailyBill.DateTaken.DayOfWeek == DayOfWeek.Sunday)
+                    dailyBill.Comments = "Sunday";
+            }           
+
             dataGridView_billForThisMonth.EditMode = DataGridViewEditMode.EditOnEnter;
             dataGridView_billForThisMonth.DataSource = thisMonthsBill;
 
@@ -220,6 +227,14 @@ namespace KanakTiffins
                 dataGridView_billForThisMonth.EditMode = DataGridViewEditMode.EditOnEnter;
                 dataGridView_billForThisMonth.Columns["CustomerDetail"].Visible = false;
 
+                dataGridView_billForThisMonth.Columns["DateTaken"].DefaultCellStyle.Format = "dd-MMM-yy";
+
+                //Change the HeaderText for some columns to make them more understandable.
+                dataGridView_billForThisMonth.Columns["DateTaken"].HeaderText = "Date Taken";
+                dataGridView_billForThisMonth.Columns["LunchAmount"].HeaderText = "Lunch";
+                dataGridView_billForThisMonth.Columns["DinnerAmount"].HeaderText = "Dinner";
+                dataGridView_billForThisMonth.Columns["DailyPayment"].HeaderText = "Daily Payments";
+
                 highlightWeekends(dataGridView_billForThisMonth.DataSource as List<MonthlyBill>);               
 
                 try
@@ -249,7 +264,7 @@ namespace KanakTiffins
                 }                            
             }
             catch (NullReferenceException ex)
-            { MessageBox.Show(ex.StackTrace + " " + ex.Message); }                    
+            { MessageBox.Show(ex.StackTrace + " " + ex.Message, "Error"); }                    
         }
 
         private void dataGridView_billForThisMonth_KeyDown(object sender, KeyEventArgs e)
@@ -348,7 +363,7 @@ namespace KanakTiffins
             }
 
             if (errorOccurred)
-                MessageBox.Show(errorMessage);
+                MessageBox.Show(errorMessage, "Error");
 
             return errorOccurred;
         }
@@ -418,11 +433,11 @@ namespace KanakTiffins
 
                 label_billNotSaved.Visible = false;
 
-                MessageBox.Show("Updated Successfully.");                
+                MessageBox.Show("Updated Successfully.", "Success");                
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error occured while updating." + ex.Message + " " + ex.StackTrace);               
+                MessageBox.Show("Error occured while updating." + ex.Message + " " + ex.StackTrace, "Error");               
             }   
         }
 
@@ -481,7 +496,7 @@ namespace KanakTiffins
         private List<MonthlyBill> retrieveThisUsersBill(DateTime startDate, DateTime endDate)
         {
             List<MonthlyBill> billForSelectedMonth = db.MonthlyBills.Where(x => x.CustomerId == selectedCustomerId && (x.DateTaken >= startDate && x.DateTaken <= endDate)).ToList();
-            return billForSelectedMonth;
+            return billForSelectedMonth;            
         }
 
         /// <summary>
@@ -493,7 +508,10 @@ namespace KanakTiffins
         {
             saveButtonCommonFunctionality();
 
-            //GENERATE A DOCUMENT TO PRINT.            
+            //GENERATE A DOCUMENT TO PRINT.  
+            int month = comboBox_month.SelectedIndex + 1; //in the combo box, index starts from 0
+            int year = comboBox_year.SelectedValue == null ? currentMonth.TodayDate.Year : Int32.Parse(comboBox_year.SelectedValue.ToString());
+            CommonUtilities.exportDataGridViewToExcelUsingMicrosoft(dataGridView_billForThisMonth, "C:\\Bill.xlsx", selectedCustomerId, month, year);
         }
         
         /// <summary>

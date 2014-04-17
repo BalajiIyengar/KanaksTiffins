@@ -87,7 +87,7 @@ namespace KanakTiffins
                 dataGridView_searchResult.CellClick += userDetails;
             }
             catch (Exception e)
-            { MessageBox.Show(e.StackTrace); Console.WriteLine(e.StackTrace); }           
+            { MessageBox.Show(e.StackTrace, "Error"); Console.WriteLine(e.StackTrace); }           
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace KanakTiffins
             CustomerDetail selectedCustomer = db.CustomerDetails.Where(x => x.CustomerId == selectedCustomerId && x.isDeleted.Equals("N")).FirstOrDefault();
             if (selectedCustomer == null)
             {
-                MessageBox.Show("User not found. He/She may have been deleted.");                
+                MessageBox.Show("User not found. He/She may have been deleted.", "Error");                
                 return;
             }
 

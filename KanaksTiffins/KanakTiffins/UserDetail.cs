@@ -37,7 +37,7 @@ namespace KanakTiffins
             }
             catch (Exception ex)
             {
-                MessageBox.Show("User not found. He/She may have been deleted.");
+                MessageBox.Show("User not found. He/She may have been deleted.", "Error");
                 this.Close();
                 return;
             }
@@ -102,10 +102,17 @@ namespace KanakTiffins
 
             DateTime firstDayOfYear = new DateTime(year, 1, 1);
             DateTime lastDayOfYear = new DateTime(year, 12, 31);
+
+            //Retrieve ALL bills from MonthlyBills table, for this user.
             List<MonthlyBill> billsforThisUser = db.MonthlyBills.Where(x => x.CustomerId == customerId && x.DateTaken >= firstDayOfYear && x.DateTaken <= lastDayOfYear).ToList();
-            if (billsforThisUser.Count == 0)
+           
+            if (billsforThisUser.Count == 0) //If no bill found, don't proceed.
                 return;
+
+            //Custom Controls, which will be constructed at runtime.
             List<MonthlyBillCustomControl> monthlyBillControls = new List<MonthlyBillCustomControl>();
+
+            //Each month's bill in a year.
             for (int month = 1; month <= 12; month++)
             {
                 DateTime firstDayOfMonth = new DateTime(year, month, 1);
@@ -114,18 +121,28 @@ namespace KanakTiffins
                 MonthlyBillCustomControl thisMonthsBill = new MonthlyBillCustomControl();
                 Label monthLabel = thisMonthsBill.Controls["label_month"] as Label;
                 monthLabel.Text = firstDayOfMonth.ToShortDateString() + " - " + lastDayOfMonth.ToShortDateString();
+                
                 DataGridView monthlyBillGridView = thisMonthsBill.Controls["dataGridView_monthlyBill"] as DataGridView;
+                
                 List<MonthlyBill> thisMonth = billsforThisUser.Where(x => x.DateTaken >= firstDayOfMonth && x.DateTaken <= lastDayOfMonth).ToList();
-                if (thisMonth.Count == 0)
+                if (thisMonth.Count == 0) //If no bill for this month, go to the next month.
                     continue;               
 
                 monthlyBillGridView.DataSource = thisMonth;
                 monthlyBillGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 monthlyBillGridView.Columns["CustomerId"].Visible = false;
-                monthlyBillGridView.Columns["CustomerDetail"].Visible = false;                
+                monthlyBillGridView.Columns["CustomerDetail"].Visible = false;
 
-                highlightWeekends(thisMonth, monthlyBillGridView);
+                //Change the HeaderText for some columns to make them more understandable.
+                monthlyBillGridView.Columns["DateTaken"].HeaderText = "Date Taken";
+                monthlyBillGridView.Columns["DateTaken"].DefaultCellStyle.Format = "dd-MMM-yy";
+                monthlyBillGridView.Columns["LunchAmount"].HeaderText = "Lunch";
+                monthlyBillGridView.Columns["DinnerAmount"].HeaderText = "Dinner";
+                monthlyBillGridView.Columns["DailyPayment"].HeaderText = "Daily Payments";
+                
+                highlightWeekends(thisMonth, monthlyBillGridView); //NOT WORKING - BALA PLEASE CHECK!
 
+                //Set the values for the different variables on the Custom Control.
                 Label monthlyConsumptionLabel = thisMonthsBill.Controls["label_monthlyConsumption"] as Label;
                 monthlyConsumptionLabel.Text = thisMonth.Sum(x => x.LunchAmount + x.DinnerAmount).ToString();
                 Label dailyPayments = thisMonthsBill.Controls["label_dailyPayments"] as Label;
@@ -142,6 +159,11 @@ namespace KanakTiffins
             }            
         }
 
+        /// <summary>
+        /// Highlights the Weekends - Yellow for Saturdays and Red for Sundays.
+        /// </summary>
+        /// <param name="thisMonthsBill"></param>
+        /// <param name="dataGridView_billForThisMonth"></param>
         private void highlightWeekends(List<MonthlyBill> thisMonthsBill, DataGridView dataGridView_billForThisMonth)
         {
             //Highlighting sundays and saturdays
@@ -174,7 +196,7 @@ namespace KanakTiffins
             CustomerDetail selectedCustomer = db.CustomerDetails.Where(x => x.CustomerId == customerId && x.isDeleted.Equals("N")).FirstOrDefault();
             if (selectedCustomer == null)
             {
-                MessageBox.Show("User not found. He/She may have been deleted.");
+                MessageBox.Show("User not found. He/She may have been deleted.", "Error");
                 this.Close();
                 return;
             }
@@ -190,15 +212,14 @@ namespace KanakTiffins
         /// On Click of delete user button
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        
+        /// <param name="e"></param>        
         private void button_deleteUser_Click(object sender, EventArgs e)
         {
             //If this user has been deleted in another window, display error message.
             CustomerDetail selectedCustomer = db.CustomerDetails.Where(x => x.CustomerId == customerId && x.isDeleted.Equals("N")).FirstOrDefault();
             if (selectedCustomer == null)
             {
-                MessageBox.Show("User not found. He/She may have been deleted.");
+                MessageBox.Show("User not found. He/She may have been deleted.", "Error");
                 this.Close();
                 return;
             }
@@ -216,11 +237,16 @@ namespace KanakTiffins
                 {
                     Console.Write(ex.StackTrace);
                 }
-                MessageBox.Show("User deleted successfully.");
+                MessageBox.Show("User deleted successfully.", "Success");
                 this.Close();
             }
         }
 
+        /// <summary>
+        /// When the View Payment History link label is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void linkLabel_paymentHistory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             PaymentHistory paymentHistory = new PaymentHistory(customerId);

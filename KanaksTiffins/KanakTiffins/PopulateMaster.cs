@@ -35,18 +35,18 @@ namespace KanakTiffins
            //Performing Validation
            if (textBox_area.Text.Length == 0)
             {
-                MessageBox.Show("Cant Be Empty");
+                MessageBox.Show("Cant Be Empty", "Error");
                 return;
             }
             int textValue;
             if (Int32.TryParse(textBox_area.Text.Trim(), out textValue))
             {
-                MessageBox.Show("Not a Valid Name");
+                MessageBox.Show("Not a Valid Name", "Error");
                 return;
             }
             if (db.Areas.Select(x => x.AreaName).Contains(textBox_area.Text))
             {
-                MessageBox.Show("Already Exists.");
+                MessageBox.Show("Already Exists.", "Error");
                 return;
             }
 
@@ -60,7 +60,7 @@ namespace KanakTiffins
             db.Areas.AddObject(newArea);
 
             db.SaveChanges();
-            MessageBox.Show("Added Successfully");
+            MessageBox.Show("Added Successfully", "Success");
 
             //Refersh the Area combo-box.
             CommonUtilities.populateAreas(comboBox_areas);
@@ -76,23 +76,23 @@ namespace KanakTiffins
             //Performing validation.
             if (textBox_mealPlan.Text.Length == 0)
             {
-                MessageBox.Show("Cant Be Empty");
+                MessageBox.Show("Cant Be Empty", "Error");
                 return;
             }
             int textValue = 0;
             if (!Int32.TryParse(textBox_mealPlan.Text.Trim(), out textValue))
             {
-                MessageBox.Show("Not a Valid Number");
+                MessageBox.Show("Not a Valid Number", "Error");
                 return;
             }
             if (Int32.Parse(textBox_mealPlan.Text) <= 0)
             {
-                MessageBox.Show("Cant Be a Negative Number.");
+                MessageBox.Show("Cant Be a Negative Number.", "Error");
                 return;
             }
             if (db.MealPlans.Select(x => x.MealAmount).Contains(Int32.Parse(textBox_mealPlan.Text)))
             {
-                MessageBox.Show("Already Exists.");
+                MessageBox.Show("Already Exists.", "Error");
                 return;
             }
             
@@ -105,13 +105,13 @@ namespace KanakTiffins
 
             if (newMealPlan.MealAmount == 0)
             {
-                MessageBox.Show("Cannot be 0");
+                MessageBox.Show("Cannot be 0", "Error");
                 return;
             }
             db.MealPlans.AddObject(newMealPlan);
 
             db.SaveChanges();
-            MessageBox.Show("Added Successfully");
+            MessageBox.Show("Added Successfully", "Success");
 
             //Refresh the MealPlan combo-box.
             CommonUtilities.populateMealPlans(comboBox_mealPlans);
@@ -129,7 +129,7 @@ namespace KanakTiffins
             //Check whether this AreaId has already been used anywhere.
             if (db.CustomerDetails.Select(x => x.AreaId).Contains(selectedArea.AreaId))
             {
-                MessageBox.Show("Cannot delete this Area ("+selectedArea.AreaName+"). It is already being used by one/many customers. Please contact the developers for more information.");
+                MessageBox.Show("Cannot delete this Area (" + selectedArea.AreaName + "). It is already being used by one/many customers. Please contact the developers for more information.", "Error");
                 return;
             }
 
@@ -137,7 +137,7 @@ namespace KanakTiffins
             db.Areas.DeleteObject(selectedArea);
             db.SaveChanges();
             CommonUtilities.populateAreas(comboBox_areas);
-            MessageBox.Show("Deleted Successfully");
+            MessageBox.Show("Deleted Successfully", "Success");
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace KanakTiffins
             //Check whether this MealPlanId has already been used anywhere.
             if (db.CustomerDetails.Select(x => x.MealPlanId).Contains(selectedMealPlan.MealPlanId))
             {
-                MessageBox.Show("Cannot delete this Meal Plan ("+selectedMealPlan.MealAmount+"). It is already being used by one/many customers. Please contact the developers for more information.");
+                MessageBox.Show("Cannot delete this Meal Plan (" + selectedMealPlan.MealAmount + "). It is already being used by one/many customers. Please contact the developers for more information.", "Error");
                 return;
             }
 
@@ -160,7 +160,7 @@ namespace KanakTiffins
             db.MealPlans.DeleteObject(selectedMealPlan);
             db.SaveChanges();
             CommonUtilities.populateMealPlans(comboBox_mealPlans);
-            MessageBox.Show("Deleted Successfully");
+            MessageBox.Show("Deleted Successfully", "Success");
         }
         /// <summary>
         /// On Change of an Area, rendering appropriate value on the textboxes

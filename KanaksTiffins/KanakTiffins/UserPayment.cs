@@ -108,7 +108,7 @@ namespace KanakTiffins
             //Validation To check for Empty Values
             if (textBox_amountPaid.Text.Trim().Length == 0 || textBox_paymentMethod.Text.Trim().Length == 0)
             {
-                MessageBox.Show("None of the Parameters can be Zero or Empty");
+                MessageBox.Show("None of the Parameters can be Zero or Empty", "Error");
                 return;
             }
 
@@ -116,7 +116,7 @@ namespace KanakTiffins
             var withoutSpecial = new string(textBox_amountPaid.Text.Where(c => Char.IsLetterOrDigit(c) || Char.IsWhiteSpace(c)).ToArray());
             if (textBox_amountPaid.Text != withoutSpecial)
             {
-                MessageBox.Show("Amount Paid Contains Special Characters");
+                MessageBox.Show("Amount Paid Contains Special Characters", "Error");
                 return;
             }
 
@@ -129,7 +129,7 @@ namespace KanakTiffins
             db.CustomerPaymentHistories.AddObject(paymentDetails);
             db.SaveChanges();
 
-            MessageBox.Show("Added Payment Details Successfully");           
+            MessageBox.Show("Added Payment Details Successfully", "Success");           
 
             displayPaymentHistory();
 

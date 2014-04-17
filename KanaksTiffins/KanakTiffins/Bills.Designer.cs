@@ -246,7 +246,7 @@
             this.button_generateBill.Name = "button_generateBill";
             this.button_generateBill.Size = new System.Drawing.Size(75, 23);
             this.button_generateBill.TabIndex = 11;
-            this.button_generateBill.Text = "Generate Bill";
+            this.button_generateBill.Text = "Print Bill";
             this.button_generateBill.UseVisualStyleBackColor = true;
             this.button_generateBill.Click += new System.EventHandler(this.button_generateBill_Click);
             // 
