@@ -44,7 +44,9 @@ namespace KanakTiffins
                 years.Add(year);
             }
             comboBox_year.DataSource = years;
-            comboBox_year.SelectedItem = currentMonth.TodayDate.Year;  
+            comboBox_year.SelectedItem = currentMonth.TodayDate.Year;
+
+            dataGridView_billForThisMonth.DataError += new DataGridViewDataErrorEventHandler(gridViewError);
         }
 
         /// <summary>
@@ -184,12 +186,25 @@ namespace KanakTiffins
             {
                 if (dailyBill.DateTaken.DayOfWeek == DayOfWeek.Sunday)
                     dailyBill.Comments = "Sunday";
-            }           
-
+            }  
             dataGridView_billForThisMonth.EditMode = DataGridViewEditMode.EditOnEnter;
             dataGridView_billForThisMonth.DataSource = thisMonthsBill;
-
             modifyDataGridView();    
+        }
+
+        /// <summary>
+        /// Invoked when there is Any error in Input Format or Range in the gridviewcells
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gridViewError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // If the data source raises an exception when a cell value is  
+            // commited, display an error message. 
+            if (e.Exception != null )
+            {
+                MessageBox.Show("Not a Valid Number or Beyond Range.");
+            }
         }
 
         /// <summary>
@@ -270,9 +285,10 @@ namespace KanakTiffins
         private void dataGridView_billForThisMonth_KeyDown(object sender, KeyEventArgs e)
         {
                 e.Handled = true;
-                DataGridViewCell cell = dataGridView_billForThisMonth.CurrentCell;
-                dataGridView_billForThisMonth.CurrentCell = cell;
-                dataGridView_billForThisMonth.BeginEdit(true);            
+               
+                dataGridView_billForThisMonth.BeginEdit(true);
+               
+              
         }
 
         /// <summary>

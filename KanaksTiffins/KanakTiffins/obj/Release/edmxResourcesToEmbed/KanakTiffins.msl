@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="KanakTiffinsModelStoreContainer" CdmEntityContainer="KanakTiffinsEntities">
+    <EntitySetMapping Name="Areas">
+      <EntityTypeMapping TypeName="KanakTiffinsModel.Area">
+        <MappingFragment StoreEntitySet="Areas">
+          <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+          <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerDetails">
+      <EntityTypeMapping TypeName="KanakTiffinsModel.CustomerDetail">
+        <MappingFragment StoreEntitySet="CustomerDetails">
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="DepositAmount" ColumnName="DepositAmount" />
+          <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+          <ScalarProperty Name="MealPlanId" ColumnName="MealPlanId" />
+          <ScalarProperty Name="LunchOrDinnerId" ColumnName="LunchOrDinnerId" />
+          <ScalarProperty Name="DefaultDabbawalaCharges" ColumnName="DefaultDabbawalaCharges" />
+          <ScalarProperty Name="InitialBalance" ColumnName="InitialBalance" />
+          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerDues">
+      <EntityTypeMapping TypeName="KanakTiffinsModel.CustomerDue">
+        <MappingFragment StoreEntitySet="CustomerDues">
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="DueAmount" ColumnName="DueAmount" />
+          <ScalarProperty Name="CarryforwardAmount" ColumnName="CarryforwardAmount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerPaymentHistories">
+      <EntityTypeMapping TypeName="KanakTiffinsModel.CustomerPaymentHistory">
+        <MappingFragment StoreEntitySet="CustomerPaymentHistory">
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="PaidOn" ColumnName="PaidOn" />
+          <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExtraCharges">
+      <EntityTypeMapping TypeName="KanakTiffinsModel.ExtraCharge">
+        <MappingFragment StoreEntitySet="ExtraCharges">
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="DabbawalaCharges" ColumnName="DabbawalaCharges" />
+          <ScalarProperty Name="DeliveryCharges" ColumnName="DeliveryCharges" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LunchOrDinners">
+      <EntityTypeMapping TypeName="KanakTiffinsModel.LunchOrDinner">
+        <MappingFragment StoreEntitySet="LunchOrDinner">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MealPlans">
+      <EntityTypeMapping TypeName="KanakTiffinsModel.MealPlan">
+        <MappingFragment StoreEntitySet="MealPlans">
+          <ScalarProperty Name="MealPlanId" ColumnName="MealPlanId" />
+          <ScalarProperty Name="MealAmount" ColumnName="MealAmount" />
+          <ScalarProperty Name="MealDescription" ColumnName="MealDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MonthlyBills">
+      <EntityTypeMapping TypeName="KanakTiffinsModel.MonthlyBill">
+        <MappingFragment StoreEntitySet="MonthlyBills">
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="DateTaken" ColumnName="DateTaken" />
+          <ScalarProperty Name="LunchAmount" ColumnName="LunchAmount" />
+          <ScalarProperty Name="DinnerAmount" ColumnName="DinnerAmount" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="DailyPayment" ColumnName="DailyPayment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Months">
+      <EntityTypeMapping TypeName="KanakTiffinsModel.Month">
+        <MappingFragment StoreEntitySet="Months">
+          <ScalarProperty Name="MonthId" ColumnName="MonthId" />
+          <ScalarProperty Name="MonthName" ColumnName="MonthName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

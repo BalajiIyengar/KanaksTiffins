@@ -33,17 +33,30 @@ namespace KanakTiffins
         private void button_addArea_Click(object sender, EventArgs e)
         {
            //Performing Validation
-           if (textBox_area.Text.Length == 0)
+            if (textBox_area.Text.Length == 0 && textBox_editArea.Text.Length == 0)
             {
-                MessageBox.Show("Cant Be Empty", "Error");
+                MessageBox.Show("Please Enter a Valid Value", "Error");
                 return;
             }
-            int textValue;
-            if (Int32.TryParse(textBox_area.Text.Trim(), out textValue))
-            {
-                MessageBox.Show("Not a Valid Name", "Error");
-                return;
-            }
+
+           int textValue;
+
+           if (textBox_editArea.Text.Trim().Length  != 0)
+           {
+               String areaName = comboBox_areas.SelectedValue.ToString();
+               db.Areas.Where(x => x.AreaName == areaName).Single().AreaName = textBox_editArea.Text;
+               db.SaveChanges();
+               //Refersh the Area combo-box.
+               CommonUtilities.populateAreas(comboBox_areas);
+               MessageBox.Show("Updated Successfully", "Success");               
+           }
+
+           if (Int32.TryParse(textBox_area.Text.Trim(), out textValue))
+           {
+               MessageBox.Show("Not a Valid Name", "Error");
+               return;
+           }
+
             if (db.Areas.Select(x => x.AreaName).Contains(textBox_area.Text))
             {
                 MessageBox.Show("Already Exists.", "Error");
@@ -52,18 +65,20 @@ namespace KanakTiffins
 
             //Validation succeeded.
 
-            int lastAreaId = db.Areas.Select(x => x.AreaId).Max();
-            Area newArea = new Area();
-            newArea.AreaId = lastAreaId + 1;
-            newArea.AreaName = textBox_area.Text;
+                int lastAreaId = 0;
 
-            db.Areas.AddObject(newArea);
+                if (db.Areas.Count() != 0)
+                lastAreaId = db.Areas.Select(x => x.AreaId).Max();
 
-            db.SaveChanges();
-            MessageBox.Show("Added Successfully", "Success");
+                Area newArea = new Area();
+                newArea.AreaId = lastAreaId + 1;
+                newArea.AreaName = textBox_area.Text;
 
-            //Refersh the Area combo-box.
-            CommonUtilities.populateAreas(comboBox_areas);
+                db.Areas.AddObject(newArea);
+                MessageBox.Show("Added Successfully", "Success");
+                db.SaveChanges();
+                //Refersh the Area combo-box.
+                CommonUtilities.populateAreas(comboBox_areas);
         }
 
         /// <summary>
@@ -74,11 +89,13 @@ namespace KanakTiffins
         private void button_addMealPlan_Click(object sender, EventArgs e)
         {
             //Performing validation.
-            if (textBox_mealPlan.Text.Length == 0)
+            if (textBox_mealPlan.Text.Length == 0 && textBox_editMealPlan.Text.Length == 0)
             {
-                MessageBox.Show("Cant Be Empty", "Error");
+                MessageBox.Show("Please enter a valid Value", "Error");
                 return;
             }
+
+
             int textValue = 0;
             if (!Int32.TryParse(textBox_mealPlan.Text.Trim(), out textValue))
             {
@@ -126,18 +143,26 @@ namespace KanakTiffins
         {
             Area selectedArea = comboBox_areas.SelectedItem as Area;
 
-            //Check whether this AreaId has already been used anywhere.
-            if (db.CustomerDetails.Select(x => x.AreaId).Contains(selectedArea.AreaId))
+            if (selectedArea.AreaName != null)
             {
-                MessageBox.Show("Cannot delete this Area (" + selectedArea.AreaName + "). It is already being used by one/many customers. Please contact the developers for more information.", "Error");
+                //Check whether this AreaId has already been used anywhere.
+                if (db.CustomerDetails.Select(x => x.AreaId).Contains(selectedArea.AreaId))
+                {
+                    MessageBox.Show("Cannot delete this Area (" + selectedArea.AreaName + "). It is already being used by one/many customers. Please contact the developers for more information.", "Error");
+                    return;
+                }
+
+                //This area can be deleted.
+                db.Areas.DeleteObject(selectedArea);
+                db.SaveChanges();
+                CommonUtilities.populateAreas(comboBox_areas);
+                MessageBox.Show("Deleted Successfully", "Success");
+            }
+            else
+            {
+                MessageBox.Show("Please Select the Area to be Deleted", "Error");
                 return;
             }
-
-            //This area can be deleted.
-            db.Areas.DeleteObject(selectedArea);
-            db.SaveChanges();
-            CommonUtilities.populateAreas(comboBox_areas);
-            MessageBox.Show("Deleted Successfully", "Success");
         }
 
         /// <summary>

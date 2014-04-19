@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KanakTiffinsModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="KanakTiffinsEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+    <EntitySet Name="Areas" EntityType="KanakTiffinsModel.Area" />
+    <EntitySet Name="CustomerDetails" EntityType="KanakTiffinsModel.CustomerDetail" />
+    <EntitySet Name="CustomerDues" EntityType="KanakTiffinsModel.CustomerDue" />
+    <EntitySet Name="CustomerPaymentHistories" EntityType="KanakTiffinsModel.CustomerPaymentHistory" />
+    <EntitySet Name="ExtraCharges" EntityType="KanakTiffinsModel.ExtraCharge" />
+    <EntitySet Name="LunchOrDinners" EntityType="KanakTiffinsModel.LunchOrDinner" />
+    <EntitySet Name="MealPlans" EntityType="KanakTiffinsModel.MealPlan" />
+    <EntitySet Name="MonthlyBills" EntityType="KanakTiffinsModel.MonthlyBill" />
+    <EntitySet Name="Months" EntityType="KanakTiffinsModel.Month" />
+    <AssociationSet Name="FK_CustomerDetails_Areas" Association="KanakTiffinsModel.FK_CustomerDetails_Areas">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="CustomerDetails" EntitySet="CustomerDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BillingHistory_CustomerDetails" Association="KanakTiffinsModel.FK_BillingHistory_CustomerDetails">
+      <End Role="CustomerDetails" EntitySet="CustomerDetails" />
+      <End Role="CustomerDues" EntitySet="CustomerDues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerDetails_LunchOrDinner" Association="KanakTiffinsModel.FK_CustomerDetails_LunchOrDinner">
+      <End Role="LunchOrDinner" EntitySet="LunchOrDinners" />
+      <End Role="CustomerDetails" EntitySet="CustomerDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerDetails_MealPlans" Association="KanakTiffinsModel.FK_CustomerDetails_MealPlans">
+      <End Role="MealPlans" EntitySet="MealPlans" />
+      <End Role="CustomerDetails" EntitySet="CustomerDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerPaymentHistory_CustomerDetails" Association="KanakTiffinsModel.FK_CustomerPaymentHistory_CustomerDetails">
+      <End Role="CustomerDetails" EntitySet="CustomerDetails" />
+      <End Role="CustomerPaymentHistory" EntitySet="CustomerPaymentHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DabbawalaCharges_CustomerDetails" Association="KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails">
+      <End Role="CustomerDetails" EntitySet="CustomerDetails" />
+      <End Role="ExtraCharges" EntitySet="ExtraCharges" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MonthlyBills_CustomerDetails" Association="KanakTiffinsModel.FK_MonthlyBills_CustomerDetails">
+      <End Role="CustomerDetails" EntitySet="CustomerDetails" />
+      <End Role="MonthlyBills" EntitySet="MonthlyBills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DabbawalaCharges_Months" Association="KanakTiffinsModel.FK_DabbawalaCharges_Months">
+      <End Role="Months" EntitySet="Months" />
+      <End Role="ExtraCharges" EntitySet="ExtraCharges" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="AreaId" />
+    </Key>
+    <Property Name="AreaId" Type="Int32" Nullable="false" />
+    <Property Name="AreaName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="CustomerDetails" Relationship="KanakTiffinsModel.FK_CustomerDetails_Areas" FromRole="Areas" ToRole="CustomerDetails" />
+  </EntityType>
+  <EntityType Name="CustomerDetail">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="LastName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="15" Unicode="true" FixedLength="false" />
+    <Property Name="EmailAddress" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DepositAmount" Type="Int32" />
+    <Property Name="AreaId" Type="Int32" Nullable="false" />
+    <Property Name="MealPlanId" Type="Int32" Nullable="false" />
+    <Property Name="LunchOrDinnerId" Type="Int32" Nullable="false" />
+    <Property Name="DefaultDabbawalaCharges" Type="Int32" Nullable="false" />
+    <Property Name="InitialBalance" Type="Int32" Nullable="false" />
+    <Property Name="isDeleted" Type="String" MaxLength="1" Unicode="false" FixedLength="true" />
+    <NavigationProperty Name="Area" Relationship="KanakTiffinsModel.FK_CustomerDetails_Areas" FromRole="CustomerDetails" ToRole="Areas" />
+    <NavigationProperty Name="CustomerDue" Relationship="KanakTiffinsModel.FK_BillingHistory_CustomerDetails" FromRole="CustomerDetails" ToRole="CustomerDues" />
+    <NavigationProperty Name="LunchOrDinner" Relationship="KanakTiffinsModel.FK_CustomerDetails_LunchOrDinner" FromRole="CustomerDetails" ToRole="LunchOrDinner" />
+    <NavigationProperty Name="MealPlan" Relationship="KanakTiffinsModel.FK_CustomerDetails_MealPlans" FromRole="CustomerDetails" ToRole="MealPlans" />
+    <NavigationProperty Name="CustomerPaymentHistories" Relationship="KanakTiffinsModel.FK_CustomerPaymentHistory_CustomerDetails" FromRole="CustomerDetails" ToRole="CustomerPaymentHistory" />
+    <NavigationProperty Name="ExtraCharges" Relationship="KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails" FromRole="CustomerDetails" ToRole="ExtraCharges" />
+    <NavigationProperty Name="MonthlyBills" Relationship="KanakTiffinsModel.FK_MonthlyBills_CustomerDetails" FromRole="CustomerDetails" ToRole="MonthlyBills" />
+  </EntityType>
+  <EntityType Name="CustomerDue">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="DueAmount" Type="Int32" Nullable="false" />
+    <Property Name="CarryforwardAmount" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CustomerDetail" Relationship="KanakTiffinsModel.FK_BillingHistory_CustomerDetails" FromRole="CustomerDues" ToRole="CustomerDetails" />
+  </EntityType>
+  <EntityType Name="CustomerPaymentHistory">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+      <PropertyRef Name="PaidOn" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="PaidAmount" Type="Int32" Nullable="false" />
+    <Property Name="PaidOn" Type="DateTime" Nullable="false" />
+    <Property Name="PaymentMethod" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="CustomerDetail" Relationship="KanakTiffinsModel.FK_CustomerPaymentHistory_CustomerDetails" FromRole="CustomerPaymentHistory" ToRole="CustomerDetails" />
+  </EntityType>
+  <EntityType Name="ExtraCharge">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+      <PropertyRef Name="MonthId" />
+      <PropertyRef Name="Year" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="MonthId" Type="Int32" Nullable="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="DabbawalaCharges" Type="Int32" Nullable="false" />
+    <Property Name="DeliveryCharges" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CustomerDetail" Relationship="KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails" FromRole="ExtraCharges" ToRole="CustomerDetails" />
+    <NavigationProperty Name="Month" Relationship="KanakTiffinsModel.FK_DabbawalaCharges_Months" FromRole="ExtraCharges" ToRole="Months" />
+  </EntityType>
+  <EntityType Name="LunchOrDinner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="CustomerDetails" Relationship="KanakTiffinsModel.FK_CustomerDetails_LunchOrDinner" FromRole="LunchOrDinner" ToRole="CustomerDetails" />
+  </EntityType>
+  <EntityType Name="MealPlan">
+    <Key>
+      <PropertyRef Name="MealPlanId" />
+    </Key>
+    <Property Name="MealPlanId" Type="Int32" Nullable="false" />
+    <Property Name="MealAmount" Type="Int32" Nullable="false" />
+    <Property Name="MealDescription" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="CustomerDetails" Relationship="KanakTiffinsModel.FK_CustomerDetails_MealPlans" FromRole="MealPlans" ToRole="CustomerDetails" />
+  </EntityType>
+  <EntityType Name="MonthlyBill">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+      <PropertyRef Name="DateTaken" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="DateTaken" Type="DateTime" Nullable="false" />
+    <Property Name="LunchAmount" Type="Int32" Nullable="false" />
+    <Property Name="DinnerAmount" Type="Int32" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DailyPayment" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CustomerDetail" Relationship="KanakTiffinsModel.FK_MonthlyBills_CustomerDetails" FromRole="MonthlyBills" ToRole="CustomerDetails" />
+  </EntityType>
+  <EntityType Name="Month">
+    <Key>
+      <PropertyRef Name="MonthId" />
+    </Key>
+    <Property Name="MonthId" Type="Int32" Nullable="false" />
+    <Property Name="MonthName" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="ExtraCharges" Relationship="KanakTiffinsModel.FK_DabbawalaCharges_Months" FromRole="Months" ToRole="ExtraCharges" />
+  </EntityType>
+  <Association Name="FK_CustomerDetails_Areas">
+    <End Role="Areas" Type="KanakTiffinsModel.Area" Multiplicity="1" />
+    <End Role="CustomerDetails" Type="KanakTiffinsModel.CustomerDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Areas">
+        <PropertyRef Name="AreaId" />
+      </Principal>
+      <Dependent Role="CustomerDetails">
+        <PropertyRef Name="AreaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BillingHistory_CustomerDetails">
+    <End Role="CustomerDetails" Type="KanakTiffinsModel.CustomerDetail" Multiplicity="1" />
+    <End Role="CustomerDues" Type="KanakTiffinsModel.CustomerDue" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerDetails">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="CustomerDues">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerDetails_LunchOrDinner">
+    <End Role="LunchOrDinner" Type="KanakTiffinsModel.LunchOrDinner" Multiplicity="1" />
+    <End Role="CustomerDetails" Type="KanakTiffinsModel.CustomerDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LunchOrDinner">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustomerDetails">
+        <PropertyRef Name="LunchOrDinnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerDetails_MealPlans">
+    <End Role="MealPlans" Type="KanakTiffinsModel.MealPlan" Multiplicity="1" />
+    <End Role="CustomerDetails" Type="KanakTiffinsModel.CustomerDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MealPlans">
+        <PropertyRef Name="MealPlanId" />
+      </Principal>
+      <Dependent Role="CustomerDetails">
+        <PropertyRef Name="MealPlanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerPaymentHistory_CustomerDetails">
+    <End Role="CustomerDetails" Type="KanakTiffinsModel.CustomerDetail" Multiplicity="1" />
+    <End Role="CustomerPaymentHistory" Type="KanakTiffinsModel.CustomerPaymentHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerDetails">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="CustomerPaymentHistory">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DabbawalaCharges_CustomerDetails">
+    <End Role="CustomerDetails" Type="KanakTiffinsModel.CustomerDetail" Multiplicity="1" />
+    <End Role="ExtraCharges" Type="KanakTiffinsModel.ExtraCharge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerDetails">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="ExtraCharges">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MonthlyBills_CustomerDetails">
+    <End Role="CustomerDetails" Type="KanakTiffinsModel.CustomerDetail" Multiplicity="1" />
+    <End Role="MonthlyBills" Type="KanakTiffinsModel.MonthlyBill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerDetails">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="MonthlyBills">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DabbawalaCharges_Months">
+    <End Role="Months" Type="KanakTiffinsModel.Month" Multiplicity="1" />
+    <End Role="ExtraCharges" Type="KanakTiffinsModel.ExtraCharge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Months">
+        <PropertyRef Name="MonthId" />
+      </Principal>
+      <Dependent Role="ExtraCharges">
+        <PropertyRef Name="MonthId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
