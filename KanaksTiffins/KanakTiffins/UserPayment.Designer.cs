@@ -178,7 +178,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(147, 48);
+            this.label9.Location = new System.Drawing.Point(152, 55);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(66, 13);
             this.label9.TabIndex = 16;
@@ -187,7 +187,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 48);
+            this.label10.Location = new System.Drawing.Point(11, 55);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(51, 13);
             this.label10.TabIndex = 15;
@@ -196,7 +196,7 @@
             // textBox_carryForwardAmount
             // 
             this.textBox_carryForwardAmount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.textBox_carryForwardAmount.Location = new System.Drawing.Point(219, 45);
+            this.textBox_carryForwardAmount.Location = new System.Drawing.Point(224, 52);
             this.textBox_carryForwardAmount.Name = "textBox_carryForwardAmount";
             this.textBox_carryForwardAmount.ReadOnly = true;
             this.textBox_carryForwardAmount.Size = new System.Drawing.Size(65, 20);
@@ -205,7 +205,7 @@
             // textBox_dueAmount
             // 
             this.textBox_dueAmount.ForeColor = System.Drawing.Color.Red;
-            this.textBox_dueAmount.Location = new System.Drawing.Point(62, 42);
+            this.textBox_dueAmount.Location = new System.Drawing.Point(67, 49);
             this.textBox_dueAmount.Name = "textBox_dueAmount";
             this.textBox_dueAmount.ReadOnly = true;
             this.textBox_dueAmount.Size = new System.Drawing.Size(65, 20);
@@ -221,7 +221,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(184, 16);
+            this.label5.Location = new System.Drawing.Point(189, 23);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 10;
@@ -230,7 +230,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 16);
+            this.label4.Location = new System.Drawing.Point(26, 23);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 9;
@@ -238,7 +238,7 @@
             // 
             // textBox_area
             // 
-            this.textBox_area.Location = new System.Drawing.Point(219, 13);
+            this.textBox_area.Location = new System.Drawing.Point(224, 20);
             this.textBox_area.Name = "textBox_area";
             this.textBox_area.ReadOnly = true;
             this.textBox_area.Size = new System.Drawing.Size(82, 20);
@@ -246,7 +246,7 @@
             // 
             // textBox_userName
             // 
-            this.textBox_userName.Location = new System.Drawing.Point(62, 13);
+            this.textBox_userName.Location = new System.Drawing.Point(67, 20);
             this.textBox_userName.Name = "textBox_userName";
             this.textBox_userName.ReadOnly = true;
             this.textBox_userName.Size = new System.Drawing.Size(109, 20);

@@ -35,6 +35,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button_Search_MealPlan = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.textBox_lastName = new System.Windows.Forms.TextBox();
             this.button_Search_UserDetails = new System.Windows.Forms.Button();
             this.comboBox_Area = new System.Windows.Forms.ComboBox();
@@ -42,6 +43,7 @@
             this.textBox_firstName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView_searchResult = new System.Windows.Forms.DataGridView();
+            this.textBox_balance = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_searchResult)).BeginInit();
@@ -107,6 +109,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox_balance);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.textBox_lastName);
             this.groupBox1.Controls.Add(this.button_Search_UserDetails);
             this.groupBox1.Controls.Add(this.comboBox_Area);
@@ -119,6 +123,15 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search By User Details ";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(476, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(61, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Balance >=";
             // 
             // textBox_lastName
             // 
@@ -141,7 +154,7 @@
             // 
             this.comboBox_Area.DisplayMember = "AreaName";
             this.comboBox_Area.FormattingEnabled = true;
-            this.comboBox_Area.Location = new System.Drawing.Point(323, 22);
+            this.comboBox_Area.Location = new System.Drawing.Point(308, 22);
             this.comboBox_Area.Name = "comboBox_Area";
             this.comboBox_Area.Size = new System.Drawing.Size(136, 21);
             this.comboBox_Area.TabIndex = 4;
@@ -150,7 +163,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(288, 25);
+            this.label2.Location = new System.Drawing.Point(264, 25);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 2;
@@ -185,6 +198,13 @@
             this.dataGridView_searchResult.Size = new System.Drawing.Size(799, 357);
             this.dataGridView_searchResult.TabIndex = 7;
             this.dataGridView_searchResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.userDetails);
+            // 
+            // textBox_balance
+            // 
+            this.textBox_balance.Location = new System.Drawing.Point(543, 23);
+            this.textBox_balance.Name = "textBox_balance";
+            this.textBox_balance.Size = new System.Drawing.Size(70, 20);
+            this.textBox_balance.TabIndex = 10;
             // 
             // SearchUsers
             // 
@@ -223,5 +243,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBox_lunchOrDinner;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox_balance;
     }
 }

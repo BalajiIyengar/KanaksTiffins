@@ -92,6 +92,12 @@
       <DependentUpon>Bills.cs</DependentUpon>
     </Compile>
     <Compile Include="CommonUtilities.cs" />
+    <Compile Include="ExportUsersBills.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportUsersBills.Designer.cs">
+      <DependentUpon>ExportUsersBills.cs</DependentUpon>
+    </Compile>
     <Compile Include="KanakTiffins.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,6 +120,12 @@
     </Compile>
     <Compile Include="PopulateMaster.Designer.cs">
       <DependentUpon>PopulateMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExportBills.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportBills.Designer.cs">
+      <DependentUpon>ExportBills.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -144,6 +156,9 @@
     <EmbeddedResource Include="Bills.resx">
       <DependentUpon>Bills.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ExportUsersBills.resx">
+      <DependentUpon>ExportUsersBills.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MonthlyBillCustomControl.resx">
       <DependentUpon>MonthlyBillCustomControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PopulateMaster.resx">
       <DependentUpon>PopulateMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportBills.resx">
+      <DependentUpon>ExportBills.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -29,14 +29,22 @@ namespace KanakTiffins
         {
             String firstName = textBox_firstName.Text.ToLower();
             String lastName = textBox_lastName.Text.ToLower();
-            String areaName = comboBox_Area.SelectedValue == null ? "" : comboBox_Area.SelectedValue.ToString();            
+            String areaName = comboBox_Area.SelectedValue == null ? "" : comboBox_Area.SelectedValue.ToString();
+            int enteredBalance = 0;
+            int dummyInt = 0;
 
+            if (textBox_balance.Text.Trim().Length != 0)
+            {
+                if (!Int32.TryParse(textBox_balance.Text.ToString(), out dummyInt))
+                {
+                    MessageBox.Show("Please Enter a valid Number", "Error");
+                    return;
+                }
+                enteredBalance = Int32.Parse(textBox_balance.Text.Trim());
+            }
             //Search Result (List of usernames)
-            searchResults = db.CustomerDetails.Where(x => x.FirstName.Contains(firstName) && 
-                                                                           x.LastName.Contains(lastName) && x.isDeleted.Equals("N") &&
-                                                                           x.Area.AreaName.Contains(areaName)
-                                                                     ).ToList();
-            dataGridView_searchResult.DataSource = searchResults.ToList();
+            searchResults = CommonUtilities.getSearchResults(firstName, lastName, areaName, enteredBalance);
+            dataGridView_searchResult.DataSource = searchResults;
 
             modifyDataGridView();
         }

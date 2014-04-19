@@ -74,9 +74,9 @@
             this.label_editArea.AutoSize = true;
             this.label_editArea.Location = new System.Drawing.Point(49, 122);
             this.label_editArea.Name = "label_editArea";
-            this.label_editArea.Size = new System.Drawing.Size(65, 13);
+            this.label_editArea.Size = new System.Drawing.Size(66, 13);
             this.label_editArea.TabIndex = 9;
-            this.label_editArea.Text = "New Value: ";
+            this.label_editArea.Text = "Change \'\' to:";
             // 
             // textBox_editArea
             // 
@@ -163,9 +163,9 @@
             this.label_editMealPlan.AutoSize = true;
             this.label_editMealPlan.Location = new System.Drawing.Point(66, 122);
             this.label_editMealPlan.Name = "label_editMealPlan";
-            this.label_editMealPlan.Size = new System.Drawing.Size(65, 13);
+            this.label_editMealPlan.Size = new System.Drawing.Size(66, 13);
             this.label_editMealPlan.TabIndex = 8;
-            this.label_editMealPlan.Text = "New Value: ";
+            this.label_editMealPlan.Text = "Change \'\' to:";
             // 
             // textBox_editMealPlan
             // 

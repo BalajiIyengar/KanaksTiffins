@@ -55,10 +55,16 @@ namespace KanakTiffins
                     return;
                 }
 
+                int areaId = 0;
+
+                if (db.Areas.Count() != 0)
+                areaId = db.Areas.Select(x => x.AreaId).Max();
+             
+
                 //Validation was successful.
                 Area newArea = new Area();
                 newArea.AreaName = textBox_addNewMaster.Text;
-                newArea.AreaId = db.Areas.Select(x => x.AreaId).Max() + 1;
+                newArea.AreaId = areaId + 1;
                 db.Areas.AddObject(newArea);            
             }
 
@@ -88,10 +94,14 @@ namespace KanakTiffins
                     return;
                 }
 
+                int lastMealPlanId = 0;
+                if (db.MealPlans.Count() != 0)
+                    lastMealPlanId = db.MealPlans.Select(x => x.MealPlanId).Max();
+
                 //Validation was successful.
                 MealPlan newMealPlan = new MealPlan();
                 newMealPlan.MealAmount = Int32.Parse(textBox_addNewMaster.Text);
-                newMealPlan.MealPlanId = db.MealPlans.Select(x => x.MealPlanId).Max() + 1;
+                newMealPlan.MealPlanId = lastMealPlanId + 1;
                 db.MealPlans.AddObject(newMealPlan);
             }
 

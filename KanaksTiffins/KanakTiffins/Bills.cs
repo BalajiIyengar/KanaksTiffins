@@ -36,6 +36,7 @@ namespace KanakTiffins
             CommonUtilities.populateAreas(comboBox_area);
             CommonUtilities.populateMonths(comboBox_month);
 
+            comboBox_month.DataSource = db.Months.ToList();
             comboBox_month.SelectedIndex = currentMonth.TodayDate.Month - 1; //Combo box index starts from 0
             //Populate the year combo box
             List<int> years = new List<int>();
@@ -64,9 +65,22 @@ namespace KanakTiffins
             String firstName = textBox_firstName.Text.ToLower();
             String lastName = textBox_lastName.Text.ToLower();
             String areaName = comboBox_area.SelectedValue == null ? "" : comboBox_area.SelectedValue.ToString();
+            int enteredBalance=0;
+            int dummyInt = 0;
 
+            if (textBox_balance.Text.Trim().Length != 0)
+            {
+                if (!Int32.TryParse(textBox_balance.Text.ToString(), out dummyInt))
+                {
+                    MessageBox.Show("Please Enter a valid Number", "Error");
+                    return;
+                }
+                enteredBalance = Int32.Parse(textBox_balance.Text.Trim());
+            }
+
+           
             //Query for retrieving users from the DB
-            var users = db.CustomerDetails.Where(x => x.FirstName.Contains(firstName) && x.LastName.Contains(lastName) && x.isDeleted.Equals("N") && x.Area.AreaName.Contains(areaName))
+            var users = db.CustomerDetails.Where(x => x.FirstName.Contains(firstName) && x.LastName.Contains(lastName) && x.isDeleted.Equals("N") && x.Area.AreaName.Contains(areaName) && x.CustomerDue.DueAmount>=enteredBalance)
                                         .Select(x => new { x.CustomerId, x.FirstName, x.LastName, x.Address, x.PhoneNumber, x.Area.AreaName });           
             dataGridView_users.DataSource = users.ToList();           
 
@@ -96,6 +110,9 @@ namespace KanakTiffins
             //Returns the selected customer ID
             selectedCustomerId = Int32.Parse(selectedUser["CustomerId"].Value.ToString());  
            
+            //Change text on button.
+            button_generateBill.Text = "Export " + db.CustomerDetails.Where(x => x.CustomerId == selectedCustomerId).Single().FirstName + "'s " + " Bill";
+
             int month = currentMonth.TodayDate.Month;
             int year = currentMonth.TodayDate.Year;
             int noOfDays = DateTime.DaysInMonth(year, month);
@@ -320,7 +337,8 @@ namespace KanakTiffins
         /// <param name="e"></param>
         private void button_save_Click(object sender, EventArgs e)
         {
-            saveButtonCommonFunctionality();          
+            saveButtonCommonFunctionality();
+            MessageBox.Show("Updated Successfully.", "Success");      
         }
 
         /// <summary>
@@ -447,9 +465,7 @@ namespace KanakTiffins
 
                 db.SaveChanges();
 
-                label_billNotSaved.Visible = false;
-
-                MessageBox.Show("Updated Successfully.", "Success");                
+                label_billNotSaved.Visible = false;                          
             }
             catch (Exception ex)
             {
@@ -522,14 +538,22 @@ namespace KanakTiffins
         /// <param name="e"></param>
         private void button_generateBill_Click(object sender, EventArgs e)
         {
+            String path = CommonUtilities.getFileSaveLocation();
+
             saveButtonCommonFunctionality();
+
+            //if user quits the dialog box
+            if (path.Trim().Length == 0)
+                return;
 
             //GENERATE A DOCUMENT TO PRINT.  
             int month = comboBox_month.SelectedIndex + 1; //in the combo box, index starts from 0
             int year = comboBox_year.SelectedValue == null ? currentMonth.TodayDate.Year : Int32.Parse(comboBox_year.SelectedValue.ToString());
-            CommonUtilities.exportDataGridViewToExcelUsingMicrosoft(dataGridView_billForThisMonth, "F:\\Bill.xlsx", selectedCustomerId, month, year);
+            CommonUtilities.exportDataGridViewToExcel(path, selectedCustomerId, month, year);
+
+            MessageBox.Show("Exported successfully", "Success");
         }
-        
+
         /// <summary>
         /// Called when the user wishes to add/delete new values to/from any of the master tables.
         /// </summary>
@@ -575,6 +599,17 @@ namespace KanakTiffins
         private void AddNewArea_FormClosed(object sender, FormClosedEventArgs e)
         {
             CommonUtilities.populateAreas(comboBox_area);            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            saveButtonCommonFunctionality();
+
+            int month = comboBox_month.SelectedIndex + 1; //in the combo box, index starts from 0
+            int year = comboBox_year.SelectedValue == null ? currentMonth.TodayDate.Year : Int32.Parse(comboBox_year.SelectedValue.ToString());
+
+            ExportBills export = new ExportBills(month, year);
+            export.Show();
         }                
     }
 }
