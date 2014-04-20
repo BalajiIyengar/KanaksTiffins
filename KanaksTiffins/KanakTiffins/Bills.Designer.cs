@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox_searchParameters = new System.Windows.Forms.GroupBox();
+            this.button_refresh = new System.Windows.Forms.Button();
+            this.textBox_balance = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.linkLabel_addNewArea = new System.Windows.Forms.LinkLabel();
             this.button_Search = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -58,8 +61,6 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel_searchUsers = new System.Windows.Forms.LinkLabel();
             this.linkLabel_addNewUser = new System.Windows.Forms.LinkLabel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBox_balance = new System.Windows.Forms.TextBox();
             this.groupBox_searchParameters.SuspendLayout();
             this.groupBox_users.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_users)).BeginInit();
@@ -70,6 +71,7 @@
             // 
             // groupBox_searchParameters
             // 
+            this.groupBox_searchParameters.Controls.Add(this.button_refresh);
             this.groupBox_searchParameters.Controls.Add(this.textBox_balance);
             this.groupBox_searchParameters.Controls.Add(this.label7);
             this.groupBox_searchParameters.Controls.Add(this.linkLabel_addNewArea);
@@ -86,6 +88,32 @@
             this.groupBox_searchParameters.TabIndex = 0;
             this.groupBox_searchParameters.TabStop = false;
             this.groupBox_searchParameters.Text = "Search Parameters";
+            // 
+            // button_refresh
+            // 
+            this.button_refresh.Location = new System.Drawing.Point(422, 21);
+            this.button_refresh.Name = "button_refresh";
+            this.button_refresh.Size = new System.Drawing.Size(75, 22);
+            this.button_refresh.TabIndex = 78;
+            this.button_refresh.Text = "Refresh";
+            this.button_refresh.UseVisualStyleBackColor = true;
+            this.button_refresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
+            // textBox_balance
+            // 
+            this.textBox_balance.Location = new System.Drawing.Point(289, 52);
+            this.textBox_balance.Name = "textBox_balance";
+            this.textBox_balance.Size = new System.Drawing.Size(100, 20);
+            this.textBox_balance.TabIndex = 77;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(215, 52);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(61, 13);
+            this.label7.TabIndex = 76;
+            this.label7.Text = "Balance >=";
             // 
             // linkLabel_addNewArea
             // 
@@ -381,22 +409,6 @@
             this.linkLabel_addNewUser.Text = "Add New User";
             this.linkLabel_addNewUser.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_addNewUser_LinkClicked);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(215, 52);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(61, 13);
-            this.label7.TabIndex = 76;
-            this.label7.Text = "Balance >=";
-            // 
-            // textBox_balance
-            // 
-            this.textBox_balance.Location = new System.Drawing.Point(289, 52);
-            this.textBox_balance.Name = "textBox_balance";
-            this.textBox_balance.Size = new System.Drawing.Size(100, 20);
-            this.textBox_balance.TabIndex = 77;
-            // 
             // Bills
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -463,6 +475,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox_balance;
+        private System.Windows.Forms.Button button_refresh;
     }
 }
 

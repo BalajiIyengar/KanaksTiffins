@@ -35,6 +35,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button_Search_MealPlan = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox_balance = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox_lastName = new System.Windows.Forms.TextBox();
             this.button_Search_UserDetails = new System.Windows.Forms.Button();
@@ -43,7 +44,8 @@
             this.textBox_firstName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView_searchResult = new System.Windows.Forms.DataGridView();
-            this.textBox_balance = new System.Windows.Forms.TextBox();
+            this.button_refreshUserDetails = new System.Windows.Forms.Button();
+            this.button_refreshMealPlan = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_searchResult)).BeginInit();
@@ -51,6 +53,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button_refreshMealPlan);
             this.groupBox2.Controls.Add(this.comboBox_mealAmount);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.comboBox_lunchOrDinner);
@@ -99,7 +102,7 @@
             // 
             // button_Search_MealPlan
             // 
-            this.button_Search_MealPlan.Location = new System.Drawing.Point(684, 14);
+            this.button_Search_MealPlan.Location = new System.Drawing.Point(619, 23);
             this.button_Search_MealPlan.Name = "button_Search_MealPlan";
             this.button_Search_MealPlan.Size = new System.Drawing.Size(75, 23);
             this.button_Search_MealPlan.TabIndex = 9;
@@ -109,6 +112,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button_refreshUserDetails);
             this.groupBox1.Controls.Add(this.textBox_balance);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.textBox_lastName);
@@ -123,6 +127,13 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search By User Details ";
+            // 
+            // textBox_balance
+            // 
+            this.textBox_balance.Location = new System.Drawing.Point(543, 23);
+            this.textBox_balance.Name = "textBox_balance";
+            this.textBox_balance.Size = new System.Drawing.Size(70, 20);
+            this.textBox_balance.TabIndex = 10;
             // 
             // label3
             // 
@@ -142,7 +153,7 @@
             // 
             // button_Search_UserDetails
             // 
-            this.button_Search_UserDetails.Location = new System.Drawing.Point(684, 20);
+            this.button_Search_UserDetails.Location = new System.Drawing.Point(619, 22);
             this.button_Search_UserDetails.Name = "button_Search_UserDetails";
             this.button_Search_UserDetails.Size = new System.Drawing.Size(75, 23);
             this.button_Search_UserDetails.TabIndex = 6;
@@ -199,12 +210,25 @@
             this.dataGridView_searchResult.TabIndex = 7;
             this.dataGridView_searchResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.userDetails);
             // 
-            // textBox_balance
+            // button_refreshUserDetails
             // 
-            this.textBox_balance.Location = new System.Drawing.Point(543, 23);
-            this.textBox_balance.Name = "textBox_balance";
-            this.textBox_balance.Size = new System.Drawing.Size(70, 20);
-            this.textBox_balance.TabIndex = 10;
+            this.button_refreshUserDetails.Location = new System.Drawing.Point(718, 23);
+            this.button_refreshUserDetails.Name = "button_refreshUserDetails";
+            this.button_refreshUserDetails.Size = new System.Drawing.Size(75, 22);
+            this.button_refreshUserDetails.TabIndex = 79;
+            this.button_refreshUserDetails.Text = "Refresh";
+            this.button_refreshUserDetails.UseVisualStyleBackColor = true;
+            this.button_refreshUserDetails.Click += new System.EventHandler(this.button_refreshUserDetails_Click);
+            // 
+            // button_refreshMealPlan
+            // 
+            this.button_refreshMealPlan.Location = new System.Drawing.Point(718, 23);
+            this.button_refreshMealPlan.Name = "button_refreshMealPlan";
+            this.button_refreshMealPlan.Size = new System.Drawing.Size(75, 22);
+            this.button_refreshMealPlan.TabIndex = 80;
+            this.button_refreshMealPlan.Text = "Refresh";
+            this.button_refreshMealPlan.UseVisualStyleBackColor = true;
+            this.button_refreshMealPlan.Click += new System.EventHandler(this.button_refreshMealPlan_Click);
             // 
             // SearchUsers
             // 
@@ -245,5 +269,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox_balance;
+        private System.Windows.Forms.Button button_refreshMealPlan;
+        private System.Windows.Forms.Button button_refreshUserDetails;
     }
 }

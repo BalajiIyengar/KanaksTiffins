@@ -76,13 +76,63 @@ namespace KanakTiffins
             if (textBox_firstName.Text.Trim().Equals(""))
             {
                 errorOccurred = true;
-                errorMessage += "-> Please enter a First Name \n";
+                errorMessage += "-> Please enter First Name \n";
             }
             if (comboBox_area.Text.Trim().Equals(""))
             {
                 errorOccurred = true;
                 errorMessage += "-> Please select an Area \n";
             }
+
+            int result;
+            if(textBox_PhoneNumber.Text.Trim().Length != 0  )
+            {
+                if(!Int32.TryParse(textBox_PhoneNumber.Text, out result))
+                {
+                errorOccurred = true;
+                errorMessage += "-> Please Enter a Valid Phone Number \n";
+                }
+            }
+
+            if (textBox_EmailId.Text.Trim().Length != 0)
+            {
+                if (!(textBox_EmailId.Text.Contains("@") && textBox_EmailId.Text.Contains(".") && (textBox_EmailId.Text.IndexOf(".") - textBox_EmailId.Text.IndexOf("@")  > 1)))
+                {
+                    errorOccurred = true;
+                    errorMessage += "-> Please Enter a Valid Email Id \n";
+                }
+            }
+
+            int deposit;
+            if (textBox_Deposit.Text.Trim().Length != 0)
+            {
+                if (!Int32.TryParse(textBox_Deposit.Text, out deposit))
+                {
+                    errorOccurred = true;
+                    errorMessage += "-> Please Enter a Valid Deposit \n";
+                }
+            }
+
+            int balance;
+            if (textBox_currentBalance.Text.Trim().Length != 0)
+            {
+                if (!Int32.TryParse(textBox_currentBalance.Text, out balance))
+                {
+                    errorOccurred = true;
+                    errorMessage += "-> Please Enter a Valid Balance \n";
+                }
+            }
+
+            int delivery;
+            if (textBox_DabbaWalaDeliveryCharges.Text.Trim().Length != 0)
+            {
+                if (!Int32.TryParse(textBox_DabbaWalaDeliveryCharges.Text, out delivery))
+                {
+                    errorOccurred = true;
+                    errorMessage += "-> Please Enter a Valid Delivery Charge \n";
+                }
+            }
+
             if (errorOccurred)
             {
                 MessageBox.Show(errorMessage, "Error");                
@@ -99,7 +149,7 @@ namespace KanakTiffins
         private void button_SubmitAddNewUser_Click_1(object sender, EventArgs e)
         {
             if(validate())
-                return; //Validation fails.
+            return; //Validation fails.
 
             //Validation successful.
 
@@ -153,6 +203,7 @@ namespace KanakTiffins
             if (!exceptionOccured)
             {
                 MessageBox.Show("User added successfully.", "Success");
+                this.Close();
             }
             else
             {

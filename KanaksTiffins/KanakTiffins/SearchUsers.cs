@@ -170,5 +170,25 @@ namespace KanakTiffins
             comboBox_Area.DisplayMember = "AreaName";
             comboBox_Area.ValueMember = "AreaName";
         }
+
+        /// <summary>
+        /// To reload area masters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_refreshUserDetails_Click(object sender, EventArgs e)
+        {
+            CommonUtilities.populateAreas(comboBox_Area);
+        }
+
+        /// <summary>
+        /// To reload meal plan masters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_refreshMealPlan_Click(object sender, EventArgs e)
+        {
+            CommonUtilities.populateMealPlans(comboBox_mealAmount);
+        }
     }
 }

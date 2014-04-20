@@ -610,6 +610,16 @@ namespace KanakTiffins
 
             ExportBills export = new ExportBills(month, year);
             export.Show();
+        }
+
+        /// <summary>
+        /// Refresh button click leads to populating the area combo box again
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonRefresh_Click(object sender, EventArgs e)
+        {
+            CommonUtilities.populateAreas(comboBox_area);
         }                
     }
 }
