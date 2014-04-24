@@ -31,13 +31,14 @@ namespace KanakTiffins
         }
 
         private void Bills_Load(object sender, EventArgs e)
-        {
-            //populateAreas();     
+        {            
             CommonUtilities.populateAreas(comboBox_area);
             CommonUtilities.populateMonths(comboBox_month);
+            CommonUtilities.populateLunchOrDinner(comboBox_mealType);
 
             comboBox_month.DataSource = db.Months.ToList();
             comboBox_month.SelectedIndex = currentMonth.TodayDate.Month - 1; //Combo box index starts from 0
+
             //Populate the year combo box
             List<int> years = new List<int>();
             for (int year = 2012; year <= currentMonth.TodayDate.Year; year++)
@@ -77,11 +78,10 @@ namespace KanakTiffins
                 }
                 enteredBalance = Int32.Parse(textBox_balance.Text.Trim());
             }
-
-           
+                       
             //Query for retrieving users from the DB
             var users = db.CustomerDetails.Where(x => x.FirstName.Contains(firstName) && x.LastName.Contains(lastName) && x.isDeleted.Equals("N") && x.Area.AreaName.Contains(areaName) && x.CustomerDue.DueAmount>=enteredBalance)
-                                        .Select(x => new { x.CustomerId, x.FirstName, x.LastName, x.Address, x.PhoneNumber, x.Area.AreaName });           
+                                        .Select(x => new { x.CustomerId, x.FirstName, x.LastName, x.Address, x.PhoneNumber, x.Area.AreaName }).OrderBy(x=>x.FirstName);           
             dataGridView_users.DataSource = users.ToList();           
 
             //Hide the extra column.
@@ -538,20 +538,10 @@ namespace KanakTiffins
         /// <param name="e"></param>
         private void button_generateBill_Click(object sender, EventArgs e)
         {
-            String path = CommonUtilities.getFileSaveLocation();
-
             saveButtonCommonFunctionality();
 
-            //if user quits the dialog box
-            if (path.Trim().Length == 0)
-                return;
-
-            //GENERATE A DOCUMENT TO PRINT.  
-            int month = comboBox_month.SelectedIndex + 1; //in the combo box, index starts from 0
-            int year = comboBox_year.SelectedValue == null ? currentMonth.TodayDate.Year : Int32.Parse(comboBox_year.SelectedValue.ToString());
-            CommonUtilities.exportDataGridViewToExcel(path, selectedCustomerId, month, year);
-
-            MessageBox.Show("Exported successfully", "Success");
+            ExportUsersBills exportBills = new ExportUsersBills(selectedCustomerId);
+            exportBills.Show();          
         }
 
         /// <summary>
@@ -620,6 +610,67 @@ namespace KanakTiffins
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
             CommonUtilities.populateAreas(comboBox_area);
-        }                
+        }
+
+        /// <summary>
+        /// On Click of Modify button,the textbox value gets loaded on the entire rowset(Lunch/Dinner/Lunch And Dinner)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button_modify_Click(object sender, EventArgs e)
+        {
+            //Validation of TextBox
+            int mealValue;
+            if (!Int32.TryParse(textBox_mealValue.Text.Trim(), out mealValue))
+            {
+                MessageBox.Show("Please Enter a Valid Value", "Error");
+                return;
+            }
+
+            int index = comboBox_mealType.SelectedIndex;
+
+            switch (index)
+            {
+                //Lunch And Dinner Both
+                case 0:
+                    foreach (DataGridViewRow Datarow in dataGridView_billForThisMonth.Rows)
+                        {
+                            if ((Int32.Parse(Datarow.Cells[2].Value.ToString()) != 0) && (Int32.Parse(Datarow.Cells[3].Value.ToString()) != 0))
+                            {
+                                Datarow.Cells[2].Value = textBox_mealValue.Text.Trim();
+                                Datarow.Cells[3].Value = textBox_mealValue.Text.Trim();
+                            }
+
+                        }
+                        break;
+                //Lunch Only
+                case 1:
+                     foreach (DataGridViewRow Datarow in dataGridView_billForThisMonth.Rows)
+                        {
+                            if ((Int32.Parse(Datarow.Cells[2].Value.ToString()) != 0))
+                            {
+                                Datarow.Cells[2].Value = textBox_mealValue.Text.Trim();
+                            }
+
+                        }
+                        break;
+                //Dinner Only
+                case 2:
+                        foreach (DataGridViewRow Datarow in dataGridView_billForThisMonth.Rows)
+                        {
+                            if ((Int32.Parse(Datarow.Cells[3].Value.ToString()) != 0))
+                            {
+                                Datarow.Cells[3].Value = textBox_mealValue.Text.Trim();
+                            }
+
+                        }
+                        break;
+                default:
+                    break;
+            }
+        }
+
+
+                      
     }
 }

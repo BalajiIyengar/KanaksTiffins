@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace KanakTiffins
 {
@@ -66,6 +67,8 @@ namespace KanakTiffins
             if (path.Trim().Length == 0)
                 return;
 
+            CommonUtilities.displayProgressBar();
+
             this.Hide();
 
             String errorMessage = "The following users do not have any saved bills for " + db.Months.Where(x=>x.MonthId == month).Single().MonthName + " " + year + ": \n";
@@ -78,12 +81,14 @@ namespace KanakTiffins
                     CustomerDetail customer = db.CustomerDetails.Where(x => x.CustomerId == customerId).Single();
                     errorMessage += ("- " + customer.FirstName + " " + customer.LastName + "\n");
                     continue;
-                }
+                }                
                 CommonUtilities.exportDataGridViewToExcel(path, customerId, month, year);
             }
             MessageBox.Show("Exported successfully", "Success");
             if (errorOccurred)
                 MessageBox.Show(errorMessage, "Warning");
+
+            CommonUtilities.hideProgressBar();
 
             this.Close();
         }

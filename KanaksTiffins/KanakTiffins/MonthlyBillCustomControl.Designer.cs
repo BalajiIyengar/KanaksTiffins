@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView_monthlyBill = new System.Windows.Forms.DataGridView();
             this.label_month = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,6 +48,8 @@
             // 
             this.dataGridView_monthlyBill.AllowUserToAddRows = false;
             this.dataGridView_monthlyBill.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView_monthlyBill.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView_monthlyBill.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dataGridView_monthlyBill.CausesValidation = false;
             this.dataGridView_monthlyBill.Location = new System.Drawing.Point(3, 39);

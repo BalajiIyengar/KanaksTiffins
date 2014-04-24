@@ -16,3 +16,26 @@ C:\Users\ashtonm\Desktop\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.cspro
 C:\Users\ashtonm\Desktop\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.exe
 C:\Users\ashtonm\Desktop\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.pdb
 C:\Users\ashtonm\Desktop\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.csprojResolveAssemblyReference.cache
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\bin\Debug\KanakTiffins.exe.config
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.csproj.ResolveComReference.cache
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\bin\Debug\KanakTiffins.exe
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\bin\Debug\KanakTiffins.pdb
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\bin\Debug\EntityFramework.dll
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\bin\Debug\EntityFramework.xml
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.AddNewMaster.resources
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.AddNewUser.resources
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.Bills.resources
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.ExportUsersBills.resources
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.MonthlyBillCustomControl.resources
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.PaymentHistory.resources
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.PopulateMaster.resources
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.ExportBills.resources
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.ProgressBar.resources
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.Properties.Resources.resources
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.SearchUsers.resources
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.UserDetail.resources
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.UserPayment.resources
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.csproj.GenerateResource.Cache
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.exe
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.pdb
+C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.csprojResolveAssemblyReference.cache

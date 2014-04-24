@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView_paymentHistory = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_paymentHistory)).BeginInit();
             this.SuspendLayout();
@@ -36,6 +37,8 @@
             // 
             this.dataGridView_paymentHistory.AllowUserToAddRows = false;
             this.dataGridView_paymentHistory.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView_paymentHistory.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView_paymentHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_paymentHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_paymentHistory.Dock = System.Windows.Forms.DockStyle.Fill;

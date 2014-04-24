@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox_searchParameters = new System.Windows.Forms.GroupBox();
             this.button_refresh = new System.Windows.Forms.Button();
             this.textBox_balance = new System.Windows.Forms.TextBox();
@@ -43,6 +45,10 @@
             this.groupBox_users = new System.Windows.Forms.GroupBox();
             this.dataGridView_users = new System.Windows.Forms.DataGridView();
             this.groupBox_monthlyBill = new System.Windows.Forms.GroupBox();
+            this.comboBox_mealType = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.button_modify = new System.Windows.Forms.Button();
+            this.textBox_mealValue = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox_deliveryCharges = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -198,17 +204,28 @@
             // 
             // dataGridView_users
             // 
+            this.dataGridView_users.AllowUserToAddRows = false;
+            this.dataGridView_users.AllowUserToDeleteRows = false;
+            this.dataGridView_users.AllowUserToOrderColumns = true;
+            this.dataGridView_users.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView_users.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView_users.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_users.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_users.Location = new System.Drawing.Point(6, 18);
             this.dataGridView_users.MultiSelect = false;
             this.dataGridView_users.Name = "dataGridView_users";
+            this.dataGridView_users.ReadOnly = true;
             this.dataGridView_users.RowHeadersVisible = false;
             this.dataGridView_users.Size = new System.Drawing.Size(491, 433);
             this.dataGridView_users.TabIndex = 0;
             // 
             // groupBox_monthlyBill
             // 
+            this.groupBox_monthlyBill.Controls.Add(this.comboBox_mealType);
+            this.groupBox_monthlyBill.Controls.Add(this.label8);
+            this.groupBox_monthlyBill.Controls.Add(this.button_modify);
+            this.groupBox_monthlyBill.Controls.Add(this.textBox_mealValue);
             this.groupBox_monthlyBill.Controls.Add(this.button1);
             this.groupBox_monthlyBill.Controls.Add(this.textBox_deliveryCharges);
             this.groupBox_monthlyBill.Controls.Add(this.label6);
@@ -223,12 +240,46 @@
             this.groupBox_monthlyBill.Controls.Add(this.label_M);
             this.groupBox_monthlyBill.Controls.Add(this.comboBox_month);
             this.groupBox_monthlyBill.Enabled = false;
-            this.groupBox_monthlyBill.Location = new System.Drawing.Point(521, 12);
+            this.groupBox_monthlyBill.Location = new System.Drawing.Point(521, 3);
             this.groupBox_monthlyBill.Name = "groupBox_monthlyBill";
-            this.groupBox_monthlyBill.Size = new System.Drawing.Size(723, 557);
+            this.groupBox_monthlyBill.Size = new System.Drawing.Size(723, 566);
             this.groupBox_monthlyBill.TabIndex = 2;
             this.groupBox_monthlyBill.TabStop = false;
             this.groupBox_monthlyBill.Text = "Bill for this Month";
+            // 
+            // comboBox_mealType
+            // 
+            this.comboBox_mealType.FormattingEnabled = true;
+            this.comboBox_mealType.Location = new System.Drawing.Point(357, 24);
+            this.comboBox_mealType.Name = "comboBox_mealType";
+            this.comboBox_mealType.Size = new System.Drawing.Size(105, 21);
+            this.comboBox_mealType.TabIndex = 21;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(202, 27);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(60, 13);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "Meal Value";
+            // 
+            // button_modify
+            // 
+            this.button_modify.Location = new System.Drawing.Point(305, 58);
+            this.button_modify.Name = "button_modify";
+            this.button_modify.Size = new System.Drawing.Size(75, 23);
+            this.button_modify.TabIndex = 19;
+            this.button_modify.Text = "Modify";
+            this.button_modify.UseVisualStyleBackColor = true;
+            this.button_modify.Click += new System.EventHandler(this.button_modify_Click);
+            // 
+            // textBox_mealValue
+            // 
+            this.textBox_mealValue.Location = new System.Drawing.Point(268, 24);
+            this.textBox_mealValue.Name = "textBox_mealValue";
+            this.textBox_mealValue.Size = new System.Drawing.Size(70, 20);
+            this.textBox_mealValue.TabIndex = 18;
             // 
             // button1
             // 
@@ -242,7 +293,7 @@
             // 
             // textBox_deliveryCharges
             // 
-            this.textBox_deliveryCharges.Location = new System.Drawing.Point(655, 20);
+            this.textBox_deliveryCharges.Location = new System.Drawing.Point(637, 59);
             this.textBox_deliveryCharges.Name = "textBox_deliveryCharges";
             this.textBox_deliveryCharges.Size = new System.Drawing.Size(59, 20);
             this.textBox_deliveryCharges.TabIndex = 16;
@@ -250,7 +301,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(562, 25);
+            this.label6.Location = new System.Drawing.Point(544, 64);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(87, 13);
             this.label6.TabIndex = 15;
@@ -270,7 +321,7 @@
             // 
             // textBox_dabbawalaCharges
             // 
-            this.textBox_dabbawalaCharges.Location = new System.Drawing.Point(469, 19);
+            this.textBox_dabbawalaCharges.Location = new System.Drawing.Point(637, 31);
             this.textBox_dabbawalaCharges.Name = "textBox_dabbawalaCharges";
             this.textBox_dabbawalaCharges.Size = new System.Drawing.Size(60, 20);
             this.textBox_dabbawalaCharges.TabIndex = 13;
@@ -278,7 +329,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(360, 23);
+            this.label5.Location = new System.Drawing.Point(528, 35);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(103, 13);
             this.label5.TabIndex = 12;
@@ -297,7 +348,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(210, 22);
+            this.label4.Location = new System.Drawing.Point(26, 56);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 13);
             this.label4.TabIndex = 10;
@@ -306,21 +357,27 @@
             // comboBox_year
             // 
             this.comboBox_year.FormattingEnabled = true;
-            this.comboBox_year.Location = new System.Drawing.Point(245, 18);
+            this.comboBox_year.Location = new System.Drawing.Point(61, 53);
             this.comboBox_year.Name = "comboBox_year";
-            this.comboBox_year.Size = new System.Drawing.Size(70, 21);
+            this.comboBox_year.Size = new System.Drawing.Size(109, 21);
             this.comboBox_year.TabIndex = 9;
             this.comboBox_year.SelectedIndexChanged += new System.EventHandler(this.comboBox_year_SelectedIndexChanged);
             // 
             // dataGridView_billForThisMonth
             // 
+            this.dataGridView_billForThisMonth.AllowUserToAddRows = false;
+            this.dataGridView_billForThisMonth.AllowUserToDeleteRows = false;
+            this.dataGridView_billForThisMonth.AllowUserToOrderColumns = true;
+            this.dataGridView_billForThisMonth.AllowUserToResizeRows = false;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            this.dataGridView_billForThisMonth.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView_billForThisMonth.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_billForThisMonth.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_billForThisMonth.Location = new System.Drawing.Point(6, 48);
+            this.dataGridView_billForThisMonth.Location = new System.Drawing.Point(6, 96);
             this.dataGridView_billForThisMonth.Name = "dataGridView_billForThisMonth";
             this.dataGridView_billForThisMonth.RowHeadersVisible = false;
             this.dataGridView_billForThisMonth.ShowRowErrors = false;
-            this.dataGridView_billForThisMonth.Size = new System.Drawing.Size(711, 474);
+            this.dataGridView_billForThisMonth.Size = new System.Drawing.Size(711, 426);
             this.dataGridView_billForThisMonth.TabIndex = 8;
             this.dataGridView_billForThisMonth.Visible = false;
             this.dataGridView_billForThisMonth.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_billForThisMonth_KeyDown);
@@ -338,7 +395,7 @@
             // label_M
             // 
             this.label_M.AutoSize = true;
-            this.label_M.Location = new System.Drawing.Point(18, 21);
+            this.label_M.Location = new System.Drawing.Point(18, 27);
             this.label_M.Name = "label_M";
             this.label_M.Size = new System.Drawing.Size(37, 13);
             this.label_M.TabIndex = 6;
@@ -347,7 +404,7 @@
             // comboBox_month
             // 
             this.comboBox_month.FormattingEnabled = true;
-            this.comboBox_month.Location = new System.Drawing.Point(61, 17);
+            this.comboBox_month.Location = new System.Drawing.Point(61, 19);
             this.comboBox_month.Name = "comboBox_month";
             this.comboBox_month.Size = new System.Drawing.Size(109, 21);
             this.comboBox_month.TabIndex = 5;
@@ -476,6 +533,10 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox_balance;
         private System.Windows.Forms.Button button_refresh;
+        private System.Windows.Forms.ComboBox comboBox_mealType;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button_modify;
+        private System.Windows.Forms.TextBox textBox_mealValue;
     }
 }
 

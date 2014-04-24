@@ -28,13 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button_refreshMealPlan = new System.Windows.Forms.Button();
             this.comboBox_mealAmount = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox_lunchOrDinner = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.button_Search_MealPlan = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button_refreshUserDetails = new System.Windows.Forms.Button();
             this.textBox_balance = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox_lastName = new System.Windows.Forms.TextBox();
@@ -44,8 +47,6 @@
             this.textBox_firstName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView_searchResult = new System.Windows.Forms.DataGridView();
-            this.button_refreshUserDetails = new System.Windows.Forms.Button();
-            this.button_refreshMealPlan = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_searchResult)).BeginInit();
@@ -65,6 +66,16 @@
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Search By Meal Plan";
+            // 
+            // button_refreshMealPlan
+            // 
+            this.button_refreshMealPlan.Location = new System.Drawing.Point(718, 23);
+            this.button_refreshMealPlan.Name = "button_refreshMealPlan";
+            this.button_refreshMealPlan.Size = new System.Drawing.Size(75, 22);
+            this.button_refreshMealPlan.TabIndex = 80;
+            this.button_refreshMealPlan.Text = "Refresh";
+            this.button_refreshMealPlan.UseVisualStyleBackColor = true;
+            this.button_refreshMealPlan.Click += new System.EventHandler(this.button_refreshMealPlan_Click);
             // 
             // comboBox_mealAmount
             // 
@@ -127,6 +138,16 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search By User Details ";
+            // 
+            // button_refreshUserDetails
+            // 
+            this.button_refreshUserDetails.Location = new System.Drawing.Point(718, 23);
+            this.button_refreshUserDetails.Name = "button_refreshUserDetails";
+            this.button_refreshUserDetails.Size = new System.Drawing.Size(75, 22);
+            this.button_refreshUserDetails.TabIndex = 79;
+            this.button_refreshUserDetails.Text = "Refresh";
+            this.button_refreshUserDetails.UseVisualStyleBackColor = true;
+            this.button_refreshUserDetails.Click += new System.EventHandler(this.button_refreshUserDetails_Click);
             // 
             // textBox_balance
             // 
@@ -200,6 +221,8 @@
             // 
             this.dataGridView_searchResult.AllowUserToAddRows = false;
             this.dataGridView_searchResult.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView_searchResult.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView_searchResult.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_searchResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_searchResult.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -209,26 +232,6 @@
             this.dataGridView_searchResult.Size = new System.Drawing.Size(799, 357);
             this.dataGridView_searchResult.TabIndex = 7;
             this.dataGridView_searchResult.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.userDetails);
-            // 
-            // button_refreshUserDetails
-            // 
-            this.button_refreshUserDetails.Location = new System.Drawing.Point(718, 23);
-            this.button_refreshUserDetails.Name = "button_refreshUserDetails";
-            this.button_refreshUserDetails.Size = new System.Drawing.Size(75, 22);
-            this.button_refreshUserDetails.TabIndex = 79;
-            this.button_refreshUserDetails.Text = "Refresh";
-            this.button_refreshUserDetails.UseVisualStyleBackColor = true;
-            this.button_refreshUserDetails.Click += new System.EventHandler(this.button_refreshUserDetails_Click);
-            // 
-            // button_refreshMealPlan
-            // 
-            this.button_refreshMealPlan.Location = new System.Drawing.Point(718, 23);
-            this.button_refreshMealPlan.Name = "button_refreshMealPlan";
-            this.button_refreshMealPlan.Size = new System.Drawing.Size(75, 22);
-            this.button_refreshMealPlan.TabIndex = 80;
-            this.button_refreshMealPlan.Text = "Refresh";
-            this.button_refreshMealPlan.UseVisualStyleBackColor = true;
-            this.button_refreshMealPlan.Click += new System.EventHandler(this.button_refreshMealPlan_Click);
             // 
             // SearchUsers
             // 

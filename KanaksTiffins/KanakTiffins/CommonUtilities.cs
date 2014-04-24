@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 
 namespace KanakTiffins
 {
     class CommonUtilities
     {
         public static KanakTiffinsEntities db = new KanakTiffinsEntities();
+        private static ProgressBar progressBar;
 
         /// <summary>
         /// Based on the changes made/not made to the current bill being displayed, updates the Customer's dues.
@@ -163,6 +166,22 @@ namespace KanakTiffins
 
         }
 
+        /// <summary>
+        /// Display a progress bar for heavy tasks.
+        /// </summary>
+        public static void displayProgressBar()
+        {
+            progressBar = new ProgressBar();
+            progressBar.Show();
+        }
+
+        /// <summary>
+        /// Hide the progress bar.
+        /// </summary>
+        public static void hideProgressBar()
+        {
+            progressBar.Close();
+        }
 
         /// <summary>
         /// Creates an Excel file from the data in the DataGridView
@@ -173,43 +192,53 @@ namespace KanakTiffins
         /// <param name="month">The month for which the bill is being generated.</param>
         /// <param name="year">The year for which the bill is being generated.</param>
         public static void exportDataGridViewToExcel(string excelFilePath, int customerId, int month, int year)
-        {  
+        {
             Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel.Workbook excelWorkbook = null;
-            Microsoft.Office.Interop.Excel.Worksheet excelWorksheet = null;
-            Microsoft.Office.Interop.Excel.Range columnRangeInExcel;
+            excelApp.DisplayAlerts = false;
+            Workbooks excelWorkbooks = excelApp.Workbooks;
+            Workbook excelWorkbook = null;
+            Sheets excelWorksheets = null;
+            Worksheet excelWorksheet = null;            
+            Range columnRangeInExcel;
+            Range usedRange;
+            Range usedRangeColumns;
+            PageSetup pageSetup;
+
             bool exists = true;
             try
             {
-                excelWorkbook = excelApp.Workbooks.Open(excelFilePath, null, false);                
+                excelWorkbook = excelWorkbooks.Open(excelFilePath, null, false);                
             }
             catch (Exception ex)
             {
-                excelWorkbook = excelApp.Application.Workbooks.Add();                               
+                excelWorkbook = excelWorkbooks.Add();                               
                 exists = false;
             }
 
-            excelWorksheet = excelWorkbook.Sheets.get_Item("Sheet1");
+            excelWorksheets = excelWorkbook.Sheets;
 
+            excelWorksheet = excelWorksheets.get_Item("Sheet1");
             
             CustomerDetail selectedCustomer = db.CustomerDetails.Where(x => x.CustomerId == customerId).First();
 
             //Retrieve the bill for the selected customer, for the specified month and year.
-            List<MonthlyBill> thisMonthsBill = selectedCustomer.MonthlyBills.Where(x => x.DateTaken.Month == month && x.DateTaken.Year == year).ToList();
+            List<MonthlyBill> thisMonthsBill = selectedCustomer.MonthlyBills.Where(x => x.DateTaken.Month == month && x.DateTaken.Year == year).ToList();            
             
             //Starting column index
-            int startColumnIndex = excelWorksheet.UsedRange.Columns.Count == 1 ? 1 : excelWorksheet.UsedRange.Columns.Count + 2;
+            usedRange = excelWorksheet.UsedRange;
+            usedRangeColumns = usedRange.Columns;
+            int startColumnIndex = usedRangeColumns.Count == 1 ? 1 : usedRangeColumns.Count + 2;
             int endColumnIndex = startColumnIndex + 4;
 
             //Customer Details at the beginning.
             excelWorksheet.Cells[1, startColumnIndex] = selectedCustomer.FirstName.ToUpper() + " " + selectedCustomer.LastName.ToUpper() + ", " + (selectedCustomer.Address.Trim().Length==0?" ":( selectedCustomer.Address + ", ")) + selectedCustomer.Area.AreaName;
             
             //Merge 5 columns in the 1st row.
-            columnRangeInExcel = excelWorksheet.get_Range((Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[1, startColumnIndex], (Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[1, endColumnIndex]);
+            columnRangeInExcel = excelWorksheet.get_Range((Range)excelWorksheet.Cells[1, startColumnIndex], (Range)excelWorksheet.Cells[1, endColumnIndex]);
             columnRangeInExcel.MergeCells = true;
             columnRangeInExcel.Font.Bold = true;
-            columnRangeInExcel.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter; //Align Center
-            columnRangeInExcel.BorderAround2(Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous, Microsoft.Office.Interop.Excel.XlBorderWeight.xlThick);
+            columnRangeInExcel.HorizontalAlignment = XlHAlign.xlHAlignCenter; //Align Center
+            columnRangeInExcel.BorderAround2(XlLineStyle.xlContinuous, XlBorderWeight.xlThick);
 
             //Green background for 1st row
             columnRangeInExcel.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.GreenYellow);                        
@@ -223,11 +252,11 @@ namespace KanakTiffins
             excelWorksheet.Cells[2, columnNumberInExcel++] = "Paid";
 
             //Alignment and border
-            columnRangeInExcel = excelWorksheet.get_Range((Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[2, startColumnIndex], (Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[2, endColumnIndex]);
-            columnRangeInExcel.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter; //Align center
+            columnRangeInExcel = excelWorksheet.get_Range((Range)excelWorksheet.Cells[2, startColumnIndex], (Range)excelWorksheet.Cells[2, endColumnIndex]);
+            columnRangeInExcel.HorizontalAlignment = XlHAlign.xlHAlignCenter; //Align center
             columnRangeInExcel.Font.Bold = true;
-            columnRangeInExcel.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
-            columnRangeInExcel.Borders.Weight = Microsoft.Office.Interop.Excel.XlBorderWeight.xlMedium;
+            columnRangeInExcel.Borders.LineStyle = XlLineStyle.xlContinuous;
+            columnRangeInExcel.Borders.Weight = XlBorderWeight.xlMedium;
                         
             //Entire bill for the month            
             int rowNumberInExcel = 3;
@@ -240,7 +269,7 @@ namespace KanakTiffins
                 excelWorksheet.Cells[rowNumberInExcel, columnNumberInExcel++] = dailyBill.DateTaken.Day; //Date Taken
                 
                 //For DateTaken, define separate format "dd"
-                columnRangeInExcel = (Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, columnNumberInExcel-1];
+                columnRangeInExcel = (Range)excelWorksheet.Cells[rowNumberInExcel, columnNumberInExcel-1];
                 columnRangeInExcel.NumberFormat = "dd";  
 
                 excelWorksheet.Cells[rowNumberInExcel, columnNumberInExcel++] = dailyBill.LunchAmount; //Lunch
@@ -249,10 +278,10 @@ namespace KanakTiffins
                 excelWorksheet.Cells[rowNumberInExcel, columnNumberInExcel++] = dailyBill.DailyPayment; //DailyPayments
 
                 //Alignment and border
-                columnRangeInExcel = excelWorksheet.get_Range((Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, startColumnIndex], (Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
-                columnRangeInExcel.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter; //Align center  
-                columnRangeInExcel.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
-                columnRangeInExcel.Borders.Weight = Microsoft.Office.Interop.Excel.XlBorderWeight.xlThin;
+                columnRangeInExcel = excelWorksheet.get_Range((Range)excelWorksheet.Cells[rowNumberInExcel, startColumnIndex], (Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
+                columnRangeInExcel.HorizontalAlignment = XlHAlign.xlHAlignCenter; //Align center  
+                columnRangeInExcel.Borders.LineStyle = XlLineStyle.xlContinuous;
+                columnRangeInExcel.Borders.Weight = XlBorderWeight.xlThin;
                 rowNumberInExcel++;
             }
             
@@ -261,11 +290,11 @@ namespace KanakTiffins
             excelWorksheet.Cells[rowNumberInExcel, startColumnIndex + 1] = db.MonthlyBills.Where(x => x.CustomerId == customerId && x.DateTaken.Month == month && x.DateTaken.Year == year).Sum(x => x.LunchAmount).ToString(); //Lunch total
             excelWorksheet.Cells[rowNumberInExcel, startColumnIndex + 2] = db.MonthlyBills.Where(x => x.CustomerId == customerId && x.DateTaken.Month == month && x.DateTaken.Year == year).Sum(x => x.DinnerAmount).ToString(); //Dinner total
             excelWorksheet.Cells[rowNumberInExcel, endColumnIndex] = db.MonthlyBills.Where(x => x.CustomerId == customerId && x.DateTaken.Month == month && x.DateTaken.Year == year).Sum(x => x.DailyPayment).ToString(); //Daily payments total
-            columnRangeInExcel = excelWorksheet.get_Range((Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, startColumnIndex], (Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
-            columnRangeInExcel.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter; //Align Center
+            columnRangeInExcel = excelWorksheet.get_Range((Range)excelWorksheet.Cells[rowNumberInExcel, startColumnIndex], (Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
+            columnRangeInExcel.HorizontalAlignment = XlHAlign.xlHAlignCenter; //Align Center
             columnRangeInExcel.Font.Bold = true;
-            columnRangeInExcel.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
-            columnRangeInExcel.Borders.Weight = Microsoft.Office.Interop.Excel.XlBorderWeight.xlMedium;
+            columnRangeInExcel.Borders.LineStyle = XlLineStyle.xlContinuous;
+            columnRangeInExcel.Borders.Weight = XlBorderWeight.xlMedium;
             columnRangeInExcel.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGray);
 
             rowNumberInExcel++;
@@ -275,10 +304,10 @@ namespace KanakTiffins
             excelWorksheet.Cells[rowNumberInExcel, startColumnIndex + 1] = db.ExtraCharges.Where(x => x.CustomerId == customerId && x.MonthId == month && x.Year == year).First().DabbawalaCharges.ToString();
             excelWorksheet.Cells[rowNumberInExcel, startColumnIndex + 3] = "Delivery";
             excelWorksheet.Cells[rowNumberInExcel, endColumnIndex] = db.ExtraCharges.Where(x => x.CustomerId == customerId && x.MonthId == month && x.Year == year).First().DeliveryCharges.ToString();
-            columnRangeInExcel = excelWorksheet.get_Range((Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, startColumnIndex], (Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
-            columnRangeInExcel.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter; //Align Center            
-            columnRangeInExcel.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
-            columnRangeInExcel.Borders.Weight = Microsoft.Office.Interop.Excel.XlBorderWeight.xlThin;
+            columnRangeInExcel = excelWorksheet.get_Range((Range)excelWorksheet.Cells[rowNumberInExcel, startColumnIndex], (Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
+            columnRangeInExcel.HorizontalAlignment = XlHAlign.xlHAlignCenter; //Align Center            
+            columnRangeInExcel.Borders.LineStyle = XlLineStyle.xlContinuous;
+            columnRangeInExcel.Borders.Weight = XlBorderWeight.xlThin;
 
             rowNumberInExcel++;
 
@@ -288,55 +317,78 @@ namespace KanakTiffins
                                - db.MonthlyBills.Where(x => x.CustomerId == customerId && x.DateTaken.Month == month && x.DateTaken.Year == year).Sum(x => x.DailyPayment);
             int overallDues = db.CustomerDues.Where(x => x.CustomerId == customerId).First().DueAmount;
             excelWorksheet.Cells[rowNumberInExcel, startColumnIndex] = "BILL: "+monthlyBill+"   OVERALL: "+overallDues;
-            columnRangeInExcel = excelWorksheet.get_Range((Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, startColumnIndex], (Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
+            columnRangeInExcel = excelWorksheet.get_Range((Range)excelWorksheet.Cells[rowNumberInExcel, startColumnIndex], (Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
             columnRangeInExcel.MergeCells = true;
-            columnRangeInExcel.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter; //Align Center  
+            columnRangeInExcel.HorizontalAlignment = XlHAlign.xlHAlignCenter; //Align Center  
             columnRangeInExcel.Font.Bold = true;
-            columnRangeInExcel.BorderAround2(Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous, Microsoft.Office.Interop.Excel.XlBorderWeight.xlThick);
+            columnRangeInExcel.BorderAround2(XlLineStyle.xlContinuous, XlBorderWeight.xlThick);
             columnRangeInExcel.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
 
             rowNumberInExcel++;
 
             //Please pay by 10th
             excelWorksheet.Cells[rowNumberInExcel, startColumnIndex] = "Please pay by 10th of every month";
-            columnRangeInExcel = excelWorksheet.get_Range((Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, startColumnIndex], (Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
+            columnRangeInExcel = excelWorksheet.get_Range((Range)excelWorksheet.Cells[rowNumberInExcel, startColumnIndex], (Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
             columnRangeInExcel.MergeCells = true;
             columnRangeInExcel.Font.Bold = true;
-            columnRangeInExcel.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter; //Align Center
+            columnRangeInExcel.HorizontalAlignment = XlHAlign.xlHAlignCenter; //Align Center
 
             rowNumberInExcel++;
 
             //Facebook
             excelWorksheet.Cells[rowNumberInExcel, startColumnIndex] = "www.facebook.com/kanak.tiffins";
-            columnRangeInExcel = excelWorksheet.get_Range((Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, startColumnIndex], (Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
+            columnRangeInExcel = excelWorksheet.get_Range((Range)excelWorksheet.Cells[rowNumberInExcel, startColumnIndex], (Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
             columnRangeInExcel.MergeCells = true;
             columnRangeInExcel.Font.Bold = true;
             columnRangeInExcel.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Blue);
-            columnRangeInExcel.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter; //Align Center
+            columnRangeInExcel.HorizontalAlignment = XlHAlign.xlHAlignCenter; //Align Center
 
             //Formatting
-            columnRangeInExcel = excelWorksheet.get_Range((Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[1, startColumnIndex], (Microsoft.Office.Interop.Excel.Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
+            columnRangeInExcel = excelWorksheet.get_Range((Range)excelWorksheet.Cells[1, startColumnIndex], (Range)excelWorksheet.Cells[rowNumberInExcel, endColumnIndex]);
             columnRangeInExcel.EntireColumn.AutoFit();
             columnRangeInExcel.EntireColumn.Font.Name = "Arial";
             columnRangeInExcel.EntireColumn.Font.Size = 9;
                         
             //Set margin = 0 and landscape mode.
-            excelWorksheet.PageSetup.LeftMargin = 0;
-            excelWorksheet.PageSetup.RightMargin = 0;
-            excelWorksheet.PageSetup.TopMargin = 0;
-            excelWorksheet.PageSetup.BottomMargin = 0;
-            excelWorksheet.PageSetup.HeaderMargin = 0;
-            excelWorksheet.PageSetup.FooterMargin = 0;
-            excelWorksheet.PageSetup.Orientation = Microsoft.Office.Interop.Excel.XlPageOrientation.xlLandscape;
-
+            pageSetup = excelWorksheet.PageSetup;
+            pageSetup.LeftMargin = 0;
+            pageSetup.RightMargin = 0;
+            pageSetup.TopMargin = 0;
+            pageSetup.BottomMargin = 0;
+            pageSetup.HeaderMargin = 0;
+            pageSetup.FooterMargin = 0;
+            pageSetup.Orientation = XlPageOrientation.xlLandscape;
+            
             //Save Excel file.
             if(exists)
-                excelApp.ActiveWorkbook.Save();
+                excelWorkbook.Save();
             else
-                excelApp.ActiveWorkbook.SaveAs(excelFilePath);
+                excelWorkbook.SaveAs(excelFilePath);           
+                        
+            excelWorkbook.Close();            
+            excelApp.Quit();
             
-            excelApp.ActiveWorkbook.Saved = true;
-            excelApp.Quit();           
+            //Clean-up tasks.
+            Marshal.ReleaseComObject(pageSetup);
+            Marshal.ReleaseComObject(usedRangeColumns);
+            Marshal.ReleaseComObject(usedRange);
+            Marshal.ReleaseComObject(columnRangeInExcel);
+            Marshal.ReleaseComObject(excelWorksheet);
+            Marshal.ReleaseComObject(excelWorksheets);
+            Marshal.ReleaseComObject(excelWorkbook);
+            Marshal.ReleaseComObject(excelWorkbooks);            
+            Marshal.ReleaseComObject(excelApp);
+            pageSetup = null;
+            usedRangeColumns = null;
+            usedRange = null;
+            columnRangeInExcel = null;
+            excelWorksheet = null;
+            excelWorksheets = null;
+            excelWorkbook = null;
+            excelWorkbooks = null;
+            excelApp = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
     }
 }

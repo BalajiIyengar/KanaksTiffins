@@ -84,10 +84,10 @@ namespace KanakTiffins
                 errorMessage += "-> Please select an Area \n";
             }
 
-            int result;
+            long result;
             if(textBox_PhoneNumber.Text.Trim().Length != 0  )
             {
-                if(!Int32.TryParse(textBox_PhoneNumber.Text, out result))
+                if(!long.TryParse(textBox_PhoneNumber.Text, out result))
                 {
                 errorOccurred = true;
                 errorMessage += "-> Please Enter a Valid Phone Number \n";
@@ -202,8 +202,7 @@ namespace KanakTiffins
 
             if (!exceptionOccured)
             {
-                MessageBox.Show("User added successfully.", "Success");
-                this.Close();
+                MessageBox.Show("User added successfully.", "Success");                
             }
             else
             {
