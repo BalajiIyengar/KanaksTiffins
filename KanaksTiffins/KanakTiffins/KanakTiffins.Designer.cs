@@ -20,11 +20,11 @@ using System.Xml.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_CustomerDetails_Areas", "Areas", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.Area), "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.CustomerDetail), true)]
-[assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_BillingHistory_CustomerDetails", "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.CustomerDetail), "CustomerDues", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(KanakTiffins.CustomerDue), true)]
 [assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_CustomerDetails_LunchOrDinner", "LunchOrDinner", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.LunchOrDinner), "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.CustomerDetail), true)]
 [assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_CustomerDetails_MealPlans", "MealPlans", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.MealPlan), "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.CustomerDetail), true)]
+[assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_CustomerDues_CustomerDetails", "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.CustomerDetail), "CustomerDues", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(KanakTiffins.CustomerDue), true)]
 [assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_CustomerPaymentHistory_CustomerDetails", "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.CustomerDetail), "CustomerPaymentHistory", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.CustomerPaymentHistory), true)]
-[assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_DabbawalaCharges_CustomerDetails", "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.CustomerDetail), "ExtraCharges", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.ExtraCharge), true)]
+[assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_ExtraCharges_CustomerDetails", "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.CustomerDetail), "ExtraCharges", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.ExtraCharge), true)]
 [assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_MonthlyBills_CustomerDetails", "CustomerDetails", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.CustomerDetail), "MonthlyBills", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.MonthlyBill), true)]
 [assembly: EdmRelationshipAttribute("KanakTiffinsModel", "FK_DabbawalaCharges_Months", "Months", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(KanakTiffins.Month), "ExtraCharges", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(KanakTiffins.ExtraCharge), true)]
 
@@ -820,44 +820,6 @@ namespace KanakTiffins
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_BillingHistory_CustomerDetails", "CustomerDues")]
-        public CustomerDue CustomerDue
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDue>("KanakTiffinsModel.FK_BillingHistory_CustomerDetails", "CustomerDues").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDue>("KanakTiffinsModel.FK_BillingHistory_CustomerDetails", "CustomerDues").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<CustomerDue> CustomerDueReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDue>("KanakTiffinsModel.FK_BillingHistory_CustomerDetails", "CustomerDues");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CustomerDue>("KanakTiffinsModel.FK_BillingHistory_CustomerDetails", "CustomerDues", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_CustomerDetails_LunchOrDinner", "LunchOrDinner")]
         public LunchOrDinner LunchOrDinner
         {
@@ -934,6 +896,44 @@ namespace KanakTiffins
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_CustomerDues_CustomerDetails", "CustomerDues")]
+        public CustomerDue CustomerDue
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDue>("KanakTiffinsModel.FK_CustomerDues_CustomerDetails", "CustomerDues").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDue>("KanakTiffinsModel.FK_CustomerDues_CustomerDetails", "CustomerDues").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CustomerDue> CustomerDueReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDue>("KanakTiffinsModel.FK_CustomerDues_CustomerDetails", "CustomerDues");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CustomerDue>("KanakTiffinsModel.FK_CustomerDues_CustomerDetails", "CustomerDues", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_CustomerPaymentHistory_CustomerDetails", "CustomerPaymentHistory")]
         public EntityCollection<CustomerPaymentHistory> CustomerPaymentHistories
         {
@@ -956,18 +956,18 @@ namespace KanakTiffins
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_DabbawalaCharges_CustomerDetails", "ExtraCharges")]
+        [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_ExtraCharges_CustomerDetails", "ExtraCharges")]
         public EntityCollection<ExtraCharge> ExtraCharges
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ExtraCharge>("KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails", "ExtraCharges");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ExtraCharge>("KanakTiffinsModel.FK_ExtraCharges_CustomerDetails", "ExtraCharges");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ExtraCharge>("KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails", "ExtraCharges", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ExtraCharge>("KanakTiffinsModel.FK_ExtraCharges_CustomerDetails", "ExtraCharges", value);
                 }
             }
         }
@@ -1113,16 +1113,16 @@ namespace KanakTiffins
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_BillingHistory_CustomerDetails", "CustomerDetails")]
+        [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_CustomerDues_CustomerDetails", "CustomerDetails")]
         public CustomerDetail CustomerDetail
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_BillingHistory_CustomerDetails", "CustomerDetails").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_CustomerDues_CustomerDetails", "CustomerDetails").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_BillingHistory_CustomerDetails", "CustomerDetails").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_CustomerDues_CustomerDetails", "CustomerDetails").Value = value;
             }
         }
         /// <summary>
@@ -1134,13 +1134,13 @@ namespace KanakTiffins
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_BillingHistory_CustomerDetails", "CustomerDetails");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_CustomerDues_CustomerDetails", "CustomerDetails");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_BillingHistory_CustomerDetails", "CustomerDetails", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_CustomerDues_CustomerDetails", "CustomerDetails", value);
                 }
             }
         }
@@ -1500,16 +1500,16 @@ namespace KanakTiffins
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_DabbawalaCharges_CustomerDetails", "CustomerDetails")]
+        [EdmRelationshipNavigationPropertyAttribute("KanakTiffinsModel", "FK_ExtraCharges_CustomerDetails", "CustomerDetails")]
         public CustomerDetail CustomerDetail
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails", "CustomerDetails").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_ExtraCharges_CustomerDetails", "CustomerDetails").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails", "CustomerDetails").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_ExtraCharges_CustomerDetails", "CustomerDetails").Value = value;
             }
         }
         /// <summary>
@@ -1521,13 +1521,13 @@ namespace KanakTiffins
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails", "CustomerDetails");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_ExtraCharges_CustomerDetails", "CustomerDetails");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_DabbawalaCharges_CustomerDetails", "CustomerDetails", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CustomerDetail>("KanakTiffinsModel.FK_ExtraCharges_CustomerDetails", "CustomerDetails", value);
                 }
             }
         }

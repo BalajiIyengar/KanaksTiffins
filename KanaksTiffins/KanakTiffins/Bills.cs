@@ -123,6 +123,9 @@ namespace KanakTiffins
             //Initialize Month to current month in the combo-box.
             comboBox_month.SelectedIndex = currentMonth.TodayDate.Month - 1; //Combo box index starts from 0
             
+            //Change the text on the link label which points to user details, to the user's name.
+            linkLabel_thisUsersDetails.Text = db.CustomerDetails.Where(x => x.CustomerId == selectedCustomerId).FirstOrDefault().FirstName + "'s details";
+
             createMonthlyBill(startDate, endDate);       
         }
 
@@ -633,36 +636,35 @@ namespace KanakTiffins
             {
                 //Lunch And Dinner Both
                 case 0:
-                    foreach (DataGridViewRow Datarow in dataGridView_billForThisMonth.Rows)
+                        foreach (DataGridViewRow dataRow in dataGridView_billForThisMonth.Rows)
                         {
-                            if ((Int32.Parse(Datarow.Cells[2].Value.ToString()) != 0) && (Int32.Parse(Datarow.Cells[3].Value.ToString()) != 0))
+                            if ((DateTime.Parse(dataRow.Cells["DateTaken"].Value.ToString()).DayOfWeek != DayOfWeek.Saturday) && (DateTime.Parse(dataRow.Cells["DateTaken"].Value.ToString()).DayOfWeek != DayOfWeek.Sunday)) //Should work Only for Weekdays
                             {
-                                Datarow.Cells[2].Value = textBox_mealValue.Text.Trim();
-                                Datarow.Cells[3].Value = textBox_mealValue.Text.Trim();
+                                dataRow.Cells[2].Value = textBox_mealValue.Text.Trim();
+                                dataRow.Cells[3].Value = textBox_mealValue.Text.Trim();
                             }
-
                         }
                         break;
+
                 //Lunch Only
                 case 1:
-                     foreach (DataGridViewRow Datarow in dataGridView_billForThisMonth.Rows)
+                        foreach (DataGridViewRow dataRow in dataGridView_billForThisMonth.Rows)
                         {
-                            if ((Int32.Parse(Datarow.Cells[2].Value.ToString()) != 0))
+                            if ((DateTime.Parse(dataRow.Cells["DateTaken"].Value.ToString()).DayOfWeek != DayOfWeek.Saturday) && (DateTime.Parse(dataRow.Cells["DateTaken"].Value.ToString()).DayOfWeek != DayOfWeek.Sunday)) //Should work Only for Weekdays
                             {
-                                Datarow.Cells[2].Value = textBox_mealValue.Text.Trim();
+                                dataRow.Cells[2].Value = textBox_mealValue.Text.Trim();
                             }
-
                         }
                         break;
+
                 //Dinner Only
                 case 2:
-                        foreach (DataGridViewRow Datarow in dataGridView_billForThisMonth.Rows)
+                        foreach (DataGridViewRow dataRow in dataGridView_billForThisMonth.Rows)
                         {
-                            if ((Int32.Parse(Datarow.Cells[3].Value.ToString()) != 0))
+                            if ((DateTime.Parse(dataRow.Cells["DateTaken"].Value.ToString()).DayOfWeek != DayOfWeek.Saturday) && (DateTime.Parse(dataRow.Cells["DateTaken"].Value.ToString()).DayOfWeek != DayOfWeek.Sunday)) //Should work Only for Weekdays
                             {
-                                Datarow.Cells[3].Value = textBox_mealValue.Text.Trim();
+                                dataRow.Cells[3].Value = textBox_mealValue.Text.Trim();
                             }
-
                         }
                         break;
                 default:
@@ -670,7 +672,21 @@ namespace KanakTiffins
             }
         }
 
+        private void linkLabel_thisUsersDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            UserDetail.setCustomerId(selectedCustomerId);
 
-                      
+            //If this user has been deleted in another window, display error message.
+            CustomerDetail selectedCustomer = db.CustomerDetails.Where(x => x.CustomerId == selectedCustomerId && x.isDeleted.Equals("N")).FirstOrDefault();
+            if (selectedCustomer == null)
+            {
+                MessageBox.Show("User not found. He/She may have been deleted.", "Error");
+                return;
+            }
+
+            //Invoke the UserDetails form.
+            UserDetail userDetail = new UserDetail();
+            userDetail.Show();            
+        }          
     }
 }
