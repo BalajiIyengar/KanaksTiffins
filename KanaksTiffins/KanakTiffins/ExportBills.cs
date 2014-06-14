@@ -71,6 +71,8 @@ namespace KanakTiffins
 
             this.Hide();
 
+            Console.WriteLine("Start Time: " + DateTime.Now);
+
             String errorMessage = "The following users do not have any saved bills for " + db.Months.Where(x=>x.MonthId == month).Single().MonthName + " " + year + ": \n";
             bool errorOccurred = false;
             foreach (Int32 customerId in customerIds)
@@ -87,6 +89,8 @@ namespace KanakTiffins
             MessageBox.Show("Exported successfully", "Success");
             if (errorOccurred)
                 MessageBox.Show(errorMessage, "Warning");
+
+            Console.WriteLine("End Time: " + DateTime.Now);
 
             CommonUtilities.hideProgressBar();
 

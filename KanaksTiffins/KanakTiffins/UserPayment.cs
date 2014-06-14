@@ -54,7 +54,7 @@ namespace KanakTiffins
             String areaName = comboBox_area.SelectedValue == null ? "" : comboBox_area.SelectedValue.ToString();
 
             //Search Result (List of usernames)
-            dataGridView_searchUsers.DataSource = db.CustomerDetails.Where(x => x.FirstName.Contains(firstName) && x.LastName.Contains(lastName) && x.isDeleted.Equals("N") && x.Area.AreaName.Contains(areaName)).ToList();
+            dataGridView_searchUsers.DataSource = db.CustomerDetails.Where(x => x.FirstName.Contains(firstName) && x.LastName.Contains(lastName) && x.isDeleted.Equals("N") && x.Area.AreaName.Contains(areaName)).OrderBy(x=>x.FirstName).ToList();
             hideUnnecessaryColumns();   
         }
 
@@ -139,6 +139,15 @@ namespace KanakTiffins
                 return;
             }
 
+            //If payment amount is not an integer
+            int paymentAmount = 0;
+            Int32.TryParse(textBox_amountPaid.Text, out paymentAmount);
+            if (paymentAmount == 0)
+            {
+                MessageBox.Show("Payment amount should be a positive integer greater than 0", "Error");
+                return;
+            }
+
             //Validation to check for Special Characters
             var withoutSpecial = new string(textBox_amountPaid.Text.Where(c => Char.IsLetterOrDigit(c) || Char.IsWhiteSpace(c)).ToArray());
             if (textBox_amountPaid.Text != withoutSpecial)
@@ -154,6 +163,7 @@ namespace KanakTiffins
                 MessageBox.Show("You've Already Entered A Payment Record on the Same day.Please verify.", "Error");
                 return;
             }
+
             CustomerPaymentHistory paymentDetails = new CustomerPaymentHistory();
             paymentDetails.CustomerId = selectedCustomerId;
             paymentDetails.PaidAmount = Int32.Parse(textBox_amountPaid.Text);

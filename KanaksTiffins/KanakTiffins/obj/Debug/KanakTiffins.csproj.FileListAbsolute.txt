@@ -39,26 +39,3 @@ C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.cs
 C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.exe
 C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.pdb
 C:\Users\balaji i\Downloads\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.csprojResolveAssemblyReference.cache
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\bin\Debug\KanakTiffins.exe.config
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.csproj.ResolveComReference.cache
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.exe
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.pdb
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\bin\Debug\KanakTiffins.exe
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\bin\Debug\KanakTiffins.pdb
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\bin\Debug\EntityFramework.dll
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\bin\Debug\EntityFramework.xml
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.csprojResolveAssemblyReference.cache
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.AddNewMaster.resources
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.AddNewUser.resources
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.Bills.resources
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.ExportUsersBills.resources
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.MonthlyBillCustomControl.resources
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.PaymentHistory.resources
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.PopulateMaster.resources
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.ExportBills.resources
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.ProgressBar.resources
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.Properties.Resources.resources
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.SearchUsers.resources
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.UserDetail.resources
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.UserPayment.resources
-C:\Users\ashtonm\Desktop\Miscellaneous\Kanak Tiffins Project\KanakTiffinsRevamped\KanaksTiffins\KanakTiffins\obj\Debug\KanakTiffins.csproj.GenerateResource.Cache

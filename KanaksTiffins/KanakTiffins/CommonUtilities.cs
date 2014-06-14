@@ -161,7 +161,7 @@ namespace KanakTiffins
             searchResults = db.CustomerDetails.Where(x => x.FirstName.Contains(firstName) &&
                                                                            x.LastName.Contains(lastName) && x.isDeleted.Equals("N") &&
                                                                            x.Area.AreaName.Contains(areaName) && (x.CustomerDue.DueAmount>=enteredBalance)
-                                                                     ).ToList();
+                                                                     ).OrderBy(x=>x.FirstName).ToList();
             return searchResults;
 
         }

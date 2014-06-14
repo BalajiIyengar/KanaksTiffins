@@ -137,7 +137,7 @@ namespace KanakTiffins
             int mealPlanId = comboBox_mealAmount.SelectedValue == null ? 0 : Int32.Parse(comboBox_mealAmount.SelectedValue.ToString());
             int lunchOrDinnerId = comboBox_lunchOrDinner.SelectedValue == null ? 0 : Int32.Parse(comboBox_lunchOrDinner.SelectedValue.ToString());
 
-            searchResults = db.CustomerDetails.Where(x => x.MealPlanId == mealPlanId && x.LunchOrDinnerId == lunchOrDinnerId && x.isDeleted.Equals("N")).ToList();
+            searchResults = db.CustomerDetails.Where(x => x.MealPlanId == mealPlanId && x.LunchOrDinnerId == lunchOrDinnerId && x.isDeleted.Equals("N")).OrderBy(x => x.FirstName).ToList();
 
             dataGridView_searchResult.DataSource = searchResults.ToList();
 
