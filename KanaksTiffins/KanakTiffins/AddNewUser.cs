@@ -222,9 +222,11 @@ namespace KanakTiffins
             customerDetail.Address = textBox_Address.Text;
 
             String selectedAreaName = comboBox_area.SelectedValue.ToString();
-            int areaId = db.Areas.Where(x => x.AreaName.Equals(selectedAreaName)).First().AreaId;
-            customerDetail.AreaId = areaId;
-
+            if (selectedAreaName != null)
+            {
+                int areaId = db.Areas.Where(x => x.AreaName.Equals(selectedAreaName)).First().AreaId;
+                customerDetail.AreaId = areaId;
+            }
             customerDetail.MealPlanId = Int32.Parse(comboBox_typeOfLunch.SelectedValue.ToString());
             int depositAmount = 0;
             Int32.TryParse(textBox_Deposit.Text.Trim(), out depositAmount);

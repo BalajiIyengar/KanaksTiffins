@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox_searchParameters = new System.Windows.Forms.GroupBox();
             this.button_refresh = new System.Windows.Forms.Button();
             this.textBox_balance = new System.Windows.Forms.TextBox();
@@ -64,10 +64,12 @@
             this.label_M = new System.Windows.Forms.Label();
             this.comboBox_month = new System.Windows.Forms.ComboBox();
             this.groupBox_links = new System.Windows.Forms.GroupBox();
+            this.linkLabel_savedUsers = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.linkLabel_searchUsers = new System.Windows.Forms.LinkLabel();
             this.linkLabel_addNewUser = new System.Windows.Forms.LinkLabel();
+            this.linkLabel_earnings = new System.Windows.Forms.LinkLabel();
             this.groupBox_searchParameters.SuspendLayout();
             this.groupBox_users.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_users)).BeginInit();
@@ -209,8 +211,8 @@
             this.dataGridView_users.AllowUserToDeleteRows = false;
             this.dataGridView_users.AllowUserToOrderColumns = true;
             this.dataGridView_users.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dataGridView_users.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView_users.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView_users.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_users.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_users.Location = new System.Drawing.Point(6, 18);
@@ -382,8 +384,8 @@
             this.dataGridView_billForThisMonth.AllowUserToDeleteRows = false;
             this.dataGridView_billForThisMonth.AllowUserToOrderColumns = true;
             this.dataGridView_billForThisMonth.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            this.dataGridView_billForThisMonth.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            this.dataGridView_billForThisMonth.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView_billForThisMonth.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView_billForThisMonth.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_billForThisMonth.Location = new System.Drawing.Point(6, 85);
@@ -425,6 +427,8 @@
             // 
             // groupBox_links
             // 
+            this.groupBox_links.Controls.Add(this.linkLabel_earnings);
+            this.groupBox_links.Controls.Add(this.linkLabel_savedUsers);
             this.groupBox_links.Controls.Add(this.linkLabel2);
             this.groupBox_links.Controls.Add(this.linkLabel1);
             this.groupBox_links.Controls.Add(this.linkLabel_searchUsers);
@@ -436,9 +440,20 @@
             this.groupBox_links.TabStop = false;
             this.groupBox_links.Text = "Links";
             // 
+            // linkLabel_savedUsers
+            // 
+            this.linkLabel_savedUsers.AutoSize = true;
+            this.linkLabel_savedUsers.Location = new System.Drawing.Point(11, 428);
+            this.linkLabel_savedUsers.Name = "linkLabel_savedUsers";
+            this.linkLabel_savedUsers.Size = new System.Drawing.Size(68, 13);
+            this.linkLabel_savedUsers.TabIndex = 4;
+            this.linkLabel_savedUsers.TabStop = true;
+            this.linkLabel_savedUsers.Text = "Saved Users";
+            this.linkLabel_savedUsers.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_savedUsers_LinkClicked);
+            // 
             // linkLabel2
             // 
-            this.linkLabel2.Location = new System.Drawing.Point(6, 421);
+            this.linkLabel2.Location = new System.Drawing.Point(11, 366);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(76, 13);
             this.linkLabel2.TabIndex = 3;
@@ -448,7 +463,7 @@
             // 
             // linkLabel1
             // 
-            this.linkLabel1.Location = new System.Drawing.Point(11, 310);
+            this.linkLabel1.Location = new System.Drawing.Point(16, 261);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(66, 40);
             this.linkLabel1.TabIndex = 2;
@@ -460,7 +475,7 @@
             // linkLabel_searchUsers
             // 
             this.linkLabel_searchUsers.AutoSize = true;
-            this.linkLabel_searchUsers.Location = new System.Drawing.Point(11, 227);
+            this.linkLabel_searchUsers.Location = new System.Drawing.Point(11, 200);
             this.linkLabel_searchUsers.Name = "linkLabel_searchUsers";
             this.linkLabel_searchUsers.Size = new System.Drawing.Size(71, 13);
             this.linkLabel_searchUsers.TabIndex = 1;
@@ -478,6 +493,17 @@
             this.linkLabel_addNewUser.TabStop = true;
             this.linkLabel_addNewUser.Text = "Add New User";
             this.linkLabel_addNewUser.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_addNewUser_LinkClicked);
+            // 
+            // linkLabel_earnings
+            // 
+            this.linkLabel_earnings.AutoSize = true;
+            this.linkLabel_earnings.Location = new System.Drawing.Point(19, 485);
+            this.linkLabel_earnings.Name = "linkLabel_earnings";
+            this.linkLabel_earnings.Size = new System.Drawing.Size(48, 13);
+            this.linkLabel_earnings.TabIndex = 5;
+            this.linkLabel_earnings.TabStop = true;
+            this.linkLabel_earnings.Text = "Earnings";
+            this.linkLabel_earnings.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_earnings_LinkClicked);
             // 
             // Bills
             // 
@@ -551,6 +577,8 @@
         private System.Windows.Forms.Button button_modify;
         private System.Windows.Forms.TextBox textBox_mealValue;
         private System.Windows.Forms.LinkLabel linkLabel_thisUsersDetails;
+        private System.Windows.Forms.LinkLabel linkLabel_savedUsers;
+        private System.Windows.Forms.LinkLabel linkLabel_earnings;
     }
 }
 

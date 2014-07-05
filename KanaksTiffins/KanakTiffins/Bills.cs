@@ -687,6 +687,18 @@ namespace KanakTiffins
             //Invoke the UserDetails form.
             UserDetail userDetail = new UserDetail();
             userDetail.Show();            
+        }
+
+        private void linkLabel_savedUsers_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            SavedUsers savedUsers = new SavedUsers();
+            savedUsers.Show();
+        }
+
+        private void linkLabel_earnings_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Earnings earnings = new Earnings();
+            earnings.Show();
         }          
     }
 }
